@@ -11,4 +11,8 @@ export class SimplePageComponent implements OnInit {
   ngOnInit() {
   }
 
+  show(){
+
+  }
+
 }

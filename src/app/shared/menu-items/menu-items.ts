@@ -35,6 +35,35 @@ const MENUITEMS = [
     label: 'My Panel',
     main: [
       {
+        state: 'catalogo',
+        short_label: 'A',
+        name: 'Catalogo',
+        type: 'sub',
+        icon: 'feather icon-gitlab',
+        children: [
+          {
+            state: 'institucion',
+            name: 'Institución'
+          },
+          {
+            state: 'compania',
+            name: 'Compañia'
+          },
+          {
+            state: 'tipo-empresa',
+            name: 'Tipo Empresa'
+          },
+          {
+            state: 'entidad',
+            name: 'Entidad'
+          },
+          {
+            state: 'actividad-economica',
+            name: 'Actividad Economica'
+          }
+        ]
+      },
+      {
         state: 'simple-page',
         short_label: 'S',
         name: 'Sample Page',

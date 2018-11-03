@@ -30,6 +30,10 @@ const routes: Routes = [
         loadChildren: './theme/ui-elements/advance/advance.module#AdvanceModule'
       },
       {
+        path: 'catalogo',
+        loadChildren: './components/catalogo/catalogo.module#CatalogoModule'
+      },
+      {
         path: 'simple-page',
         loadChildren: './theme/simple-page/simple-page.module#SimplePageModule'
       },
