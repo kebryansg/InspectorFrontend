@@ -11,7 +11,10 @@ import { ActividadEconomicaComponent } from './actividad-economica/actividad-eco
 import { EntidadComponent } from './entidad/entidad.component';
 import {SelectModule} from 'ng-select';
 import {FormsModule} from '@angular/forms';
-import { PopupComponent } from './compania/popup/popup.component';
+import { PopupCompaniaComponent } from './compania/popup/popup.component';
+import { PopupTipoEmpresaComponent } from './tipo-empresa/popup/popup.component';
+import {PopupActividadEconomicaComponent} from './actividad-economica/popup/popup.component';
+import {PopupEntidadComponent} from './entidad/popup/popup.component';
 
 @NgModule({
   imports: [
@@ -22,7 +25,22 @@ import { PopupComponent } from './compania/popup/popup.component';
     SelectModule,
     FormsModule
   ],
-  declarations: [ InstitucionComponent, CompaniaComponent, TipoEmpresaComponent, ActividadEconomicaComponent, EntidadComponent, PopupComponent ],
-  entryComponents: [ PopupComponent ]
+  declarations: [
+    InstitucionComponent,
+    CompaniaComponent,
+    TipoEmpresaComponent,
+    ActividadEconomicaComponent,
+    EntidadComponent,
+    PopupCompaniaComponent,
+    PopupTipoEmpresaComponent,
+    PopupActividadEconomicaComponent,
+    PopupEntidadComponent
+  ],
+  entryComponents: [
+    PopupCompaniaComponent,
+    PopupTipoEmpresaComponent,
+    PopupActividadEconomicaComponent,
+    PopupEntidadComponent
+  ]
 })
 export class CatalogoModule { }

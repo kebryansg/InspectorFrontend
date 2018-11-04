@@ -19,9 +19,14 @@ export class ModalService {
     this.rootViewContainer.clear();
     const factory = this.factoryResolver.resolveComponentFactory(component);
     const componentRef = this.rootViewContainer.createComponent(factory)
-    componentRef.instance["datos"] = params.datos;
-    componentRef.instance["modalBasic"] = params.modal;
-    componentRef.instance["api"] = params.api;
+
+    if( params ){
+      componentRef.instance["datos"] = params.datos;
+      componentRef.instance["modalBasic"] = params.modal;
+      componentRef.instance["result"].subscribe( params.result ) ;
+    }
+
+
   }
 
 }

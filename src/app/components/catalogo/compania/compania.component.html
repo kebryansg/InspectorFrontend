@@ -78,21 +78,18 @@
     </app-card>
 
 
-    <ng-template #modalForm let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!--<ng-template #container></ng-template>-->
-        <app-popup [datos]="datos" [modalBasic]="modal" (result)="resultModal($event)" ></app-popup>
-      </div>
-      <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
+    <!--<ng-template #modalForm let-modal>-->
+      <!--<div class="modal-header">-->
+        <!--<h4 class="modal-title" id="modal-basic-title">Profile update</h4>-->
+        <!--<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+          <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
       <!--</div>-->
-    </ng-template>
+      <!--<div class="modal-body">-->
+        <!--&lt;!&ndash;<ng-template #container></ng-template>&ndash;&gt;-->
+        <!--<app-popup [datos]="datos" [modalBasic]="modal" (result)="resultModal($event)" ></app-popup>-->
+      <!--</div>-->
+    <!--</ng-template>-->
 
 
 
@@ -103,19 +100,17 @@
 
   </div>
 </div>
-<!--<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">-->
+<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
 
-  <!--<div class="app-modal-header">-->
-    <!--<h4 class="modal-title">Modal title</h4>-->
-    <!--<button type="button" class="close basic-close" (click)="modalForm.hide()">-->
-      <!--<span aria-hidden="true">&times;</span>-->
-    <!--</button>-->
-  <!--</div>-->
+  <div class="app-modal-header">
+    <h4 class="modal-title">Compañia</h4>
+    <button type="button" class="close basic-close" (click)="modalForm.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-  <!--<div class="app-modal-body">-->
-
-    <!--&lt;!&ndash;<template #container></template>&ndash;&gt;-->
-    <!--<ng-template #container></ng-template>-->
-  <!--</div>-->
-<!--</app-modal-basic>-->
+  <div class="app-modal-body">
+    <ng-template #container></ng-template>
+  </div>
+</app-modal-basic>
 
