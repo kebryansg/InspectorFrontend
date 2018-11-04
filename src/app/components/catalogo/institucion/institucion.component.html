@@ -1,9 +1,237 @@
 <div class="page-body">
   <div class="row">
-    <div class="col-sm-12">
-      <app-card [title]="'Institución'">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-      </app-card>
+    <div class="col-lg-12">
+      <div class="md-tabs md-card-tabs">
+        <ngb-tabset>
+          <ngb-tab title="Institución">
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="m-t-15">
+                <!-- personal card start -->
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-header-text">Información Básica</h5>
+                    <button id="edit-btn" type="button" class="btn btn-sm btn-primary pull-right ripple light" (click)="toggleEditProfile()">
+                      <i class="icofont {{ editProfileIcon }}"></i>
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <div class="view-info" *ngIf="editProfile">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="general-info">
+                            <div class="row">
+                              <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                  <table class="table m-0">
+                                    <tbody>
+                                    <tr>
+                                      <th scope="row">Nombre</th>
+                                      <td>{{ datos?.Nombre }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Dirección</th>
+                                      <td>{{ datos?.Direccion }}</td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <!-- end of table col-lg-6 -->
+                              <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <tbody>
+                                    <tr>
+                                      <th scope="row">Email</th>
+                                      <td><a href="javascript:;">{{ datos?.Email }}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Teléfono</th>
+                                      <td>{{ datos?.Telefono }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">RUC</th>
+                                      <td>{{ datos?.Ruc }}</td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <!-- end of table col-lg-6 -->
+                            </div>
+                            <!-- end of row -->
+                          </div>
+                          <!-- end of general info -->
+                        </div>
+                        <!-- end of col-lg-12 -->
+                      </div>
+                      <!-- end of row -->
+                    </div>
+                    <!-- end of view-info -->
+                    <div class="edit-info" *ngIf="!editProfile">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <form [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
+                            <div class="row">
+                              <div class="col-lg-6 ">
+                                <div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="icofont icofont-user"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <input type="text" name="footer-email" [formControl]="form.controls['Nombre']" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Nombre</label>
+                                  </div>
+                                </div>
+                                <!--<div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="fa fa-mars-double"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <div class="form-radio">
+                                      <div class="group-add-on">
+                                        <div class="radio radiofill radio-inline">
+                                          <label>
+                                            <input type="radio" name="radio" checked><i class="helper"></i> Male
+                                          </label>
+                                        </div>
+                                        <div class="radio radiofill radio-inline">
+                                          <label>
+                                            <input type="radio" name="radio"><i class="helper"></i> Female
+                                          </label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>-->
+
+
+                                <!--<div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="fa fa-birthday-cake"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Select Your Birth Date</label>
+                                  </div>
+                                </div>-->
+
+
+                                <!--<div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="fa fa-heart"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <select id="hello-single" class="form-control">
+                                      <option value="">---- Marital Status ----</option>
+                                      <option value="married">Married</option>
+                                      <option value="unmarried">Unmarried</option>
+                                    </select>
+                                    <span class="form-bar"></span>
+
+                                  </div>
+                                </div>-->
+
+
+
+                                <div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="icofont icofont-location-pin"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <!--<input type="text" name="footer-email"  class="form-control" required="">-->
+                                    <textarea class="form-control" [formControl]="form.controls['Direccion']" required=""></textarea>
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Dirección</label>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                              <!-- end of table col-lg-6 -->
+                              <div class="col-lg-6">
+
+                                <div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="icofont icofont-mobile-phone"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <input type="text" name="footer-email" [formControl]="form.controls['Telefono']" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Teléfono</label>
+                                  </div>
+                                </div>
+
+
+                                <div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="icofont icofont-email"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <input type="text" name="footer-email" [formControl]="form.controls['Email']" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Email</label>
+                                  </div>
+                                </div>
+
+
+
+                                <div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="icofont icofont-bank-alt"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <input type="text" name="footer-email" [formControl]="form.controls['Ruc']" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">RUC</label>
+                                  </div>
+                                </div>
+
+
+
+
+                                <!--<div class="material-group">
+                                  <div class="material-addone">
+                                    <i class="icofont icofont-earth"></i>
+                                  </div>
+                                  <div class="form-group form-primary">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">website</label>
+                                  </div>
+                                </div>-->
+
+
+
+                              </div>
+                              <!-- end of table col-lg-6 -->
+                            </div>
+                            <!-- end of row -->
+                            <div class="text-center">
+                              <!--<a href="javascript:" class="btn btn-primary waves-effect waves-light m-r-20">Guardar</a>-->
+                              <button [disabled]="form.invalid" type="submit" class="btn btn-primary waves-effect waves-light m-r-20">Guardar</button>
+                              <button type="reset" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancelar</button>
+                              <!--<a href="javascript:" id="edit-cancel" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancel</a>-->
+                            </div>
+                          </form>
+                          <!-- end of edit info -->
+                        </div>
+                        <!-- end of col-lg-12 -->
+                      </div>
+                      <!-- end of row -->
+                    </div>
+                    <!-- end of edit-info -->
+                  </div>
+                  <!-- end of card-body -->
+                </div>
+                <!-- personal card end-->
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
     </div>
   </div>
 </div>

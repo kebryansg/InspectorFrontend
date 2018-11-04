@@ -242,6 +242,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setBackgroundPattern('theme1');
   }
 
+  logout(){
+    localStorage.clear();
+  }
+
   onResize(event) {
     this.windowWidth = event.target.innerWidth;
     this.setHeaderAttributes(this.windowWidth);

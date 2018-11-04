@@ -12,6 +12,7 @@ import {SharedModule} from './shared/shared.module';
 import {MenuItems} from './shared/menu-items/menu-items';
 import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.component';
 import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {HttpModule} from '@angular/http';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {AdminComponent} from './layout/admin/admin.component';
 import {AuthComponent} from './layout/auth/auth.component';
 import {AuthGuard} from './shared/services/Auth/auth.guard';
+import {AdminGuard} from './shared/services/Auth/admin.guard';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
+    canActivate: [AdminGuard],
     children: [
       {
         path: 'coming-soon',

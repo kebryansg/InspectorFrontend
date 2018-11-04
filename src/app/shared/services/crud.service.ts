@@ -6,7 +6,6 @@ import { HttpClient, HttpHeaders } from '../../../../node_modules/@angular/commo
 @Injectable()
 export class CrudService {
   readonly puerto = 'http://localhost:8000/';
-  private header: Headers;
 
   constructor(
     private http: Http,
@@ -39,21 +38,20 @@ export class CrudService {
     return this.httpClient.post(this.puerto + api + '/list', params).toPromise();
   }
 
-  Actualizar(id, objeto, api) {
-    var body = objeto;
-    var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: this.getHeaders() });
-    return this.http.put(this.puerto + api + id, body, requestOptions).map(res => res.json());
+  Actualizar(objeto, api) {
+    //var body = objeto;
+    var headerOptions = new HttpHeaders( this.getHeaders().toJSON());
+    return this.httpClient.put(this.puerto + api, objeto,  { headers: headerOptions });
   }
 
   Insertar(objeto, api) {
-    var body = objeto;
-    var requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: this.getHeaders() });
-    return this.http.post(this.puerto + api, body, requestOptions).map(res => res.json());
+    var headerOptions = new HttpHeaders( this.getHeaders().toJSON());
+    return this.httpClient.post(this.puerto + api, objeto, { headers: headerOptions });
   }
 
-  Eliminar(ID, api) {
-    var requestOptions = new RequestOptions({ method: RequestMethod.Delete, headers: this.getHeaders() });
-    return this.http.delete(this.puerto + api + ID, requestOptions).map(res => res.json());
+  Eliminar( api ) {
+    var headerOptions = new HttpHeaders( this.getHeaders().toJSON());
+    return this.httpClient.delete(this.puerto + api, { headers: headerOptions });
   }
 
   getHeaders(){

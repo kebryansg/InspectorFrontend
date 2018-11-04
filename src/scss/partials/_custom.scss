@@ -11,6 +11,17 @@
 @import "ngx-scss/ripple";
 @import "ngx-scss/range-slidar";
 
+
+.btn-group-icons{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-group-icons i{
+  cursor: pointer;
+}
 .header-navbar{
   .navbar-wrapper{
     .navbar-container{

@@ -1,4 +1,4 @@
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA, ViewContainerRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ToggleFullScreenDirective} from './fullscreen/toggle-fullscreen.directive';
@@ -17,6 +17,8 @@ import {ClickOutsideModule} from 'ng-click-outside';
 import {DataFilterPipe} from './elements/data-filter.pipe';
 import {CrudService} from './services/crud.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import {ToolsService} from './services/tools.service';
+import {ModalService} from './services/modal.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -64,6 +66,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [
     CrudService,
+    ToolsService,
+    ModalService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

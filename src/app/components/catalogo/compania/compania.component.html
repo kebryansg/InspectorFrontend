@@ -1,3 +1,121 @@
-<p>
-  compania works!
-</p>
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Compañias'">
+      <!--<div class="col-sm-12 col-xl-4">-->
+      <!--<h4 class="sub-title">Single Select</h4>-->
+      <!---->
+      <!--</div>-->
+      <!--<ng-select [ngClass]="'ng-select'" [options]="pageSize" [(ngModel)]="selPageSize"  > </ng-select>-->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pull-left">
+            <button class="btn btn-primary" (click)="edit()">
+              <i class="icofont icofont-plus"></i>
+              Agregar
+            </button>
+          </div>
+          <div class="pull-right">
+            <select style="width: 120px;" class="form-control form-control-primary" [(ngModel)]="selPageSize"
+                    (change)="ngOnInit()">
+              <option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <br>
+
+      <ngx-datatable
+        class="data-table"
+        [rows]="paginate.data"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [externalPaging]="true"
+        [count]="paginate.total"
+        [limit]="paginate.per_page"
+        (page)='setPage($event)'>
+
+        <ngx-datatable-column name="Nombre">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Nombre }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Dirección">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Direccion }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Teléfono">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Telefono }}
+          </ng-template>
+        </ngx-datatable-column>
+
+
+        <ngx-datatable-column name="Institución">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Institucion }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Acciones">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div class="btn-group-icons">
+              <i class="icofont icofont-edit m-r-15 f-20 text-primary" (click)="edit(row)"></i>
+              <i class="icofont icofont-trash m-r-15 f-20 text-danger" (click)="delete(row)"></i>
+
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+
+      </ngx-datatable>
+
+    </app-card>
+
+
+    <ng-template #modalForm let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--<ng-template #container></ng-template>-->
+        <app-popup [datos]="datos" [modalBasic]="modal" (result)="resultModal($event)" ></app-popup>
+      </div>
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
+      <!--</div>-->
+    </ng-template>
+
+
+
+    <!--<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>-->
+    <!--<hr>-->
+
+    <!--<pre>{{closeResult}}</pre>-->
+
+  </div>
+</div>
+<!--<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">-->
+
+  <!--<div class="app-modal-header">-->
+    <!--<h4 class="modal-title">Modal title</h4>-->
+    <!--<button type="button" class="close basic-close" (click)="modalForm.hide()">-->
+      <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+  <!--</div>-->
+
+  <!--<div class="app-modal-body">-->
+
+    <!--&lt;!&ndash;<template #container></template>&ndash;&gt;-->
+    <!--<ng-template #container></ng-template>-->
+  <!--</div>-->
+<!--</app-modal-basic>-->
+
