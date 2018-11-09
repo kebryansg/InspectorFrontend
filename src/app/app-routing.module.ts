@@ -35,6 +35,10 @@ const routes: Routes = [
         loadChildren: './components/catalogo/catalogo.module#CatalogoModule'
       },
       {
+        path: 'nomina',
+        loadChildren: './components/nomina/nomina.module#NominaModule'
+      },
+      {
         path: 'simple-page',
         loadChildren: './theme/simple-page/simple-page.module#SimplePageModule'
       },

@@ -15,6 +15,10 @@ import { PopupCompaniaComponent } from './compania/popup/popup.component';
 import { PopupTipoEmpresaComponent } from './tipo-empresa/popup/popup.component';
 import {PopupActividadEconomicaComponent} from './actividad-economica/popup/popup.component';
 import {PopupEntidadComponent} from './entidad/popup/popup.component';
+import { DepartamentoComponent } from './departamento/departamento.component';
+import { AreaComponent } from './area/area.component';
+import { PopupDepartamentoComponent } from './departamento/popup/popup.component';
+import {PopupAreaComponent} from './area/popup/popup.component';
 
 @NgModule({
   imports: [
@@ -34,13 +38,19 @@ import {PopupEntidadComponent} from './entidad/popup/popup.component';
     PopupCompaniaComponent,
     PopupTipoEmpresaComponent,
     PopupActividadEconomicaComponent,
-    PopupEntidadComponent
+    PopupEntidadComponent,
+    DepartamentoComponent,
+    AreaComponent,
+    PopupDepartamentoComponent,
+    PopupAreaComponent
   ],
   entryComponents: [
     PopupCompaniaComponent,
     PopupTipoEmpresaComponent,
     PopupActividadEconomicaComponent,
-    PopupEntidadComponent
+    PopupEntidadComponent,
+    PopupDepartamentoComponent,
+    PopupAreaComponent
   ]
 })
 export class CatalogoModule { }

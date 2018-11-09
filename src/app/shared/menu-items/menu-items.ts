@@ -60,6 +60,31 @@ const MENUITEMS = [
           {
             state: 'actividad-economica',
             name: 'Actividad Economica'
+          },
+          {
+            state: 'departamento',
+            name: 'Departamento'
+          },
+          {
+            state: 'area',
+            name: 'Area'
+          }
+        ]
+      },
+      {
+        state: 'nomina',
+        short_label: 'A',
+        name: 'Nomina',
+        type: 'sub',
+        icon: 'feather icon-gitlab',
+        children: [
+          {
+            state: 'cargo',
+            name: 'Cargo'
+          },
+          {
+            state: 'colaborador',
+            name: 'Colaborador'
           }
         ]
       },

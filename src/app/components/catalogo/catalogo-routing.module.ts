@@ -5,6 +5,8 @@ import {CompaniaComponent} from './compania/compania.component';
 import {EntidadComponent} from './entidad/entidad.component';
 import {ActividadEconomicaComponent} from './actividad-economica/actividad-economica.component';
 import {TipoEmpresaComponent} from './tipo-empresa/tipo-empresa.component';
+import {DepartamentoComponent} from './departamento/departamento.component';
+import {AreaComponent} from './area/area.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,22 @@ const routes: Routes = [
         component: EntidadComponent,
         data: {
           title: 'Entidad',
+          status: true
+        }
+      },
+      {
+        path: 'departamento',
+        component: DepartamentoComponent,
+        data: {
+          title: 'Departamento',
+          status: true
+        }
+      },
+      {
+        path: 'area',
+        component: AreaComponent,
+        data: {
+          title: 'Area',
           status: true
         }
       },
