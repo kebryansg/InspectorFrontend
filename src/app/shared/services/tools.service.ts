@@ -13,6 +13,15 @@ export class ToolsService {
     return sizes;
   }
 
+  listEstados() {
+    let items = [
+      { value: 'ACT', label: "Activo" },
+      { value: 'INA', label: "Inactivo" },
+      { value: 'ANU', label: "Anulado" },
+    ];
+    return items;
+  }
+
   optionsModalCatalogo(): NgbModalOptions{
     return {
       ariaLabelledBy: 'modal-basic-title',

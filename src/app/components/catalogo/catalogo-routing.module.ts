@@ -7,6 +7,8 @@ import {ActividadEconomicaComponent} from './actividad-economica/actividad-econo
 import {TipoEmpresaComponent} from './tipo-empresa/tipo-empresa.component';
 import {DepartamentoComponent} from './departamento/departamento.component';
 import {AreaComponent} from './area/area.component';
+import {ClasificacionComponent} from './clasificacion/clasificacion.component';
+import {EmpresaComponent} from './empresa/empresa.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,22 @@ const routes: Routes = [
         component: EntidadComponent,
         data: {
           title: 'Entidad',
+          status: true
+        }
+      },
+      {
+        path: 'clasificacion',
+        component: ClasificacionComponent,
+        data: {
+          title: 'Clasificacion',
+          status: true
+        }
+      },
+      {
+        path: 'empresa',
+        component: EmpresaComponent,
+        data: {
+          title: 'Empresa',
           status: true
         }
       },

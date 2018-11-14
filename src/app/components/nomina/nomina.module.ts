@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { NominaRoutingModule } from './nomina-routing.module';
-import { CargoComponent } from './cargo/cargo.component';
-import { ColaboradorComponent } from './colaborador/colaborador.component';
-import { PopupCargoComponent } from './cargo/popup/popup.component';
+import {NominaRoutingModule} from './nomina-routing.module';
+import {CargoComponent} from './cargo/cargo.component';
+import {ColaboradorComponent} from './colaborador/colaborador.component';
+import {PopupCargoComponent} from './cargo/popup/popup.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {SharedModule} from '../../shared/shared.module';
-import {SelectModule} from 'ng-select';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
@@ -20,6 +19,10 @@ import {FormsModule} from '@angular/forms';
     // SelectModule,
     FormsModule
   ],
-  declarations: [CargoComponent, ColaboradorComponent, PopupCargoComponent]
+  declarations: [CargoComponent, ColaboradorComponent, PopupCargoComponent],
+  entryComponents: [
+    PopupCargoComponent
+  ]
 })
-export class NominaModule { }
+export class NominaModule {
+}

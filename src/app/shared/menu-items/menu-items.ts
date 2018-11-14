@@ -58,6 +58,14 @@ const MENUITEMS = [
             name: 'Entidad'
           },
           {
+            state: 'clasificacion',
+            name: 'Clasificacion'
+          },
+          {
+            state: 'empresa',
+            name: 'Empresa'
+          },
+          {
             state: 'actividad-economica',
             name: 'Actividad Economica'
           },

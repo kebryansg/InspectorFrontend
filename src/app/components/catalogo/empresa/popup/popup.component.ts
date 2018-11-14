@@ -8,7 +8,7 @@ import {ToolsService} from '../../../../shared/services/tools.service';
   templateUrl: './popup.component.html',
   styles: []
 })
-export class PopupCargoComponent implements OnInit {
+export class PopupEmpresaComponent implements OnInit {
 
   @Output() result = new EventEmitter<any>();
   @Input() datos: any;
