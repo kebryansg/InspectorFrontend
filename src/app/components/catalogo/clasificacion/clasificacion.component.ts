@@ -55,7 +55,7 @@ export class ClasificacionComponent implements OnInit {
       modal: this.modalForm,
       result: (data => {
         if (data.ID == 0)
-          this.crudService.Insertar(data, 'area').subscribe(data => {
+          this.crudService.Insertar(data, 'clasificacion').subscribe(data => {
             this.reload();
           });
         else

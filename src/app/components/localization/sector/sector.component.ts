@@ -1,18 +1,18 @@
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
 import {CrudService} from '../../../shared/services/crud.service';
 import {ModalService} from '../../../shared/services/modal.service';
 import {ToolsService} from '../../../shared/services/tools.service';
-import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
-import {PopupColaboradorComponent} from './popup/popup.component';
+import {PopupSectorComponent} from './popup/popup.component';
 
 @Component({
-  selector: 'app-colaborador',
-  templateUrl: './colaborador.component.html',
+  selector: 'app-sector',
+  templateUrl: './sector.component.html',
   styleUrls: [
     '../../../../assets/icon/icofont/css/icofont.scss'
   ]
 })
-export class ColaboradorComponent implements OnInit {
+export class SectorComponent implements OnInit {
 
   pageSize: number[] = this.tools.pagSize();
   selPageSize: any = this.pageSize[0];
@@ -24,6 +24,7 @@ export class ColaboradorComponent implements OnInit {
   };
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
+  titleModal: string;
 
   constructor(
     private crudService: CrudService,
@@ -33,33 +34,37 @@ export class ColaboradorComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.paginate = await this.crudService.SeleccionarAsync('colaborador', {page: 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('sector', {page: 1, psize: this.selPageSize});
   }
 
   async setPage(event) {
-    this.paginate = await this.crudService.SeleccionarAsync('colaborador', {page: event.offset + 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('sector', {page: event.offset + 1, psize: this.selPageSize});
   }
 
   async reload( ){
-    this.paginate = await this.crudService.SeleccionarAsync('colaborador', { page: 1, psize: this.selPageSize });
+    this.paginate = await this.crudService.SeleccionarAsync('sector', { page: 1, psize: this.selPageSize });
   }
 
   async edit(row?) {
     let data = {};
-    if (row)
-      data = await this.crudService.SeleccionarAsync(`colaborador/${ row.ID }`);
+    this.titleModal = 'Nuevo';
+    if (row){
+      data = await this.crudService.SeleccionarAsync(`sector/${ row.ID }`);
+      this.titleModal = 'Editar';
+    }
+
 
     this.modalService.setRootViewContainerRef( this.entry );
-    this.modalService.addDynamicComponent( PopupColaboradorComponent , {
+    this.modalService.addDynamicComponent( PopupSectorComponent , {
       datos: data,
       modal: this.modalForm,
       result: (data => {
         if (data.ID == 0)
-          this.crudService.Insertar(data, 'colaborador').subscribe(data => {
+          this.crudService.Insertar(data, 'sector').subscribe(data => {
             this.reload();
           });
         else
-          this.crudService.Actualizar(data, `colaborador/${ data.ID }`).subscribe(data => {
+          this.crudService.Actualizar(data, `sector/${ data.ID }`).subscribe(data => {
             this.reload();
           });
       })
@@ -70,7 +75,7 @@ export class ColaboradorComponent implements OnInit {
   }
 
   delete(row) {
-    this.crudService.Eliminar(`colaborador/${ row.ID }`)
+    this.crudService.Eliminar(`sector/${ row.ID }`)
       .subscribe(data => {
         this.reload();
       });

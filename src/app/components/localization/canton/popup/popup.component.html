@@ -8,15 +8,23 @@
         <label class="float-label">Nombre</label>
       </div>
 
-    </div>
-    <div class="col-md-6">
-
       <div class="form-group form-primary">
         <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
           <option *ngFor="let item of tools.listEstados() " [value]="item.value">{{ item.label }}</option>
         </select>
         <span class="form-bar"></span>
         <label class="float-label">Estado</label>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDProvincia']">
+          <option *ngFor="let item of lsProvincias | async " [value]="item.ID"> {{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Provincia</label>
       </div>
 
     </div>

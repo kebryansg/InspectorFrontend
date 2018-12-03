@@ -35,8 +35,16 @@ const routes: Routes = [
         loadChildren: './components/catalogo/catalogo.module#CatalogoModule'
       },
       {
+        path: 'localization',
+        loadChildren: './components/localization/localization.module#LocalizationModule'
+      },
+      {
         path: 'nomina',
         loadChildren: './components/nomina/nomina.module#NominaModule'
+      },
+      {
+        path: 'inspeccion',
+        loadChildren: './components/inspeccion/inspeccion.module#InspeccionModule'
       },
       {
         path: 'simple-page',

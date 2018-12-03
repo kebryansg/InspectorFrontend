@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Colaborador'">
+    <app-card [title]="'Cantón'">
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
@@ -32,40 +32,22 @@
         [limit]="paginate.per_page"
         (page)='setPage($event)'>
 
-        <ngx-datatable-column name="Nombres">
+        <ngx-datatable-column name="Nombre">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.ApellidoPaterno + ' ' + row?.ApellidoMaterno + ' ' + row?.NombrePrimero }}
+            {{ row?.Descripcion }}
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Cédula">
+        <ngx-datatable-column name="Provincia">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Cedula }}
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="Compañia">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Compania }}
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="Cargo">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Cargo }}
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="Area">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Area }}
+            {{ row?.Provincia }}
           </ng-template>
         </ngx-datatable-column>
 
         <ngx-datatable-column name="Estado">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-        {{ row?.Estado }}
-        </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Estado }}
+          </ng-template>
         </ngx-datatable-column>
 
         <ngx-datatable-column name="Acciones">
@@ -89,7 +71,7 @@
 <app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
 
   <div class="app-modal-header">
-    <h4 class="modal-title">Colaborador</h4>
+    <h4 class="modal-title">{{ titleModal }} - Cantón</h4>
     <button type="button" class="close basic-close" (click)="modalForm.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

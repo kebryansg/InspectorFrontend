@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['Descripcion']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Nombre</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
+          <option *ngFor="let item of tools.listEstados() " [value]="item.value">{{ item.label }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Estado</label>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [(ngModel)]="slProvincia" [ngModelOptions]="{standalone: true}" (change)="loadCanton()">
+          <option *ngFor="let item of lsProvincias" [value]="item.ID"> {{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Provincia</label>
+      </div>
+
+      <div class="form-group form-primary" *ngIf="slProvincia">
+        <select class="form-control form-control-primary" [(ngModel)]="slCanton" [ngModelOptions]="{standalone: true}" (change)="loadParroquia()">
+          <option *ngFor="let item of lsCanton" [value]="item.ID"> {{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Cantón</label>
+      </div>
+
+      <div class="form-group form-primary" *ngIf="slCanton">
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDParroquia']">
+          <option *ngFor="let item of lsParroquia" [value]="item.ID"> {{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Parroquia</label>
+      </div>
+
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pull-right">
+        <!--(click)="modalForm.hide()"-->
+        <button type="reset" class="btn btn-default btn-sm ripple m-r-10" (click)="modalBasic.hide()">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm ripple light" [disabled]="form.invalid">Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>

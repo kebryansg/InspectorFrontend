@@ -8,6 +8,7 @@ import {PopupCargoComponent} from './cargo/popup/popup.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {SharedModule} from '../../shared/shared.module';
 import {FormsModule} from '@angular/forms';
+import { PopupColaboradorComponent } from './colaborador/popup/popup.component';
 
 @NgModule({
   imports: [
@@ -15,13 +16,13 @@ import {FormsModule} from '@angular/forms';
     SharedModule,
     NominaRoutingModule,
     NgxDatatableModule,
-    NgxDatatableModule,
     // SelectModule,
     FormsModule
   ],
-  declarations: [CargoComponent, ColaboradorComponent, PopupCargoComponent],
+  declarations: [CargoComponent, ColaboradorComponent, PopupCargoComponent, PopupColaboradorComponent],
   entryComponents: [
-    PopupCargoComponent
+    PopupCargoComponent,
+    PopupColaboradorComponent
   ]
 })
 export class NominaModule {

@@ -80,6 +80,18 @@ const MENUITEMS = [
         ]
       },
       {
+        state: 'localization',
+        name: 'Localización',
+        icon: 'feather icon-gitlab',
+        type: 'sub',
+        children: [
+          { state: 'provincia', name: 'Provincia' },
+          { state: 'canton', name: 'Cantón' },
+          { state: 'parroquia', name: 'Parroquia' },
+          { state: 'sector', name: 'Sector' },
+        ]
+      },
+      {
         state: 'nomina',
         short_label: 'A',
         name: 'Nomina',
@@ -94,6 +106,20 @@ const MENUITEMS = [
             state: 'colaborador',
             name: 'Colaborador'
           }
+        ]
+      },
+      {
+        state: 'inspeccion',
+        short_label: 'A',
+        name: 'Inspección',
+        type: 'sub',
+        icon: 'feather icon-gitlab',
+        children: [
+          {
+            state: 'list',
+            name: 'Listado de Inspecciones'
+          },
+
         ]
       },
       {

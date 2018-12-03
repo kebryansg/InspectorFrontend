@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToolsService} from '../../../../shared/services/tools.service';
 import {CrudService} from '../../../../shared/services/crud.service';
 
 @Component({
@@ -8,33 +9,44 @@ import {CrudService} from '../../../../shared/services/crud.service';
   templateUrl: './popup.component.html',
   styles: []
 })
-export class PopupAreaComponent implements OnInit {
+export class PopupParroquiaComponent implements OnInit {
 
   @Output() result = new EventEmitter<any>();
   @Input() datos: any;
   @Input() modalBasic: ModalBasicComponent;
 
   form: FormGroup;
-  Departamentos: any;
+  lsProvincias: any;
+  slProvincia: any;
+  lsCanton: any;
 
   constructor(
     private fb: FormBuilder,
+    protected tools: ToolsService,
     private crudService: CrudService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.Departamentos = this.crudService.SeleccionarAsync('departamento_combo');
 
     this.form = this.fb.group({
       ID: [ this.datos.ID || 0 ],
-      Descripcion: [ this.datos.Descripcion || '', Validators.required],
-      IDDepartamento: [ this.datos.IDDepartamento || '', Validators.required],
-      Estado: [ this.datos.Estado || 'ACT', Validators.required]
+      Descripcion: [this.datos.Descripcion || '', Validators.required],
+      IDCanton: [this.datos.IDCanton || '', Validators.required],
+      Estado: [this.datos.Estado || 'ACT', Validators.required]
     });
 
+    this.lsProvincias = await this.crudService.SeleccionarAsync('location_combo_parroquia');
 
+    if( this.datos.Provincia ){
+      this.slProvincia = this.datos.Provincia;
+      this.loadCanton();
+    }
 
+  }
+  loadCanton(){
+    let provincia =  this.lsProvincias.find(item => item.ID == this.slProvincia );
+    this.lsCanton = provincia.cantons;
   }
 
   submit(){
