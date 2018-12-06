@@ -2,138 +2,82 @@
   <div class="row">
     <div class="col-md-6">
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['NombrePrimero']" class="form-control">
-          <span class="form-bar"></span>
-          <label class="float-label">Nombre Primer</label>
-        </div>
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['NombrePrimero']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Nombre Primer</label>
       </div>
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['ApellidoPaterno']" class="form-control">
-          <span class="form-bar"></span>
-          <label class="float-label">Apellido Paterno</label>
-        </div>
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['ApellidoPaterno']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Apellido Paterno</label>
       </div>
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['Cedula']" class="form-control">
-          <span class="form-bar"></span>
-          <label class="float-label">Cédula</label>
-        </div>
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['Cedula']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Cédula</label>
       </div>
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
-            <option *ngFor="let item of tools.listEstados() " [value]="item.value">{{ item.label }}</option>
-          </select>
-          <span class="form-bar"></span>
-          <label class="float-label">Estado</label>
-        </div>
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [(ngModel)]="slDepartamento" [ngModelOptions]="{standalone: true}" (change)="loadAreas()" >
+          <option *ngFor="let item of lsDepartamento " [value]="item.ID">{{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Departamento</label>
       </div>
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDArea']">
+          <option *ngFor="let item of lsArea " [value]="item.ID">{{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Área</label>
+      </div>
+
+
 
 
     </div>
     <div class="col-md-6">
 
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['NombreSegundo']" class="form-control">
-          <span class="form-bar"></span>
-          <label class="float-label">Nombre Segundo</label>
-        </div>
-      </div>
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['ApellidoMaterno']" class="form-control">
-          <span class="form-bar"></span>
-          <label class="float-label">Apellido Materno</label>
-        </div>
-      </div>
-      <!--<div class="material-group">-->
-        <!--<div class="material-addone">-->
-          <!--<i class="icofont icofont-bank-alt"></i>-->
-        <!--</div>-->
-        <!--<div class="form-group form-primary">-->
-          <!--<input type="text" [formControl]="form.controls['Celular']" class="form-control">-->
-          <!--<span class="form-bar"></span>-->
-          <!--<label class="float-label">Celular</label>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="material-group">-->
-        <!--<div class="material-addone">-->
-          <!--<i class="icofont icofont-bank-alt"></i>-->
-        <!--</div>-->
-        <!--<div class="form-group form-primary">-->
-          <!--<input type="email" [formControl]="form.controls['Email']" class="form-control">-->
-          <!--<span class="form-bar"></span>-->
-          <!--<label class="float-label">Email</label>-->
-        <!--</div>-->
-      <!--</div>-->
-
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <select class="form-control form-control-primary" [formControl]="form.controls['IDCompania']">
-            <option *ngFor="let item of lsCompania | async " [value]="item.ID">{{ item.Nombre }}</option>
-          </select>
-          <span class="form-bar"></span>
-          <label class="float-label">Compañía</label>
-        </div>
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['NombreSegundo']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Nombre Segundo</label>
       </div>
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <select class="form-control form-control-primary" [formControl]="form.controls['IDArea']">
-            <option *ngFor="let item of lsArea | async " [value]="item.ID">{{ item.Descripcion }}</option>
-          </select>
-          <span class="form-bar"></span>
-          <label class="float-label">Área</label>
-        </div>
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['ApellidoMaterno']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Apellido Materno</label>
       </div>
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <select class="form-control form-control-primary" [formControl]="form.controls['IDCargo']">
-            <option *ngFor="let item of lsCargo | async " [value]="item.ID">{{ item.Descripcion }}</option>
-          </select>
-          <span class="form-bar"></span>
-          <label class="float-label">Cargo</label>
-        </div>
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDCompania']">
+          <option *ngFor="let item of lsCompania | async " [value]="item.ID">{{ item.Nombre }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Compañía</label>
       </div>
 
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDCargo']">
+          <option *ngFor="let item of lsCargo | async " [value]="item.ID">{{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Cargo</label>
+      </div>
 
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
+          <option *ngFor="let item of tools.listEstados() " [value]="item.value">{{ item.label }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Estado</label>
+      </div>
 
     </div>
   </div>

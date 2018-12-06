@@ -52,7 +52,7 @@
 
         <ngx-datatable-column name="Estado">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Estado }}
+            {{ row?.Estado | status }}
           </ng-template>
         </ngx-datatable-column>
 

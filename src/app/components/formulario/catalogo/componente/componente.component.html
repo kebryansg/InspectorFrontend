@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Area'">
+    <app-card [title]="'Formularios'">
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
-            <button class="btn btn-primary" (click)="edit()">
+            <button class="btn btn-primary" (click)="edit()" >
               <i class="icofont icofont-plus"></i>
               Agregar
             </button>
@@ -65,7 +65,7 @@
 <app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
 
   <div class="app-modal-header">
-    <h4 class="modal-title">Area - </h4>
+    <h4 class="modal-title">{{ titleModal }} - Componente</h4>
     <button type="button" class="close basic-close" (click)="modalForm.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

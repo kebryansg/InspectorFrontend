@@ -19,6 +19,7 @@ import {CrudService} from './services/crud.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import {ToolsService} from './services/tools.service';
 import {ModalService} from './services/modal.service';
+import { StatusPipe } from './pipes/status.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -49,7 +50,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModalAnimationComponent,
     SpinnerComponent,
     ClickOutsideModule,
-    DataFilterPipe
+    DataFilterPipe,
+    StatusPipe
   ],
   declarations: [
     ToggleFullScreenDirective,
@@ -62,7 +64,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModalBasicComponent,
     ModalAnimationComponent,
     SpinnerComponent,
-    DataFilterPipe
+    DataFilterPipe,
+    StatusPipe
   ],
   providers: [
     CrudService,

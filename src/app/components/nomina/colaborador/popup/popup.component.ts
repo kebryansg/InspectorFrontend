@@ -18,6 +18,8 @@ export class PopupColaboradorComponent implements OnInit {
   form: FormGroup;
   lsCompania: any;
   lsCargo: any;
+  lsDepartamento: any;
+  slDepartamento: any;
   lsArea: any;
 
   constructor(
@@ -26,10 +28,8 @@ export class PopupColaboradorComponent implements OnInit {
     protected tools: ToolsService
   ) { }
 
-  ngOnInit() {
-    this.lsCompania = this.crudService.SeleccionarAsync('compania_combo');
-    this.lsCargo = this.crudService.SeleccionarAsync('cargo_combo');
-    this.lsArea = this.crudService.SeleccionarAsync('area_combo');
+  async ngOnInit() {
+
 
 
     this.form = this.fb.group({
@@ -45,6 +45,20 @@ export class PopupColaboradorComponent implements OnInit {
       Estado: [this.datos.Estado || 'ACT', Validators.required]
     });
 
+    this.lsCompania = this.crudService.SeleccionarAsync('compania_combo');
+    this.lsCargo = this.crudService.SeleccionarAsync('cargo_combo');
+    this.lsDepartamento = await this.crudService.SeleccionarAsync('departamento_combo');
+    if( this.datos.Departamento ){
+      this.slDepartamento = this.datos.Departamento;
+      this.loadAreas();
+    }
+    // this.lsArea = await this.crudService.SeleccionarAsync('area_combo');
+
+  }
+
+  loadAreas(){
+    let departamento = this.lsDepartamento.find(item => item.ID == this.slDepartamento);
+    this.lsArea = departamento.areas;
   }
 
   submit(){

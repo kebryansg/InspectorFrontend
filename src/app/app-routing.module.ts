@@ -47,6 +47,10 @@ const routes: Routes = [
         loadChildren: './components/inspeccion/inspeccion.module#InspeccionModule'
       },
       {
+        path: 'formulario',
+        loadChildren: './components/formulario/formulario.module#FormularioModule'
+      },
+      {
         path: 'simple-page',
         loadChildren: './theme/simple-page/simple-page.module#SimplePageModule'
       },

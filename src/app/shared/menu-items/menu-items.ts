@@ -32,11 +32,11 @@ export interface Menu {
 
 const MENUITEMS = [
   {
-    label: 'My Panel',
+    label: 'Mi Panel',
     main: [
       {
         state: 'catalogo',
-        short_label: 'A',
+        short_label: 'CT',
         name: 'Catalogo',
         type: 'sub',
         icon: 'feather icon-gitlab',
@@ -81,6 +81,7 @@ const MENUITEMS = [
       },
       {
         state: 'localization',
+        short_label: 'L',
         name: 'Localización',
         icon: 'feather icon-gitlab',
         type: 'sub',
@@ -93,7 +94,7 @@ const MENUITEMS = [
       },
       {
         state: 'nomina',
-        short_label: 'A',
+        short_label: 'N',
         name: 'Nomina',
         type: 'sub',
         icon: 'feather icon-gitlab',
@@ -110,7 +111,7 @@ const MENUITEMS = [
       },
       {
         state: 'inspeccion',
-        short_label: 'A',
+        short_label: 'I',
         name: 'Inspección',
         type: 'sub',
         icon: 'feather icon-gitlab',
@@ -123,12 +124,40 @@ const MENUITEMS = [
         ]
       },
       {
+        state: 'formulario',
+        short_label: 'FM',
+        name: 'Formularios',
+        type: 'sub',
+        icon: 'feather icon-gitlab',
+        children: [
+          {
+            state: 'list', name: 'Listado de Formularios'
+          },
+          {
+            state: 'catalogo',
+            name: 'Catalogo',
+            type: 'sub',
+            icon: 'feather icon-gitlab',
+            children: [
+              {
+                state: 'seccion', name: 'Sección'
+              },
+              {
+                state: 'componente', name: 'Componente'
+              },
+            ]
+          },
+
+
+        ]
+      },
+      /*{
         state: 'simple-page',
         short_label: 'S',
         name: 'Sample Page',
         type: 'link',
         icon: 'feather icon-file'
-      },
+      },*/
       /*{
         state: 'auth',
         short_label: 'A',
@@ -195,7 +224,7 @@ const MENUITEMS = [
           },
         ]
       },*/
-      {
+      /*{
         state: 'user',
         short_label: 'U',
         name: 'User Profile',
@@ -210,8 +239,8 @@ const MENUITEMS = [
             name: 'User Card'
           }
         ]
-      },
-      {
+      },*/
+      /*{
         state: 'advance',
         short_label: 'A',
         name: 'Advance',
@@ -227,7 +256,7 @@ const MENUITEMS = [
             name: 'Notifications'
           }
         ]
-      }
+      }*/
     ]
   }
 ];

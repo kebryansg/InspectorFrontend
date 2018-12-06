@@ -37,6 +37,14 @@ export class PopupEmpresaComponent implements OnInit {
   lsActEconomica: any;
   slActEconomica: any;
 
+  lsProvincias: any;
+  slProvincia: any;
+  lsCanton: any;
+  slCanton: any;
+  lsParroquia: any;
+  slParroquia: any;
+  lsSector: any;
+
   constructor(
     private fb: FormBuilder,
     protected crudService: CrudService,
@@ -44,11 +52,9 @@ export class PopupEmpresaComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.lsTipoEmpresa = this.crudService.SeleccionarAsync('tipoempresa_combo');
-    this.lsEntidad = this.crudService.SeleccionarAsync('entidad_combo');
-    this.lsActEconomica = this.crudService.SeleccionarAsync('acteconomica_combo');
+
 
     this.form = this.fb.group({
       ID: [this.datos.ID || 0],
@@ -62,22 +68,41 @@ export class PopupEmpresaComponent implements OnInit {
       IDEntidad: [this.datos.IDEntidad || null, Validators.required],
       IDTipoEmpresa: [this.datos.IDTipoEmpresa || null, Validators.required],
       IDClasificacion: [this.datos.IDClasificacion || null, Validators.required],
+      IDSector: [this.datos.IDSector || null, Validators.required],
       Email: [this.datos.Email || '', Validators.required],
       Estado: [this.datos.Estado || 'ACT', Validators.required]
     });
+
+    this.lsTipoEmpresa = this.crudService.SeleccionarAsync('tipoempresa_combo');
+    this.lsEntidad = this.crudService.SeleccionarAsync('entidad_combo');
+    this.lsActEconomica = await this.crudService.SeleccionarAsync('acteconomica_combo');
+    this.lsProvincias = await this.crudService.SeleccionarAsync('location_combo_sector');
+
     if (this.datos.ActEconomica) {
       this.slActEconomica = this.datos.ActEconomica;
       this.loadClasificacion();
     }
 
-
-
   }
 
   loadClasificacion() {
-    this.lsClasificacion = this.crudService.SeleccionarAsync('clasificacion_combo', {
-      ActEconomica: this.slActEconomica
-    });
+    let actEconomica = this.lsActEconomica.find(item => item.ID == this.slActEconomica );
+    this.lsClasificacion = actEconomica.clasificacions;
+  }
+
+  loadCanton(){
+    let provincia =  this.lsProvincias.find(item => item.ID == this.slProvincia );
+    this.lsCanton = provincia.cantons;
+  }
+
+  loadParroquia(){
+    let canton =  this.lsCanton.find(item => item.ID == this.slCanton );
+    this.lsParroquia = canton.parroquia;
+  }
+
+  loadSector(){
+    let parroquia =  this.lsParroquia.find(item => item.ID == this.slParroquia );
+    this.lsSector = parroquia.sectors;
   }
 
   submit() {

@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Area'">
+    <app-card [title]="'Formularios'">
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
-            <button class="btn btn-primary" (click)="edit()">
+            <button class="btn btn-primary" [routerLink]="'/formulario/new'" >
               <i class="icofont icofont-plus"></i>
               Agregar
             </button>
@@ -62,18 +62,18 @@
 
   </div>
 </div>
-<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
+<!--<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">-->
 
-  <div class="app-modal-header">
-    <h4 class="modal-title">Area - </h4>
-    <button type="button" class="close basic-close" (click)="modalForm.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+  <!--<div class="app-modal-header">-->
+    <!--<h4 class="modal-title">Modal title</h4>-->
+    <!--<button type="button" class="close basic-close" (click)="modalForm.hide()">-->
+      <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+  <!--</div>-->
 
-  <div class="app-modal-body">
-    <ng-template #container></ng-template>
-  </div>
+  <!--<div class="app-modal-body">-->
+    <!--<ng-template #container></ng-template>-->
+  <!--</div>-->
 
-</app-modal-basic>
+<!--</app-modal-basic>-->
 
