@@ -10,6 +10,8 @@ import { FormularioComponent } from './formulario/formulario.component';
 import { ComponenteComponent } from './catalogo/componente/componente.component';
 import { SeccionComponent } from './catalogo/seccion/seccion.component';
 import { PopupComponenteComponent } from './catalogo/componente/popup/popup.component';
+import { PopupSeccionComponent } from './catalogo/seccion/popup/popup.component';
+import { AsignSeccionComponent } from './catalogo/seccion/asign/asign.component';
 
 @NgModule({
   imports: [
@@ -25,9 +27,12 @@ import { PopupComponenteComponent } from './catalogo/componente/popup/popup.comp
     ComponenteComponent,
     SeccionComponent,
     PopupComponenteComponent,
+    PopupSeccionComponent,
+    AsignSeccionComponent,
   ],
   entryComponents: [
     PopupComponenteComponent,
+    PopupSeccionComponent
   ]
 })
 export class FormularioModule {
