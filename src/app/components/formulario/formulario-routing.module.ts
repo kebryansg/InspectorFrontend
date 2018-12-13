@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ListaFormularioComponent} from './lista-formulario/lista-formulario.component';
-import {FormularioComponent} from './formulario/formulario.component';
+import {FormularioComponent} from './lista-formulario/formulario/formulario.component';
 import {SeccionComponent} from './catalogo/seccion/seccion.component';
 import {ComponenteComponent} from './catalogo/componente/componente.component';
 import {AsignSeccionComponent} from './catalogo/seccion/asign/asign.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'new',
+        path: 'new/:id',
         component: FormularioComponent,
         data: {
           title: 'Nuevo Formulario',

@@ -3,6 +3,8 @@ import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.compo
 import {CrudService} from '../../../shared/services/crud.service';
 import {ModalService} from '../../../shared/services/modal.service';
 import {ToolsService} from '../../../shared/services/tools.service';
+import {PopupFormularioComponent} from './popup/popup.component';
+import {PopupSeccionComponent} from '../catalogo/seccion/popup/popup.component';
 
 @Component({
   selector: 'app-lista-formulario',
@@ -21,61 +23,63 @@ export class ListaFormularioComponent implements OnInit {
     total: 0,
     per_page: 0
   };
-  // @ViewChild('modalForm') modalForm: ModalBasicComponent;
-  // @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
+  @ViewChild('modalForm') modalForm: ModalBasicComponent;
+  @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
+  titleModal: string;
 
   constructor(
     private crudService: CrudService,
-    // private modalService: ModalService,
+    private modalService: ModalService,
     private tools: ToolsService
   ) {
   }
 
   async ngOnInit() {
-    // this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', {page: 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('formulario', {page: 1, psize: this.selPageSize});
   }
 
   async setPage(event) {
-    // this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', {page: event.offset + 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('formulario', {page: event.offset + 1, psize: this.selPageSize});
   }
 
   async reload() {
-    // this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', { page: 1, psize: this.selPageSize });
-  }
-  new(){
-
+    this.paginate = await this.crudService.SeleccionarAsync('formulario', { page: 1, psize: this.selPageSize });
   }
 
   async edit(row?) {
-    // let data = {};
-    // if (row)
-    //   data = await this.crudService.SeleccionarAsync(`tipoempresa/${ row.ID }`);
-    //
-    // this.modalService.setRootViewContainerRef( this.entry );
-    // this.modalService.addDynamicComponent( PopupTipoEmpresaComponent , {
-    //   datos: data,
-    //   modal: this.modalForm,
-    //   result: (data => {
-    //     if (data.ID == 0)
-    //       this.crudService.Insertar(data, 'tipoempresa').subscribe(data => {
-    //         this.reload();
-    //       });
-    //     else
-    //       this.crudService.Actualizar(data, `tipoempresa/${ data.ID }`).subscribe(data => {
-    //         this.reload();
-    //       });
-    //   })
-    // });
-    //
-    // this.modalForm.show();
+    let data = {};
+    this.titleModal = 'Nuevo';
+    if (row)
+    {
+      data = await this.crudService.SeleccionarAsync(`formulario/${ row.ID }`);
+      this.titleModal = 'Editar';
+    }
+
+    this.modalService.setRootViewContainerRef( this.entry );
+    this.modalService.addDynamicComponent( PopupFormularioComponent, {
+      datos: data,
+      modal: this.modalForm,
+      result: (data => {
+        if (data.ID == 0)
+          this.crudService.Insertar(data, 'formulario').subscribe(data => {
+            this.reload();
+          });
+        else
+          this.crudService.Actualizar(data, `formulario/${ data.ID }`).subscribe(data => {
+            this.reload();
+          });
+      })
+    });
+
+    this.modalForm.show();
 
   }
 
   delete(row) {
-    // this.crudService.Eliminar(`tipoempresa/${ row.ID }`)
-    //   .subscribe(data => {
-    //     this.reload();
-    //   });
+    this.crudService.Eliminar(`formulario/${ row.ID }`)
+      .subscribe(data => {
+        this.reload();
+      });
 
   }
 

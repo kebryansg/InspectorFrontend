@@ -18,7 +18,7 @@ export class ModalService {
   addDynamicComponent(component: any, params?) {
     this.rootViewContainer.clear();
     const factory = this.factoryResolver.resolveComponentFactory(component);
-    const componentRef = this.rootViewContainer.createComponent(factory)
+    const componentRef = this.rootViewContainer.createComponent(factory);
 
     if( params ){
       componentRef.instance["datos"] = params.datos;

@@ -13,6 +13,8 @@ import {MenuItems} from './shared/menu-items/menu-items';
 import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.component';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import {DragulaModule} from 'ng2-dragula';
+import {UiSwitchModule} from 'ng2-ui-switch';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    DragulaModule.forRoot(),
+    UiSwitchModule,
     SharedModule
   ],
   schemas: [],
