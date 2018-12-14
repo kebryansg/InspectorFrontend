@@ -5,6 +5,7 @@ import {FormularioComponent} from './lista-formulario/formulario/formulario.comp
 import {SeccionComponent} from './catalogo/seccion/seccion.component';
 import {ComponenteComponent} from './catalogo/componente/componente.component';
 import {AsignSeccionComponent} from './catalogo/seccion/asign/asign.component';
+import {ConfigFormularioComponent} from './lista-formulario/config/config.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,14 @@ const routes: Routes = [
         component: FormularioComponent,
         data: {
           title: 'Nuevo Formulario',
+          status: true
+        }
+      },
+      {
+        path: 'config/:id',
+        component: ConfigFormularioComponent,
+        data: {
+          title: 'Configurar Formulario',
           status: true
         }
       },

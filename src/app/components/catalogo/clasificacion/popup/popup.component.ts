@@ -30,6 +30,7 @@ export class PopupClasificaconComponent implements OnInit {
     this.form = this.fb.group({
       ID: [ this.datos.ID || 0 ],
       Descripcion: [ this.datos.Descripcion || '', Validators.required],
+      Precio: [ this.datos.Precio || 0, Validators.required],
       IDActEconomica: [ this.datos.IDActEconomica || '', Validators.required],
       Estado: [ this.datos.Estado || 'ACT', Validators.required]
     });

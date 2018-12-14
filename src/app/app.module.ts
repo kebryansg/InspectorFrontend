@@ -15,6 +15,8 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {DragulaModule} from 'ng2-dragula';
 import {UiSwitchModule} from 'ng2-ui-switch';
+import {NouisliderModule} from 'ng2-nouislider';
+import {TagInputModule} from 'ngx-chips';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import {UiSwitchModule} from 'ng2-ui-switch';
     AppRoutingModule,
     DragulaModule.forRoot(),
     UiSwitchModule,
+    NouisliderModule,
+    TagInputModule,
     SharedModule
   ],
   schemas: [],

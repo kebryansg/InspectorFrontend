@@ -14,8 +14,11 @@ import { PopupSeccionComponent } from './catalogo/seccion/popup/popup.component'
 import { AsignSeccionComponent } from './catalogo/seccion/asign/asign.component';
 import { DragulaModule } from 'ng2-dragula';
 import { ArchwizardModule } from 'ng2-archwizard/dist';
-import {UiSwitchModule} from 'ng2-ui-switch';
+import { UiSwitchModule } from 'ng2-ui-switch';
+import { NouisliderModule } from 'ng2-nouislider';
+import {TagInputModule} from 'ngx-chips';
 import { PopupFormularioComponent } from './lista-formulario/popup/popup.component';
+import { ConfigFormularioComponent } from './lista-formulario/config/config.component';
 
 @NgModule({
   imports: [
@@ -26,6 +29,8 @@ import { PopupFormularioComponent } from './lista-formulario/popup/popup.compone
     DragulaModule.forRoot(),
     ArchwizardModule,
     UiSwitchModule,
+    NouisliderModule,
+    TagInputModule,
     FormularioRoutingModule
   ],
   declarations: [
@@ -37,6 +42,7 @@ import { PopupFormularioComponent } from './lista-formulario/popup/popup.compone
     PopupSeccionComponent,
     AsignSeccionComponent,
     PopupFormularioComponent,
+    ConfigFormularioComponent,
   ],
   entryComponents: [
     PopupComponenteComponent,
