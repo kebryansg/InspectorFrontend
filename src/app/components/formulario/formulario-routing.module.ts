@@ -6,6 +6,7 @@ import {SeccionComponent} from './catalogo/seccion/seccion.component';
 import {ComponenteComponent} from './catalogo/componente/componente.component';
 import {AsignSeccionComponent} from './catalogo/seccion/asign/asign.component';
 import {ConfigFormularioComponent} from './lista-formulario/config/config.component';
+import {AsignFormularioComponent} from './asign/asign.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,14 @@ const routes: Routes = [
         component: ListaFormularioComponent,
         data: {
           title: 'Formulario',
+          status: true
+        }
+      },
+      {
+        path: 'asign',
+        component: AsignFormularioComponent,
+        data: {
+          title: 'Formulario - Categoría',
           status: true
         }
       },

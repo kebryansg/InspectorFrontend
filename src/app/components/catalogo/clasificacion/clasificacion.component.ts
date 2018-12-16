@@ -24,6 +24,7 @@ export class ClasificacionComponent implements OnInit {
   };
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
+  titleModal: string;
 
   constructor(
     private crudService: CrudService,
@@ -46,8 +47,12 @@ export class ClasificacionComponent implements OnInit {
 
   async edit(row?) {
     let data = {};
+    this.titleModal = 'Nuevo';
     if (row)
+    {
       data = await this.crudService.SeleccionarAsync(`clasificacion/${ row.ID }`);
+      this.titleModal = 'Editar';
+    }
 
     this.modalService.setRootViewContainerRef( this.entry );
     this.modalService.addDynamicComponent( PopupClasificaconComponent , {

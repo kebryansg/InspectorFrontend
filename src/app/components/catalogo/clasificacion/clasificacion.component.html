@@ -38,6 +38,18 @@
           </ng-template>
         </ngx-datatable-column>
 
+        <ngx-datatable-column name="Act. Economica">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.ActEconomica }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Tipo Act. Economica">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.TipoActEconomica }}
+          </ng-template>
+        </ngx-datatable-column>
+
         <ngx-datatable-column name="Estado">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{ row?.Estado | status }}
@@ -65,7 +77,7 @@
 <app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
 
   <div class="app-modal-header">
-    <h4 class="modal-title">Clasificación - </h4>
+    <h4 class="modal-title">{{ titleModal }} - Clasificación</h4>
     <button type="button" class="close basic-close" (click)="modalForm.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

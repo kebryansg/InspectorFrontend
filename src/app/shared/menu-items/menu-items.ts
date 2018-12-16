@@ -37,7 +37,7 @@ const MENUITEMS = [
       {
         state: 'catalogo',
         short_label: 'CT',
-        name: 'Catalogo',
+        name: 'Catálogo',
         type: 'sub',
         icon: 'feather icon-gitlab',
         children: [
@@ -51,7 +51,7 @@ const MENUITEMS = [
           },
           {
             state: 'tipo-empresa',
-            name: 'Tipo Empresa'
+            name: 'Tipo Categoria'
           },
           {
             state: 'entidad',
@@ -59,7 +59,7 @@ const MENUITEMS = [
           },
           {
             state: 'clasificacion',
-            name: 'Clasificacion'
+            name: 'Clasificación'
           },
           {
             state: 'empresa',
@@ -67,7 +67,7 @@ const MENUITEMS = [
           },
           {
             state: 'actividad-economica',
-            name: 'Actividad Economica'
+            name: 'Actividad Económica'
           },
           {
             state: 'departamento',
@@ -134,8 +134,11 @@ const MENUITEMS = [
             state: 'list', name: 'Listado de Formularios'
           },
           {
+            state: 'asign', name: 'Formulario - Categoría'
+          },
+          {
             state: 'catalogo',
-            name: 'Catalogo',
+            name: 'Catálogo',
             type: 'sub',
             icon: 'feather icon-gitlab',
             children: [

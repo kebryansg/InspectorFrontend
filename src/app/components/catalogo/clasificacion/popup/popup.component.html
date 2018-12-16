@@ -20,11 +20,19 @@
     <div class="col-md-6">
 
       <div class="form-group form-primary">
-        <select class="form-control form-control-primary" [formControl]="form.controls['IDActEconomica']">
-          <option *ngFor="let item of ActEconomica" [value]="item.ID">{{ item.Descripcion }}</option>
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDActEconomica']" >
+          <option *ngFor="let item of lsActEconomica " [value]="item.ID">{{ item.Descripcion }}</option>
         </select>
         <span class="form-bar"></span>
         <label class="float-label">Actividad Económica</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDTipoActEcon']">
+          <option *ngFor="let item of lsTipoActEconomica" [value]="item.ID">{{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Tipo Act. Económica</label>
       </div>
 
       <div class="form-group form-primary">

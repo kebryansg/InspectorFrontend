@@ -1,21 +1,31 @@
-<form [formGroup]="form" (ngSubmit)="submit()"  class="general-info form-material">
+<form [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
   <div class="row">
     <div class="col-md-6">
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['Descripcion']" class="form-control">
-          <span class="form-bar"></span>
-          <label class="float-label">Nombre</label>
-        </div>
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['Descripcion']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Nombre</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
+          <option *ngFor="let item of tools.listEstados() " [value]="item.value">{{ item.label }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Estado</label>
       </div>
 
     </div>
     <div class="col-md-6">
 
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['IDActEconomica']">
+          <option *ngFor="let item of lsActEconomica | async" [value]="item.ID">{{ item.Descripcion }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Act. Economica</label>
+      </div>
 
 
     </div>
@@ -25,7 +35,7 @@
     <div class="col-md-12">
       <div class="pull-right">
         <!--(click)="modalForm.hide()"-->
-        <button type="reset" class="btn btn-default btn-sm ripple m-r-10" (click)="modalBasic.hide()" >Cancelar</button>
+        <button type="reset" class="btn btn-default btn-sm ripple m-r-10" (click)="modalBasic.hide()">Cancelar</button>
         <button type="submit" class="btn btn-primary btn-sm ripple light" [disabled]="form.invalid">Guardar</button>
       </div>
     </div>

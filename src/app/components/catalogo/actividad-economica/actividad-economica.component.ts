@@ -22,6 +22,7 @@ export class ActividadEconomicaComponent implements OnInit {
     total: 0,
     per_page: 0
   };
+  titleModal: string;
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
 
@@ -46,8 +47,12 @@ export class ActividadEconomicaComponent implements OnInit {
 
   async edit(row?) {
     let data = {};
-    if (row)
+    this.titleModal = 'Nuevo';
+    if (row){
       data = await this.crudService.SeleccionarAsync(`acteconomica/${ row.ID }`);
+      this.titleModal = 'Editar';
+    }
+
 
     this.modalService.setRootViewContainerRef( this.entry );
     this.modalService.addDynamicComponent( PopupActividadEconomicaComponent , {

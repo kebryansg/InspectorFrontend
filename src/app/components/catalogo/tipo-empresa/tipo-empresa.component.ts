@@ -15,6 +15,7 @@ import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.compo
 export class TipoEmpresaComponent implements OnInit {
   pageSize: number[] = this.tools.pagSize();
   selPageSize: any = this.pageSize[0];
+  titleModal: any;
   paginate: any = {
     data: [],
     page: 1,
@@ -28,37 +29,41 @@ export class TipoEmpresaComponent implements OnInit {
     private crudService: CrudService,
     private modalService: ModalService,
     private tools: ToolsService
-  ) { }
+  ) {
+  }
 
   async ngOnInit() {
 
-    this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', {page: 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('tipoact', {page: 1, psize: this.selPageSize});
   }
 
   async setPage(event) {
-    this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', {page: event.offset + 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('tipoact', {page: event.offset + 1, psize: this.selPageSize});
   }
 
-  async reload( ){
-    this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', { page: 1, psize: this.selPageSize });
+  async reload() {
+    this.paginate = await this.crudService.SeleccionarAsync('tipoact', {page: 1, psize: this.selPageSize});
   }
 
   async edit(row?) {
     let data = {};
-    if (row)
-      data = await this.crudService.SeleccionarAsync(`tipoempresa/${ row.ID }`);
+    this.titleModal = 'Nuevo';
+    if (row) {
+      data = await this.crudService.SeleccionarAsync(`tipoact/${ row.ID }`);
+      this.titleModal = 'Editar';
+    }
 
-    this.modalService.setRootViewContainerRef( this.entry );
-    this.modalService.addDynamicComponent( PopupTipoEmpresaComponent , {
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupTipoEmpresaComponent, {
       datos: data,
       modal: this.modalForm,
       result: (data => {
         if (data.ID == 0)
-          this.crudService.Insertar(data, 'tipoempresa').subscribe(data => {
+          this.crudService.Insertar(data, 'tipoact').subscribe(data => {
             this.reload();
           });
         else
-          this.crudService.Actualizar(data, `tipoempresa/${ data.ID }`).subscribe(data => {
+          this.crudService.Actualizar(data, `tipoact/${ data.ID }`).subscribe(data => {
             this.reload();
           });
       })
@@ -69,7 +74,7 @@ export class TipoEmpresaComponent implements OnInit {
   }
 
   delete(row) {
-    this.crudService.Eliminar(`tipoempresa/${ row.ID }`)
+    this.crudService.Eliminar(`tipoact/${ row.ID }`)
       .subscribe(data => {
         this.reload();
       });

@@ -19,6 +19,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import {TagInputModule} from 'ngx-chips';
 import { PopupFormularioComponent } from './lista-formulario/popup/popup.component';
 import { ConfigFormularioComponent } from './lista-formulario/config/config.component';
+import { AsignFormularioComponent } from './asign/asign.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { ConfigFormularioComponent } from './lista-formulario/config/config.comp
     AsignSeccionComponent,
     PopupFormularioComponent,
     ConfigFormularioComponent,
+    AsignFormularioComponent,
   ],
   entryComponents: [
     PopupComponenteComponent,
