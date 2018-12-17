@@ -40,10 +40,11 @@ export class PopupClasificaconComponent implements OnInit {
     this.lsActEconomica = await this.crudService.SeleccionarAsync('acteconomica_combo');
 
     this.form.get('IDActEconomica').valueChanges.subscribe(ID => {
-      this.lsTipoActEconomica = this.lsActEconomica.find(item => item.ID == ID).tipoacteconomicas;
+      if (ID)
+        this.lsTipoActEconomica = this.lsActEconomica.find(item => item.ID == ID).tipoacteconomicas;
     });
-
-    this.form.get('IDActEconomica').setValue(this.datos.IDActEconomica || null);
+    if (this.datos.IDActEconomica)
+      this.form.get('IDActEconomica').setValue(this.datos.IDActEconomica);
 
   }
 

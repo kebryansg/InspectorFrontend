@@ -126,18 +126,18 @@
 
 
                 <div class="form-group form-primary">
-                  <select class="form-control form-control-primary" [formControl]="form.controls['IDTipoEmpresa']">
-                    <option *ngFor="let item of lsTipoEmpresa | async" [value]="item.ID">{{ item.Descripcion }}
+                  <select class="form-control form-control-primary" [formControl]="form.controls['IDTipoActEcon']">
+                    <option *ngFor="let item of lsTipoActEcon" [value]="item.ID">{{ item.Descripcion }}
                     </option>
                   </select>
                   <span class="form-bar"></span>
-                  <label class="float-label">Tipo Empresa</label>
+                  <label class="float-label">Tipo Act. Económica</label>
                 </div>
+
               </div>
               <div class="col-md-6">
                 <div class="form-group form-primary">
-                  <select class="form-control form-control-primary" [(ngModel)]="slActEconomica"
-                          [ngModelOptions]="{standalone: true}" (change)="loadClasificacion()">
+                  <select class="form-control form-control-primary" [formControl]="form.controls['IDActEconomica']">
                     <option *ngFor="let item of lsActEconomica" [value]="item.ID">{{ item.Descripcion }}
                     </option>
                   </select>
@@ -169,7 +169,7 @@
               <div class="col-md-6">
 
                 <div class="form-group form-primary">
-                  <select class="form-control form-control-primary" [(ngModel)]="slProvincia" [ngModelOptions]="{standalone: true}" (change)="loadCanton()" >
+                  <select class="form-control form-control-primary" [formControl]="form.controls['IDProvincia']" >
                     <option *ngFor="let item of lsProvincias" [value]="item.ID"> {{ item.Descripcion }}</option>
                   </select>
                   <span class="form-bar"></span>
@@ -177,7 +177,7 @@
                 </div>
 
                 <div class="form-group form-primary" >
-                  <select class="form-control form-control-primary" [(ngModel)]="slCanton" [ngModelOptions]="{standalone: true}"  (change)="loadParroquia()">
+                  <select class="form-control form-control-primary" [formControl]="form.controls['IDCanton']">
                     <option *ngFor="let item of lsCanton" [value]="item.ID"> {{ item.Descripcion }}</option>
                   </select>
                   <span class="form-bar"></span>
@@ -189,15 +189,15 @@
               <div class="col-md-6">
 
                 <div class="form-group form-primary" >
-                  <select class="form-control form-control-primary" [(ngModel)]="slParroquia" [ngModelOptions]="{standalone: true}" (change)="loadSector()" >
+                  <select class="form-control form-control-primary" [formControl]="form.controls['IDParroquia']" >
                     <option *ngFor="let item of lsParroquia" [value]="item.ID"> {{ item.Descripcion }}</option>
                   </select>
                   <span class="form-bar"></span>
-                  <label class="float-label">Parroquia</label>
+                  <label class="float-label">Parroquía</label>
                 </div>
 
                 <div class="form-group form-primary">
-                  <select class="form-control form-control-primary" [formControl]="form.controls['IDSector']">
+                  <select class="form-control form-control-primary" [formControl]="form.controls['IDSector']" >
                     <option *ngFor="let item of lsSector" [value]="item.ID">{{ item.Descripcion }}
                     </option>
                   </select>

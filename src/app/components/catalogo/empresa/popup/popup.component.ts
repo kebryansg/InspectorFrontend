@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToolsService} from '../../../../shared/services/tools.service';
@@ -31,11 +31,10 @@ export class PopupEmpresaComponent implements OnInit {
   @Input() modalBasic: ModalBasicComponent;
 
   form: FormGroup;
-  lsTipoEmpresa: any;
-  lsClasificacion: any;
-  lsEntidad: any;
-  lsActEconomica: any;
-  slActEconomica: any;
+  lsTipoActEcon: any[];
+  lsClasificacion: any[];
+  lsEntidad: any[];
+  lsActEconomica: any[];
 
   lsProvincias: any;
   slProvincia: any;
@@ -55,10 +54,9 @@ export class PopupEmpresaComponent implements OnInit {
   async ngOnInit() {
 
 
-
     this.form = this.fb.group({
       ID: [this.datos.ID || 0],
-      Descripcion: [ this.datos.Descripcion , Validators.required],
+      Descripcion: [this.datos.Descripcion, Validators.required],
       RUC: [this.datos.RUC || null, Validators.required],
       NombreComercial: [this.datos.NombreComercial || '', Validators.required],
       RazonSocial: [this.datos.RazonSocial || '', Validators.required],
@@ -66,43 +64,71 @@ export class PopupEmpresaComponent implements OnInit {
       Telefono: [this.datos.Telefono || '', Validators.required],
       Celular: [this.datos.Celular || '', Validators.required],
       IDEntidad: [this.datos.IDEntidad || null, Validators.required],
-      IDTipoEmpresa: [this.datos.IDTipoEmpresa || null, Validators.required],
+      IDActEconomica: [this.datos.IDActEconomica || null, Validators.required],
+      IDTipoActEcon: [this.datos.IDTipoActEcon || null, Validators.required],
       IDClasificacion: [this.datos.IDClasificacion || null, Validators.required],
+
+
+      IDProvincia: [this.datos.IDProvincia || null, Validators.required],
+      IDCanton: [this.datos.IDCanton || null, Validators.required],
+      IDParroquia: [this.datos.IDParroquia || null, Validators.required],
       IDSector: [this.datos.IDSector || null, Validators.required],
       Email: [this.datos.Email || '', Validators.required],
       Estado: [this.datos.Estado || 'ACT', Validators.required]
     });
 
-    this.lsTipoEmpresa = this.crudService.SeleccionarAsync('tipoempresa_combo');
-    this.lsEntidad = this.crudService.SeleccionarAsync('entidad_combo');
-    this.lsActEconomica = await this.crudService.SeleccionarAsync('acteconomica_combo');
-    this.lsProvincias = await this.crudService.SeleccionarAsync('location_combo_sector');
+    // Events
+    this.form.controls['IDActEconomica'].valueChanges.subscribe(item => {
+      if (item)
+        this.lsTipoActEcon = this.lsActEconomica.find(row => row.ID == item).tipoacteconomicas;
 
-    if (this.datos.ActEconomica) {
-      this.slActEconomica = this.datos.ActEconomica;
-      this.loadClasificacion();
+    });
+
+    this.form.controls['IDTipoActEcon'].valueChanges.subscribe(item => {
+      if (item) {
+        this.lsClasificacion = this.lsTipoActEcon.find(row => row.ID == item).clasificacions;
+        this.form.controls['IDClasificacion'].setValue(this.lsClasificacion[0].ID);
+      }
+    });
+
+    this.form.controls['IDProvincia'].valueChanges.subscribe(item => {
+      if (item)
+        this.lsCanton = this.lsProvincias.find(row => row.ID == item).cantons;
+
+    });
+
+    this.form.controls['IDCanton'].valueChanges.subscribe(item => {
+      if (item)
+        this.lsParroquia = this.lsCanton.find(row => row.ID == item).parroquia;
+
+    });
+
+    this.form.controls['IDParroquia'].valueChanges.subscribe(item => {
+      if (item) {
+        this.lsSector = this.lsParroquia.find(row => row.ID == item).sectors;
+        this.form.controls['IDSector'].setValue(this.lsSector[0].ID);
+      }
+
+    });
+
+
+    this.lsEntidad = <any> this.crudService.SeleccionarAsync('entidad_combo');
+    this.lsActEconomica = await <any> this.crudService.SeleccionarAsync('acteconomica_combo');
+    this.lsProvincias = await <any> this.crudService.SeleccionarAsync('location_combo_sector');
+
+    if (this.datos.IDClasificacion) {
+      this.form.controls['IDActEconomica'].setValue(this.datos.IDActEconomica);
+      this.form.controls['IDTipoActEcon'].setValue(this.datos.IDTipoActEcon);
+      this.form.controls['IDClasificacion'].setValue(this.datos.IDClasificacion);
+    }
+    if (this.datos.IDSector) {
+      this.form.controls['IDProvincia'].setValue(this.datos.IDProvincia);
+      this.form.controls['IDCanton'].setValue(this.datos.IDCanton);
+      this.form.controls['IDParroquia'].setValue(this.datos.IDParroquia);
+      this.form.controls['IDSector'].setValue(this.datos.IDSector);
     }
 
-  }
 
-  loadClasificacion() {
-    let actEconomica = this.lsActEconomica.find(item => item.ID == this.slActEconomica );
-    this.lsClasificacion = actEconomica.clasificacions;
-  }
-
-  loadCanton(){
-    let provincia =  this.lsProvincias.find(item => item.ID == this.slProvincia );
-    this.lsCanton = provincia.cantons;
-  }
-
-  loadParroquia(){
-    let canton =  this.lsCanton.find(item => item.ID == this.slCanton );
-    this.lsParroquia = canton.parroquia;
-  }
-
-  loadSector(){
-    let parroquia =  this.lsParroquia.find(item => item.ID == this.slParroquia );
-    this.lsSector = parroquia.sectors;
   }
 
   submit() {
