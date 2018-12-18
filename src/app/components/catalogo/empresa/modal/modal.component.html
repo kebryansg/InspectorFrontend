@@ -1,0 +1,92 @@
+<!--<div class="row">-->
+  <!--<div class="col-md-12">-->
+    <!--<div class="pull-right">-->
+      <!--<input type="text" class="form-control" placeholder="Buscar">-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="dt-custom-header">
+      <div>
+        <select style="width: 120px;" class="form-control form-control-primary form-control-sm"
+                [(ngModel)]="params_dt.psize"
+                (change)="reload()">
+          <option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>
+        </select>
+      </div>
+
+      <div class="dt-content-search" >
+        <input type="text" class="form-control" placeholder="Buscar" #box (keyup.enter)="onEnter(box.value)">
+        <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()" ></i>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+<ngx-datatable
+  class="data-table"
+  [rows]="paginate.data"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="paginate.total"
+  [limit]="paginate.per_page"
+  [selected]="selected"
+  [selectionType]="'single'"
+  (select)='onSelect($event)'
+  (page)='setPage($event)'>
+
+
+  <ngx-datatable-column name="RUC">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.RUC }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!--<ngx-datatable-column name="Nombre Comercial">-->
+  <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+  <!--{{ row?.NombreComercial }}-->
+  <!--</ng-template>-->
+  <!--</ngx-datatable-column>-->
+
+  <ngx-datatable-column name="Razón Social">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.RazonSocial }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Clasificación">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.clasificacion.Descripcion }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Sector">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.sector.Descripcion }}
+    </ng-template>
+  </ngx-datatable-column>
+
+</ngx-datatable>
+
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <button class="btn btn-default btn-sm ripple m-r-10" (click)="modalBasic.hide()">Cancelar</button>
+      <button type="button" class="btn btn-primary btn-sm ripple light"
+              [disabled]="selected.length == 0"
+              (click)="returnSelect()">
+        Seleccionar
+      </button>
+    </div>
+  </div>
+</div>
+

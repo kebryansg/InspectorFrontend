@@ -15,7 +15,11 @@ import {PopupEmpresaComponent} from './popup/popup.component';
 export class EmpresaComponent implements OnInit {
 
   pageSize: number[] = this.tools.pagSize();
-  selPageSize: any = this.pageSize[0];
+  params_dt: any = {
+    page: 1,
+    psize: this.pageSize[0],
+    search: ''
+  };
   paginate: any = {
     data: [],
     page: 1,
@@ -28,20 +32,25 @@ export class EmpresaComponent implements OnInit {
   constructor(
     private crudService: CrudService,
     private modalService: ModalService,
-    private tools: ToolsService
-  ) { }
-
-  async ngOnInit() {
-
-    this.paginate = await this.crudService.SeleccionarAsync('empresa', {page: 1, psize: this.selPageSize});
+    private tools: ToolsService) {
   }
 
-  async setPage(event) {
-    this.paginate = await this.crudService.SeleccionarAsync('empresa', {page: event.offset + 1, psize: this.selPageSize});
+  ngOnInit() {
+    this.reload();
   }
 
-  async reload( ){
-    this.paginate = await this.crudService.SeleccionarAsync('empresa', { page: 1, psize: this.selPageSize });
+  setPage(event) {
+    this.reload(event.offset + 1);
+  }
+
+  onEnter(value: string) {
+    this.params_dt.search = value;
+    this.reload();
+  }
+
+  async reload(page: number = 1) {
+    this.params_dt.page = page;
+    this.paginate = await this.crudService.SeleccionarAsync('empresa', this.params_dt);
   }
 
   async edit(row?) {
@@ -49,8 +58,8 @@ export class EmpresaComponent implements OnInit {
     if (row)
       data = await this.crudService.SeleccionarAsync(`empresa/${ row.ID }`);
 
-    this.modalService.setRootViewContainerRef( this.entry );
-    this.modalService.addDynamicComponent( PopupEmpresaComponent , {
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupEmpresaComponent, {
       datos: data,
       modal: this.modalForm,
       result: (data => {

@@ -5,7 +5,9 @@ import { InspeccionRoutingModule } from './inspeccion-routing.module';
 import { ListComponent } from './list/list.component';
 import {SharedModule} from '../../shared/shared.module';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NewInspeccionComponent } from './new/new.component';
+import { AsignColaboradorComponent } from './list/asign/asign.component';
 
 @NgModule({
   imports: [
@@ -13,10 +15,16 @@ import {FormsModule} from '@angular/forms';
     SharedModule,
     NgxDatatableModule,
     FormsModule,
+    ReactiveFormsModule,
     InspeccionRoutingModule
   ],
   declarations: [
-    ListComponent
+    ListComponent,
+    NewInspeccionComponent,
+    AsignColaboradorComponent,
+  ],
+  entryComponents:[
+    AsignColaboradorComponent,
   ]
 })
 export class InspeccionModule { }

@@ -51,3 +51,24 @@ File: style.css
 
 //angular custom
 @import "partials/custom";
+
+/* Cabecera DataTable */
+div.dt-custom-header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+}
+.dt-custom-header .dt-content-search {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dt-content-search i{
+  font-size: 1.65rem;
+  cursor: pointer;
+  margin-left: 3px;
+}

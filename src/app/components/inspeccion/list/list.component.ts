@@ -1,65 +1,80 @@
 import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
 import {CrudService} from '../../../shared/services/crud.service';
-import {ModalService} from '../../../shared/services/modal.service';
 import {ToolsService} from '../../../shared/services/tools.service';
-import {PopupEmpresaComponent} from '../../catalogo/empresa/popup/popup.component';
+import swal from 'sweetalert2';
+import {ModalService} from '../../../shared/services/modal.service';
+import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
+import {AsignColaboradorComponent} from './asign/asign.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: [
+    './list.component.css',
     '../../../../assets/icon/icofont/css/icofont.scss'
   ]
 })
 export class ListComponent implements OnInit {
 
   pageSize: number[] = this.tools.pagSize();
-  selPageSize: any = this.pageSize[0];
+  params_dt: any = {
+    page: 1,
+    psize: this.pageSize[0],
+    search: ''
+  };
   paginate: any = {
     data: [],
     page: 1,
     total: 0,
     per_page: 0
   };
+
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
 
   constructor(
     private crudService: CrudService,
     private modalService: ModalService,
-    private tools: ToolsService
-  ) { }
-
-  async ngOnInit() {
-
-    this.paginate = await this.crudService.SeleccionarAsync('empresa', {page: 1, psize: this.selPageSize});
+    private tools: ToolsService, ) {
   }
 
-  async setPage(event) {
-    this.paginate = await this.crudService.SeleccionarAsync('empresa', {page: event.offset + 1, psize: this.selPageSize});
+  ngOnInit() {
+    this.reload();
   }
 
-  async reload( ){
-    this.paginate = await this.crudService.SeleccionarAsync('empresa', { page: 1, psize: this.selPageSize });
+  setPage(event) {
+    this.reload(event.offset + 1);
+  }
+
+  onEnter(value: string) {
+    this.params_dt.search = value;
+    this.reload();
+  }
+
+  async reload(page: number = 1) {
+    this.params_dt.page = page;
+    this.paginate = await this.crudService.SeleccionarAsync('inspeccion', this.params_dt);
   }
 
   async edit(row?) {
     let data = {};
     if (row)
-      data = await this.crudService.SeleccionarAsync(`empresa/${ row.ID }`);
+      data = await this.crudService.SeleccionarAsync(`inspeccion/${ row.ID }`);
+  }
+
+  asign_colaborador(row) {
 
     this.modalService.setRootViewContainerRef( this.entry );
-    this.modalService.addDynamicComponent( PopupEmpresaComponent , {
-      datos: data,
+    this.modalService.addDynamicComponent( AsignColaboradorComponent , {
       modal: this.modalForm,
       result: (data => {
-        if (data.ID == 0)
-          this.crudService.Insertar(data, 'empresa').subscribe(data => {
-            this.reload();
-          });
-        else
-          this.crudService.Actualizar(data, `empresa/${ data.ID }`).subscribe(data => {
+        this.crudService.Actualizar({}, `inspeccion/${ row.ID }/coladorador/${ data }/`)
+          .subscribe(res => {
+            swal(
+              'Exito!',
+              'Se asigno un colaborador para esta inspección.',
+              'success'
+            );
             this.reload();
           });
       })
@@ -70,10 +85,31 @@ export class ListComponent implements OnInit {
   }
 
   delete(row) {
-    this.crudService.Eliminar(`empresa/${ row.ID }`)
-      .subscribe(data => {
-        this.reload();
-      });
+
+    swal({
+      title: 'Esta seguro?',
+      text: 'Esta seguro de eliminar esta inspección.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.crudService.Eliminar(`inspeccion/${ row.ID }`)
+          .subscribe(
+            data => {
+              swal(
+                'Inactivo!',
+                'La Inspección fue eliminada.',
+                'success'
+              );
+              this.reload();
+            });
+      }
+    });
+
 
   }
 

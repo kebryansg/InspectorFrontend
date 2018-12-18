@@ -1,0 +1,136 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [title]="'Nueva Inspección'" [cardOptionBlock]="true">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pull-left">
+              <label style="margin-right: 5px; font-size: 1.45rem;"> Empresa</label>
+              <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;" ngbTooltip="Buscar Empresa"
+                 placement="right" (click)="loadmodal($event)"></a>
+
+            </div>
+            <div class="pull-right">
+              <button type="reset" class="btn btn-danger" [routerLink]="['../list']">
+                <i class="icofont icofont-reply"></i>
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                <i class="icofont icofont-plus"></i>
+                Agregar
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-6">
+                  <div class="table-responsive">
+                    <table class="table m-0 table-sm">
+                      <tbody>
+                      <tr>
+                        <th scope="row">Nombre Comercial</th>
+                        <td>{{ empresa?.NombreComercial }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">RUC</th>
+                        <td>{{ empresa?.RUC }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Clasificación</th>
+                        <td>{{ empresa?.clasificacion.Descripcion }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- end of table col-lg-6 -->
+                <div class="col-lg-12 col-xl-6">
+                  <div class="table-responsive">
+                    <table class="table table-sm">
+                      <tbody>
+                      <tr>
+                        <th scope="row">Razon Social</th>
+                        <td>{{ empresa?.RazonSocial }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Sector</th>
+                        <td>{{ empresa?.sector.Descripcion }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Dirección</th>
+                        <td>{{ empresa?.Direccion }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-material">
+              <h4 class="sub-title" style="margin-bottom: 13px;">Colaborador</h4>
+              <div class="material-group">
+                <div class="form-group form-primary">
+                  <select class="form-control form-control-primary" [formControl]="form.controls['IDColaborador']">
+                    <option *ngFor="let colaborador of lsColaborador" [value]="colaborador.ID">
+                      {{ colaborador.Colaborador }}
+                    </option>
+                  </select>
+                </div>
+                <div class="material-addone">
+                  <i class="icofont icofont-close " style="color: red;cursor: pointer;" (click)="clearColaborador()"></i>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-4" *ngIf="form.controls['IDColaborador'].value">
+            <h4 class="sub-title">Fecha Tentativa Inspección</h4>
+            <div class="form-group form-primary">
+              <div class="input-group">
+                <input class="form-control" [formControl]="form.controls['FechaTentativa']" placeholder="yyyy-mm-dd"
+                       [(ngModel)]="modelPopup"
+                       ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                <span class="input-group-text" (click)="d.toggle()">
+                  <i class="icofont icofont-ui-calendar"></i>
+                </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </app-card>
+    </div>
+  </div>
+</form>
+<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg custom-lg'">
+
+  <div class="app-modal-header">
+    <h4 class="modal-title">Buscar Empresa</h4>
+    <button type="button" class="close basic-close" (click)="modalForm.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="app-modal-body">
+    <ng-template #container></ng-template>
+  </div>
+
+
+</app-modal-basic>

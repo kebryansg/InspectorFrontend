@@ -4,21 +4,41 @@
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
-            <button class="btn btn-primary" (click)="edit()">
+            <button class="btn btn-primary btn-sm" (click)="edit()">
               <i class="icofont icofont-plus"></i>
               Agregar
             </button>
           </div>
-          <div class="pull-right">
-            <select style="width: 120px;" class="form-control form-control-primary" [(ngModel)]="selPageSize"
-                    (change)="ngOnInit()">
-              <option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>
-            </select>
-          </div>
+          <!--<div class="pull-right">-->
+            <!--<select style="width: 120px;" class="form-control form-control-primary" [(ngModel)]="selPageSize"-->
+                    <!--(change)="ngOnInit()">-->
+              <!--<option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>-->
+            <!--</select>-->
+          <!--</div>-->
         </div>
 
       </div>
-      <br>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="dt-custom-header">
+            <div>
+              <select style="width: 120px;" class="form-control form-control-primary form-control-sm"
+                      [(ngModel)]="params_dt.psize"
+                      (change)="reload()">
+                <option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>
+              </select>
+            </div>
+            <div class="dt-content-search" >
+              <input type="text" class="form-control" placeholder="Buscar" #box (keyup.enter)="onEnter(box.value)">
+              <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()" ></i>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
 
       <ngx-datatable
         class="data-table"
@@ -47,6 +67,18 @@
         <ngx-datatable-column name="Razón Social">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{ row?.RazonSocial }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Tipo Act. Económica">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.clasificacion.tipoacteconomica.Descripcion }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Clasificación">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.clasificacion.Descripcion }}
           </ng-template>
         </ngx-datatable-column>
 

@@ -1,24 +1,40 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Listado'">
+    <app-card [title]="'Listado'" [cardOptionBlock]="true">
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
-            <button class="btn btn-primary" (click)="edit()">
+            <button class="btn btn-primary btn-sm" [routerLink]="['../new']">
               <i class="icofont icofont-plus"></i>
-              Agregar
+              Nueva Inspección
             </button>
-          </div>
-          <div class="pull-right">
-            <select style="width: 120px;" class="form-control form-control-primary" [(ngModel)]="selPageSize"
-                    (change)="ngOnInit()">
-              <option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>
-            </select>
           </div>
         </div>
 
       </div>
       <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="dt-custom-header">
+            <div>
+              <select style="width: 120px;" class="form-control form-control-primary form-control-sm"
+                      [(ngModel)]="params_dt.psize"
+                      (change)="reload()">
+                <option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>
+              </select>
+            </div>
+
+            <div class="dt-content-search" >
+              <input type="text" class="form-control" placeholder="Buscar" #box (keyup.enter)="onEnter(box.value)">
+              <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()" ></i>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
 
       <ngx-datatable
         class="data-table"
@@ -32,47 +48,57 @@
         [limit]="paginate.per_page"
         (page)='setPage($event)'>
 
-        <ngx-datatable-column name="Código">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.ID }}
-          </ng-template>
-        </ngx-datatable-column>
+        <!--<ngx-datatable-column name="Código">-->
+        <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+        <!--{{ row?.ID }}-->
+        <!--</ng-template>-->
+        <!--</ngx-datatable-column>-->
 
         <ngx-datatable-column name="Fecha Registro">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.FechaRegistro }}
+            {{ row?.created_at | date }}
           </ng-template>
         </ngx-datatable-column>
 
         <ngx-datatable-column name="Empresa">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Empresa }}
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="Inps. Asignado">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Colaborador }}
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="Cód. Formulario">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Formulario }}
+            {{ row?.empresa.RazonSocial }}
           </ng-template>
         </ngx-datatable-column>
 
         <ngx-datatable-column name="Estado">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Estado | status | status }}
+            {{ row?.Estado | status }}
           </ng-template>
         </ngx-datatable-column>
+
+        <ngx-datatable-column name="Fecha Inspeccion">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.FechaInspeccion | date }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Inps. Asignado">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.colaborador?.ApellidoPaterno }} {{ row?.colaborador?.ApellidoMaterno }}
+            {{ row?.colaborador?.NombrePrimero }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <!--<ngx-datatable-column name="Formulario">-->
+        <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+        <!--{{ row?.formulario?.Descripcion }}-->
+        <!--</ng-template>-->
+        <!--</ngx-datatable-column>-->
 
         <ngx-datatable-column name="Acciones">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div class="btn-group-icons">
-              <i class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar"  (click)="edit(row)"></i>
-              <!--<i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"  (click)="delete(row)"></i>-->
+              <!--<i class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar" (click)="edit(row)"></i>-->
+              <i class="icofont icofont-user-alt-3 m-r-15 f-20 text-dark" ngbTooltip="Colaborador"
+                 *ngIf="!row.colaborador && row?.Estado == 'PEN'" (click)="asign_colaborador(row)"></i>
+              <i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"
+                 *ngIf="row?.Estado == 'PEN' " (click)="delete(row)"></i>
             </div>
           </ng-template>
         </ngx-datatable-column>
@@ -85,10 +111,11 @@
 
   </div>
 </div>
-<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
+
+<app-modal-basic #modalForm [hideFooter]="true" >
 
   <div class="app-modal-header">
-    <h4 class="modal-title">Inspección</h4>
+    <h4 class="modal-title">Asignar Colaborador</h4>
     <button type="button" class="close basic-close" (click)="modalForm.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -99,4 +126,5 @@
   </div>
 
 </app-modal-basic>
+
 

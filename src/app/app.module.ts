@@ -17,6 +17,7 @@ import {DragulaModule} from 'ng2-dragula';
 import {UiSwitchModule} from 'ng2-ui-switch';
 import {NouisliderModule} from 'ng2-nouislider';
 import {TagInputModule} from 'ngx-chips';
+import {CatalogoModule} from './components/catalogo/catalogo.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {TagInputModule} from 'ngx-chips';
     UiSwitchModule,
     NouisliderModule,
     TagInputModule,
-    SharedModule
+    SharedModule,
+    CatalogoModule
   ],
   schemas: [],
   providers: [MenuItems],

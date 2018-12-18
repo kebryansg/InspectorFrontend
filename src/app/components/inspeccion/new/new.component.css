@@ -1,0 +1,9 @@
+.pull-right button{
+  margin-right: 2px;
+}
+
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+

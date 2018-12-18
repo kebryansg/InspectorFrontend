@@ -1,0 +1,26 @@
+<div class="general-info form-material">
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [(ngModel)]="slColaborador">
+          <option *ngFor="let colaborador of lsColaborador | async" [value]="colaborador.ID">
+            {{ colaborador.Colaborador }}
+          </option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Colaborador</label>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pull-right">
+        <button type="button" class="btn btn-default btn-sm ripple m-r-10" (click)="modalBasic.hide()">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm ripple light" [disabled]="!slColaborador" (click)="submit()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
