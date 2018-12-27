@@ -26,7 +26,8 @@ export class PopupSeccionComponent implements OnInit {
       ID: [ this.datos.ID || 0 ],
       Descripcion: [this.datos.Descripcion || '', Validators.required],
       Observacion: [this.datos.Observacion || '', Validators.required],
-      Estado: [this.datos.Estado || 'ACT', Validators.required]
+      Estado: [this.datos.Estado || 'ACT', Validators.required],
+      componentes: [ this.datos.componentes || [] ]
     });
   }
 

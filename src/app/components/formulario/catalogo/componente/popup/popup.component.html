@@ -10,7 +10,7 @@
 
       <div class="form-group form-primary" >
         <select class="form-control form-control-primary" [formControl]="form.controls['IDTipoComp']">
-          <option *ngFor="let item of lsTipo | async " [value]="item.ID"> {{ item.Descripcion }}</option>
+          <option *ngFor="let item of lsTipo" [value]="item.ID"> {{ item.Descripcion }}</option>
         </select>
         <span class="form-bar"></span>
         <label class="float-label">Tipo Componente</label>

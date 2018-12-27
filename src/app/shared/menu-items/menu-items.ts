@@ -136,7 +136,7 @@ const MENUITEMS = [
           {
             state: 'asign', name: 'Formulario - Categoría'
           },
-          {
+          /*{
             state: 'catalogo',
             name: 'Catálogo',
             type: 'sub',
@@ -149,7 +149,7 @@ const MENUITEMS = [
                 state: 'componente', name: 'Componente'
               },
             ]
-          },
+          },*/
 
 
         ]

@@ -16,7 +16,7 @@ export class PopupComponenteComponent implements OnInit {
   @Input() modalBasic: ModalBasicComponent;
 
   form: FormGroup;
-  lsTipo: any;
+  lsTipo: any[];
 
   constructor(
     private fb: FormBuilder,
@@ -32,12 +32,19 @@ export class PopupComponenteComponent implements OnInit {
       Estado: [this.datos.Estado || 'ACT', Validators.required]
     });
 
-    this.lsTipo = this.crudService.SeleccionarAsync('tipocomp_combo');
+    this.crudService.SeleccionarAsync('tipocomp_combo').then((data:any[]) => this.lsTipo = data);
 
   }
 
   submit(){
-    this.result.emit( this.form.value );
+
+    let data = this.form.value;
+    let tipo = this.lsTipo.find(item => data.IDTipoComp == item.ID);
+    data.Atributo = tipo.Valor;
+    data.Obligatorio = true;
+    data.TipoComp = tipo.Descripcion;
+
+    this.result.emit( data);
     this.modalBasic.hide();
   }
 

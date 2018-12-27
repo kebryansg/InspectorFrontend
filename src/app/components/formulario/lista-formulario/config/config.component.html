@@ -57,7 +57,7 @@
                 <i class="icofont icofont-reply"></i> Cancelar
               </button>
               <button class="btn btn-sm btn-primary" (click)="save()" *ngIf="lsSeccion?.length > 0">
-              <i class="icofont icofont-plus"></i> Guardar
+                <i class="icofont icofont-plus"></i> Guardar
               </button>
             </div>
           </div>
@@ -65,56 +65,167 @@
         </div>
       </div>
 
-
     </app-card>
   </div>
   <div class="col-sm-12">
-    <app-card [title]="'Configuración'">
-      <div class="row">
+    <div class="card">
+      <div class="card-header"
+           style="display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center">
+        <h5>Sección</h5>
 
-        <div class="col-md-6 col-xl-4" *ngFor="let seccion of lsSeccion">
-          <div class="card">
-            <div class="card-header">
-              <h5>{{ seccion.Descripcion }}</h5>
-            </div>
-            <div class="card-block">
-              <ul class="basic-list">
-                <li class="" *ngFor="let component of seccion.componentes">
-                  <div >
-                    <span>{{ component.Descripcion }}</span>
-                    <ui-switch class="js-single float-right" color="#1abc9c"
-                               switchColor="#fff"
-                               size="small"
-                               [checked]="component.Obligatorio"
-                               (change)="ui_switchChange($event, component)"></ui-switch>
-                  </div>
+        <button class="btn btn-sm btn-primary" (click)="newSeccion()">
+          <i class="icofont icofont-plus"></i>
+          Agregar
+        </button>
 
-
-                  <div *ngIf="component.IDTipoComp == 1" style="margin-top: 15px;">
-                    <tag-input [ngClass]="'tag-select'" theme='bootstrap' [placeholder] = "'+'" [secondaryPlaceholder]="'Añadir items'"
-                               [(ngModel)]="component.Atributo"
-                               [identifyBy]="'display'"
-                               [addOnBlur]="true"
-                               [clearOnBlur]="true">
-                    </tag-input>
-                  </div>
-
-                  <div *ngIf="component.IDTipoComp == 2" >
-                    <div class="ag-slider">
-                      <nouislider [min]="1" [max]="10" [step]="1" [(ngModel)]="component.Atributo" [tooltips]="[ true, true ]" style="margin-top: 5em;"></nouislider>
-                    </div>
-                    <span class="sub-title">Min - Max: <code> {{ component.Atributo | json }} </code></span>
-                  </div>
-
-
-                  <!--<p>Laborum nihil aliquam nulla praesentium illo libero nihil at odio maxime.</p>-->
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
-    </app-card>
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-6" *ngFor="let seccion of lsSeccion; let idx = index ">
+    <div class="card">
+      <div class="card-header"
+           style="display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center">
+        <h5>{{ seccion.Descripcion }}</h5>
+
+        <div class="btn-group-icons-custom">
+          <i class="icofont icofont-plus m-r-15 f-20 text-primary" ngbTooltip="Agregar Componente"
+             (click)="addComponente(idx)"></i>
+          <i class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar" (click)="newSeccion(idx)"></i>
+
+          <i *ngIf="seccion.Estado == 'ACT'" class="icofont icofont-trash f-20 text-danger"
+             ngbTooltip="Eliminar Sección"
+             (click)="deleteSeccion(idx)"></i>
+          <i *ngIf="seccion.Estado != 'ACT'" class="icofont icofont-refresh f-20 text-info" ngbTooltip="Activar Sección"
+             (click)="activeSeccion(idx)"></i>
+        </div>
+
+      </div>
+      <div class="card-block">
+
+        <ul class="basic-list">
+          <li class="" *ngFor="let component of seccion.componentes; let idxComp = index">
+            <div>
+              <span>{{ component.Descripcion }} - [ {{ component.tipocomp?.Descripcion || component.TipoComp }} ]</span>
+              <i *ngIf="component.Estado == 'ACT'" class="icofont icofont-trash m-l-15 f-20 text-danger float-right" ngbTooltip="Eliminar Componente"
+                 (click)="deleteComponent(idx,idxComp)"></i>
+              <i *ngIf="component.Estado != 'ACT'" class="icofont icofont-refresh m-l-15 f-20 text-info float-right" ngbTooltip="Activar Componente"
+                 (click)="activeComponent(idx,idxComp)"></i>
+              <ui-switch class="js-single float-right" color="#1abc9c"
+                         switchColor="#fff"
+                         size="small"
+                         ngbTooltip="Obligatorio"
+                         [checked]="component.Obligatorio"
+                         (change)="ui_switchChange($event, component)"></ui-switch>
+            </div>
+
+
+            <div *ngIf="component.IDTipoComp == 1" style="margin-top: 15px;">
+              <tag-input [ngClass]="'tag-select'" theme='bootstrap' [placeholder]="'+'"
+                         [secondaryPlaceholder]="'Añadir items'"
+                         [(ngModel)]="component.Atributo"
+                         [identifyBy]="'display'"
+                         [addOnBlur]="true"
+                         [clearOnBlur]="true">
+              </tag-input>
+            </div>
+
+            <div *ngIf="component.IDTipoComp == 2">
+              <div class="ag-slider">
+                <nouislider [min]="1" [max]="10" [step]="1" [(ngModel)]="component.Atributo"
+                            [tooltips]="[ true, true ]" style="margin-top: 5em;"></nouislider>
+              </div>
+              <span class="sub-title">Min - Max: <code> {{ component.Atributo | json }} </code></span>
+            </div>
+
+
+            <!--<p>Laborum nihil aliquam nulla praesentium illo libero nihil at odio maxime.</p>-->
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+    <!--<div class="card-block">-->
+    <!--<div class="row" >-->
+    <!--<div class="col-md-5 card" *ngFor="let seccion of lsSeccion">-->
+    <!--<div class="card-header">-->
+    <!--<h5>{{ seccion.Descripcion }}</h5>-->
+    <!--</div>-->
+    <!--<div class="card-block">-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--</div>-->
+    <!--</div>-->
   </div>
 
 </div>
+<!--<div class="col-sm-12">-->
+<!--<app-card [title]="'Configuración'">-->
+<!--<div class="row">-->
+
+<!--<div class="col-md-6 col-xl-4" *ngFor="let seccion of lsSeccion">-->
+<!--<div class="card">-->
+<!--<div class="card-header">-->
+<!--<h5>{{ seccion.Descripcion }}</h5>-->
+<!--</div>-->
+<!--<div class="card-block">-->
+<!--<ul class="basic-list">-->
+<!--<li class="" *ngFor="let component of seccion.componentes">-->
+<!--<div>-->
+<!--<span>{{ component.Descripcion }}</span>-->
+<!--<ui-switch class="js-single float-right" color="#1abc9c"-->
+<!--switchColor="#fff"-->
+<!--size="small"-->
+<!--[checked]="component.Obligatorio"-->
+<!--(change)="ui_switchChange($event, component)"></ui-switch>-->
+<!--</div>-->
+
+
+<!--<div *ngIf="component.IDTipoComp == 1" style="margin-top: 15px;">-->
+<!--<tag-input [ngClass]="'tag-select'" theme='bootstrap' [placeholder]="'+'"-->
+<!--[secondaryPlaceholder]="'Añadir items'"-->
+<!--[(ngModel)]="component.Atributo"-->
+<!--[identifyBy]="'display'"-->
+<!--[addOnBlur]="true"-->
+<!--[clearOnBlur]="true">-->
+<!--</tag-input>-->
+<!--</div>-->
+
+<!--<div *ngIf="component.IDTipoComp == 2">-->
+<!--<div class="ag-slider">-->
+<!--<nouislider [min]="1" [max]="10" [step]="1" [(ngModel)]="component.Atributo"-->
+<!--[tooltips]="[ true, true ]" style="margin-top: 5em;"></nouislider>-->
+<!--</div>-->
+<!--<span class="sub-title">Min - Max: <code> {{ component.Atributo | json }} </code></span>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash;<p>Laborum nihil aliquam nulla praesentium illo libero nihil at odio maxime.</p>&ndash;&gt;-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</app-card>-->
+<!--</div>-->
+
+<!--</div>-->
+<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
+
+  <div class="app-modal-header">
+    <h4 class="modal-title">{{ titleModal }}</h4>
+    <button type="button" class="close basic-close" (click)="modalForm.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="app-modal-body">
+    <ng-template #container></ng-template>
+  </div>
+
+</app-modal-basic>
