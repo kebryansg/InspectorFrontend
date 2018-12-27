@@ -5,6 +5,8 @@ import swal from 'sweetalert2';
 import {ModalService} from '../../../shared/services/modal.service';
 import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
 import {AsignColaboradorComponent} from './asign/asign.component';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -35,7 +37,8 @@ export class ListComponent implements OnInit {
   constructor(
     private crudService: CrudService,
     private modalService: ModalService,
-    private tools: ToolsService, ) {
+    private tools: ToolsService,
+    private db: AngularFireDatabase) {
   }
 
   ngOnInit() {
@@ -111,6 +114,18 @@ export class ListComponent implements OnInit {
     });
 
 
+  }
+
+  refreshCloud(){
+
+
+
+      /* Traer datos */
+    // this.db.list('/files/forms')
+    //   .valueChanges()
+    //   .subscribe((item)=>{
+    //     console.log(item);
+    //   });
   }
 
 }

@@ -18,6 +18,12 @@ import {UiSwitchModule} from 'ng2-ui-switch';
 import {NouisliderModule} from 'ng2-nouislider';
 import {TagInputModule} from 'ngx-chips';
 import {CatalogoModule} from './components/catalogo/catalogo.module';
+import {environment} from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -37,10 +43,17 @@ import {CatalogoModule} from './components/catalogo/catalogo.module';
     NouisliderModule,
     TagInputModule,
     SharedModule,
-    CatalogoModule
+    CatalogoModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
   schemas: [],
-  providers: [MenuItems],
+  providers: [
+    MenuItems,
+    AngularFireDatabase
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

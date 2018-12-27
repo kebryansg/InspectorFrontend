@@ -35,7 +35,9 @@ export class ConfigFormularioComponent implements OnInit {
     this.lsSeccion = seccions.map(item => {
       item.componentes.forEach(row => {
         row.Obligatorio = (row.Obligatorio == 1);
-        row.Atributo = JSON.parse(row.Atributo);
+        // console.log(row);
+        // row.Atributo = JSON.parse(row.Atributo);
+        row.Atributo = (row.Atributo);
       });
       return item;
     });

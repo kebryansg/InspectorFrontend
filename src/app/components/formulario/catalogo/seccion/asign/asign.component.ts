@@ -38,8 +38,8 @@ export class AsignSeccionComponent implements OnInit {
 
      let rows: any = await this.crudService.SeleccionarAsync(`components/seccion`);
 
-     this.lsComponents = rows.filter( item => item.IDSeccion != seccion );
-     this.lsSeccionComponents = rows.filter( item => item.IDSeccion == seccion );
+     this.lsComponents = rows.filter( item => (item.IDSeccion != seccion || item.SEstado == 'INA' ) );
+     this.lsSeccionComponents = rows.filter( item => (item.IDSeccion == seccion && item.SEstado == 'ACT') );
 
   }
   filterLs(){

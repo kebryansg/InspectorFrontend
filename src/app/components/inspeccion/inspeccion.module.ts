@@ -8,6 +8,10 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NewInspeccionComponent } from './new/new.component';
 import { AsignColaboradorComponent } from './list/asign/asign.component';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @NgModule({
   imports: [
@@ -16,7 +20,10 @@ import { AsignColaboradorComponent } from './list/asign/asign.component';
     NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,
-    InspeccionRoutingModule
+    InspeccionRoutingModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
   declarations: [
     ListComponent,
@@ -25,6 +32,9 @@ import { AsignColaboradorComponent } from './list/asign/asign.component';
   ],
   entryComponents:[
     AsignColaboradorComponent,
+  ],
+  providers: [
+    AngularFireDatabase
   ]
 })
 export class InspeccionModule { }
