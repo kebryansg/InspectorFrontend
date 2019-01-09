@@ -69,6 +69,11 @@ export class ColaboradorComponent implements OnInit {
 
   }
 
+  async synchronize(row) {
+    await this.crudService.SeleccionarAsync(`colaborador/${ row.ID }/async`);
+    this.reload();
+  }
+
   delete(row) {
     this.crudService.Eliminar(`colaborador/${ row.ID }`)
       .subscribe(data => {

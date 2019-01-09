@@ -37,6 +37,7 @@ export class NewInspeccionComponent implements OnInit {
     private modalService: ModalService,
     private router: Router,
     private route: ActivatedRoute,
+    // private afs: AngularFirestore,
     private fb: FormBuilder,
   ) {
   }
@@ -85,6 +86,10 @@ export class NewInspeccionComponent implements OnInit {
     this.crudService.Insertar(data, 'inspeccion')
       .subscribe(
         res => {
+
+          console.log(res);
+          // this.afs.collection('inspeccion').doc(res.ID)
+
           this.router.navigate(['../list'], {relativeTo: this.route});
         },
         error => {

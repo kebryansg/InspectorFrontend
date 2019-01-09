@@ -24,6 +24,7 @@ export class ConfigFormularioComponent implements OnInit {
   datos: any;
   IDFormulario: number;
   lsSeccion: any[] = [];
+  titleModal:string;
 
   constructor(
     private crudService: CrudService,
@@ -75,13 +76,18 @@ export class ConfigFormularioComponent implements OnInit {
     this.modalForm.show();
   }
 
-  addComponente(idx: number) {
-    this.titleModal = 'Nuevo Componente';
+  addComponente(idxSeccion: number, idxComponente: number = -1) {
+    this.titleModal = (idxComponente == -1)? 'Nuevo Componente': 'Editar Componente';
     this.modalService.setRootViewContainerRef(this.entry);
     this.modalService.addDynamicComponent(PopupComponenteComponent, {
-      datos: {},
+      datos: (idxComponente == -1)? {}:this.lsSeccion[idxSeccion].componentes[idxComponente],
       modal: this.modalForm,
-      result: (data => this.lsSeccion[idx].componentes.push(data))
+      result: (data => {
+        if(idxComponente == -1)
+          this.lsSeccion[idxSeccion].componentes.push(data);
+        else
+          this.lsSeccion[idxSeccion].componentes[idxComponente] = data;
+      })
     });
 
     this.modalForm.show();

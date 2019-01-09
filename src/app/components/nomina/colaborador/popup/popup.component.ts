@@ -39,6 +39,7 @@ export class PopupColaboradorComponent implements OnInit {
       ApellidoPaterno: [this.datos.ApellidoPaterno || '', Validators.required],
       ApellidoMaterno: [this.datos.ApellidoMaterno || '', Validators.required],
       Cedula: [this.datos.Cedula || '', Validators.required],
+      Email: [this.datos.Email || '', Validators.required],
       IDCompania: [this.datos.IDCompania || '', Validators.required],
       IDCargo: [this.datos.IDCargo || '', Validators.required],
       IDArea: [this.datos.IDArea || '', Validators.required],

@@ -75,6 +75,13 @@ export class ListaFormularioComponent implements OnInit {
 
   }
 
+  async synchronize(row) {
+    await this.crudService.SeleccionarAsync(`formulario_async`,{
+      ID : row.ID
+    });
+    this.reload();
+  }
+
   delete(row) {
     this.crudService.Eliminar(`formulario/${ row.ID }`)
       .subscribe(data => {

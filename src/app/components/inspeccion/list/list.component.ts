@@ -116,6 +116,11 @@ export class ListComponent implements OnInit {
 
   }
 
+  async synchronize(row) {
+    await this.crudService.SeleccionarAsync(`inspeccion/${ row.ID }/async`);
+    this.reload();
+  }
+
   refreshCloud(){
 
 

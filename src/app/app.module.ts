@@ -45,6 +45,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
     SharedModule,
     CatalogoModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,

@@ -75,7 +75,7 @@
 
         <button class="btn btn-sm btn-primary" (click)="newSeccion()">
           <i class="icofont icofont-plus"></i>
-          Agregar
+          Agregar Sección
         </button>
 
       </div>
@@ -93,7 +93,7 @@
         <div class="btn-group-icons-custom">
           <i class="icofont icofont-plus m-r-15 f-20 text-primary" ngbTooltip="Agregar Componente"
              (click)="addComponente(idx)"></i>
-          <i class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar" (click)="newSeccion(idx)"></i>
+          <i class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar Sección" (click)="newSeccion(idx)"></i>
 
           <i *ngIf="seccion.Estado == 'ACT'" class="icofont icofont-trash f-20 text-danger"
              ngbTooltip="Eliminar Sección"
@@ -109,10 +109,12 @@
           <li class="" *ngFor="let component of seccion.componentes; let idxComp = index">
             <div>
               <span>{{ component.Descripcion }} - [ {{ component.tipocomp?.Descripcion || component.TipoComp }} ]</span>
+
               <i *ngIf="component.Estado == 'ACT'" class="icofont icofont-trash m-l-15 f-20 text-danger float-right" ngbTooltip="Eliminar Componente"
                  (click)="deleteComponent(idx,idxComp)"></i>
               <i *ngIf="component.Estado != 'ACT'" class="icofont icofont-refresh m-l-15 f-20 text-info float-right" ngbTooltip="Activar Componente"
                  (click)="activeComponent(idx,idxComp)"></i>
+              <i class="icofont icofont-edit-alt m-l-15 f-20 text-primary float-right" ngbTooltip="Editar Componente" (click)="addComponente( idx, idxComp)"></i>
               <ui-switch class="js-single float-right" color="#1abc9c"
                          switchColor="#fff"
                          size="small"
