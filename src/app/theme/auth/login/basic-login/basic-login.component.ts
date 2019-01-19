@@ -57,7 +57,7 @@ export class BasicLoginComponent implements OnInit {
           msg: 'Las credenciales de usuario son incorrectas.',
           // showClose: false,
           timeout: 5000,
-          theme: 'material'
+          theme: 'bootstrap'
         };
 
 

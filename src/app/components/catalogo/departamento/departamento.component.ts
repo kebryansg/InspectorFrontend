@@ -24,6 +24,7 @@ export class DepartamentoComponent implements OnInit {
   };
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
+  titleModal: string;
 
   constructor(
     private crudService: CrudService,
@@ -46,8 +47,13 @@ export class DepartamentoComponent implements OnInit {
 
   async edit(row?) {
     let data = {};
+
+    this.titleModal = 'Nuevo';
     if (row)
+    {
       data = await this.crudService.SeleccionarAsync(`departamento/${ row.ID }`);
+      this.titleModal = 'Editar';
+    }
 
     this.modalService.setRootViewContainerRef( this.entry );
     this.modalService.addDynamicComponent( PopupDepartamentoComponent , {

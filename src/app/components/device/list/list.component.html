@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Listado Dispositivos'" [cardOptionBlock]="true">
+
+      <ngx-datatable
+        class="data-table"
+        [rows]="paginate.data"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [externalPaging]="true"
+        [count]="paginate.total"
+        [limit]="paginate.per_page"
+        (page)='setPage($event)'>
+
+        <!--<ngx-datatable-column name="Código">-->
+        <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
+        <!--{{ row?.ID }}-->
+        <!--</ng-template>-->
+        <!--</ngx-datatable-column>-->
+
+        <ngx-datatable-column name="Fecha Registro">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.created_at | moment }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="MAC">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.MAC }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Status">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Autorizado | autorizado }}
+          </ng-template>
+        </ngx-datatable-column>
+
+
+        <ngx-datatable-column name="Acciones">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div class="btn-group-icons">
+              <i class="icofont icofont-key m-r-15 f-20 text-primary" ngbTooltip="Token - Clave" (click)="showKey(row)"></i>
+              <i class="icofont icofont-check-circled m-r-15 f-20 text-success" ngbTooltip="Autorizar" *ngIf="!row?.Autorizado" (click)="autorizarDevice(row)"></i>
+              <i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="No Autorizar" *ngIf="row?.Autorizado" (click)="removeDevice(row)"></i>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+
+      </ngx-datatable>
+
+    </app-card>
+
+
+  </div>
+</div>

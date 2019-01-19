@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CrudService} from '../../../../shared/services/crud.service';
+import {ToolsService} from '../../../../shared/services/tools.service';
 
 @Component({
   selector: 'app-popup',
@@ -19,7 +20,8 @@ export class PopupAreaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private crudService: CrudService
+    private crudService: CrudService,
+    protected tools: ToolsService
   ) { }
 
   ngOnInit() {

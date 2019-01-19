@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToolsService} from '../../../../shared/services/tools.service';
 
 @Component({
   selector: 'app-popup',
@@ -16,7 +17,8 @@ export class PopupDepartamentoComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected tools: ToolsService
   ) { }
 
   ngOnInit() {

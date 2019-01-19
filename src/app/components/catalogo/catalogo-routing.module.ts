@@ -26,7 +26,7 @@ const routes: Routes = [
         path: 'compania',
         component: CompaniaComponent,
         data: {
-          title: 'Compañia',
+          title: 'Compañía',
           status: true
         }
       },
@@ -42,7 +42,7 @@ const routes: Routes = [
         path: 'clasificacion',
         component: ClasificacionComponent,
         data: {
-          title: 'Clasificacion',
+          title: 'Clasificación',
           status: true
         }
       },
@@ -66,7 +66,7 @@ const routes: Routes = [
         path: 'area',
         component: AreaComponent,
         data: {
-          title: 'Area',
+          title: 'Área',
           status: true
         }
       },
@@ -74,7 +74,7 @@ const routes: Routes = [
         path: 'actividad-economica',
         component: ActividadEconomicaComponent,
         data: {
-          title: 'Actividad Economica',
+          title: 'Actividad Económica',
           status: true
         }
       },
@@ -82,7 +82,7 @@ const routes: Routes = [
         path: 'tipo-empresa',
         component: TipoEmpresaComponent,
         data: {
-          title: 'Tipo Empresa',
+          title: 'Tipo Act. Económica',
           status: true
         }
       }

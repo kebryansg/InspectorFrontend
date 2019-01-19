@@ -35,7 +35,10 @@
               "src/assets/icon/feather/css/feather.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/moment/min/moment-with-locales.js",
+              "node_modules/moment/locale/es.js"
             ]
           },
           "configurations": {

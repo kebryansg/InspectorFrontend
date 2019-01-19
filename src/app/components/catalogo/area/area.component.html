@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Area'">
+    <app-card [title]="'Área'">
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
@@ -38,6 +38,12 @@
           </ng-template>
         </ngx-datatable-column>
 
+        <ngx-datatable-column name="Departamento">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.Departamento }}
+          </ng-template>
+        </ngx-datatable-column>
+
         <ngx-datatable-column name="Estado">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{ row?.Estado | status }}
@@ -65,7 +71,7 @@
 <app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
 
   <div class="app-modal-header">
-    <h4 class="modal-title">Area - </h4>
+    <h4 class="modal-title">Área - {{ titleModal }}</h4>
     <button type="button" class="close basic-close" (click)="modalForm.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/animations';
 import {MenuItems} from '../../shared/menu-items/menu-items';
+import {CrudService} from '../../shared/services/crud.service';
 
 @Component({
   selector: 'app-admin',
@@ -81,6 +82,13 @@ import {MenuItems} from '../../shared/menu-items/menu-items';
   ]
 })
 export class AdminComponent implements OnInit, OnDestroy {
+
+  usuario: any = {
+    Username: ''
+  };
+
+  //#region Atributos Plantilla
+
   public animateSidebar: string;
   public navType: string;
   public themeLayout: string;
@@ -144,6 +152,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   public config: any;
   public searchInterval: any;
+  //#endregion
 
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
@@ -164,7 +173,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(public menuItems: MenuItems) {
+  constructor(public menuItems: MenuItems,
+              private crudService: CrudService) {
+
+    //#region InitAtributos Plantilla
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -221,6 +233,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.setMenuAttributes(this.windowWidth);
     this.setHeaderAttributes(this.windowWidth);
+    //#endregion
+
+    this.loadUsuario()
 
     // dark theme
     /*this.setLayoutType('dark');*/
@@ -240,6 +255,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setBackgroundPattern('theme1');
+  }
+
+  async loadUsuario(){
+    this.crudService.SeleccionarAsync('',{})
+    this.usuario.Username = 'Kevin Suárez'
   }
 
   logout(){

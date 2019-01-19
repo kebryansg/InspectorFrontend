@@ -47,11 +47,11 @@ const MENUITEMS = [
           },
           {
             state: 'compania',
-            name: 'Compañia'
+            name: 'Compañía'
           },
           {
             state: 'tipo-empresa',
-            name: 'Tipo Categoria'
+            name: 'Tipo Categoría'
           },
           {
             state: 'entidad',
@@ -75,7 +75,7 @@ const MENUITEMS = [
           },
           {
             state: 'area',
-            name: 'Area'
+            name: 'Área'
           }
         ]
       },
@@ -110,20 +110,6 @@ const MENUITEMS = [
         ]
       },
       {
-        state: 'inspeccion',
-        short_label: 'I',
-        name: 'Inspección',
-        type: 'sub',
-        icon: 'feather icon-gitlab',
-        children: [
-          {
-            state: 'list',
-            name: 'Listado de Inspecciones'
-          },
-
-        ]
-      },
-      {
         state: 'formulario',
         short_label: 'FM',
         name: 'Formularios',
@@ -154,6 +140,39 @@ const MENUITEMS = [
 
         ]
       },
+      {
+        state: 'inspeccion',
+        short_label: 'I',
+        name: 'Inspección',
+        type: 'sub',
+        icon: 'feather icon-gitlab',
+        children: [
+          {
+            state: 'list',
+            name: 'Listado de Inspecciones'
+          },
+
+        ]
+      },
+      {
+        state: 'device',
+        short_label: 'D',
+        name: 'Dispositivos',
+        type: 'sub',
+        icon: 'feather icon-gitlab',
+        children: [
+          {
+            state: 'list',
+            name: 'Listado de Dispositivos'
+          },
+          {
+            state: 'ubicar',
+            name: 'Rastrear'
+          },
+
+        ]
+      },
+
       /*{
         state: 'simple-page',
         short_label: 'S',

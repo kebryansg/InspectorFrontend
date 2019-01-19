@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Listado'" [cardOptionBlock]="true">
+    <app-card [title]="'Listado Inspección'" [cardOptionBlock]="true">
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
@@ -78,13 +78,13 @@
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Fecha Inspeccion">
+        <ngx-datatable-column name="Fecha Inspección">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{ row?.FechaInspeccion | date }}
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Inps. Asignado">
+        <ngx-datatable-column name="Insp. Asignado">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{ row?.colaborador?.ApellidoPaterno }} {{ row?.colaborador?.ApellidoMaterno }}
             {{ row?.colaborador?.NombrePrimero }}
@@ -122,7 +122,7 @@
 <app-modal-basic #modalForm [hideFooter]="true" >
 
   <div class="app-modal-header">
-    <h4 class="modal-title">Asignar Colaborador</h4>
+    <h4 class="modal-title">Asignar Colaborador - Inspección</h4>
     <button type="button" class="close basic-close" (click)="modalForm.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

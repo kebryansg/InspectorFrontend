@@ -24,6 +24,7 @@ export class AreaComponent implements OnInit {
   };
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
+  titleModal: string;
 
   constructor(
     private crudService: CrudService,
@@ -46,8 +47,11 @@ export class AreaComponent implements OnInit {
 
   async edit(row?) {
     let data = {};
-    if (row)
+    this.titleModal = 'Nuevo';
+    if (row){
       data = await this.crudService.SeleccionarAsync(`area/${ row.ID }`);
+      this.titleModal = 'Editar';
+    }
 
     this.modalService.setRootViewContainerRef( this.entry );
     this.modalService.addDynamicComponent( PopupAreaComponent , {

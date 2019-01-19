@@ -20,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {ToolsService} from './services/tools.service';
 import {ModalService} from './services/modal.service';
 import { StatusPipe } from './pipes/status.pipe';
+import {AutorizadoPipe} from './pipes/autorizado.pipe';
+import { MomentPipe } from './pipes/moment.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -51,7 +53,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SpinnerComponent,
     ClickOutsideModule,
     DataFilterPipe,
-    StatusPipe
+    StatusPipe,
+    AutorizadoPipe,
+    MomentPipe
   ],
   declarations: [
     ToggleFullScreenDirective,
@@ -65,7 +69,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModalAnimationComponent,
     SpinnerComponent,
     DataFilterPipe,
-    StatusPipe
+    StatusPipe,
+    AutorizadoPipe,
+    MomentPipe
   ],
   providers: [
     CrudService,

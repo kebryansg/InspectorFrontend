@@ -30,7 +30,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
     AppComponent,
     AdminComponent,
     AuthComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,13 +15,18 @@ export class AsignColaboradorComponent implements OnInit {
   lsColaborador: any[] = [];
   slColaborador: number;
 
+  // Datos Empresa
+  NombreComercial: string;
+
   constructor(
-    private crudService: CrudService
-    ) {
+    private crudService: CrudService) {
+
+
     this.lsColaborador = <any> this.crudService.SeleccionarAsync('colaborador_inspector');
   }
 
   ngOnInit() {
+    this.NombreComercial = this.datos.NombreComercial;
   }
 
   submit(){

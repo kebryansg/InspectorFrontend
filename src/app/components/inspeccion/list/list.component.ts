@@ -66,9 +66,13 @@ export class ListComponent implements OnInit {
   }
 
   asign_colaborador(row) {
+    let data = {
+      NombreComercial: row.empresa.NombreComercial
+    };
 
     this.modalService.setRootViewContainerRef( this.entry );
     this.modalService.addDynamicComponent( AsignColaboradorComponent , {
+      datos: data,
       modal: this.modalForm,
       result: (data => {
         this.crudService.Actualizar({}, `inspeccion/${ row.ID }/coladorador/${ data }/`)

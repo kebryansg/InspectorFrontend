@@ -57,6 +57,10 @@ const routes: Routes = [
       {
         path: 'user',
         loadChildren: './theme/user/user.module#UserModule'
+      },
+      {
+        path: 'device',
+        loadChildren: './components/device/device.module#DeviceModule'
       }
     ]
   },
