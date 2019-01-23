@@ -7,6 +7,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {FormsModule} from '@angular/forms';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { UbicacionComponent } from './ubicacion/ubicacion.component';
     SharedModule,
     NgxDatatableModule,
     FormsModule,
+    AgmCoreModule,
     DeviceRoutingModule
   ],
   declarations: [

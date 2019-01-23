@@ -9,12 +9,6 @@
               Nueva Inspección
             </button>
           </div>
-          <div class="pull-right">
-            <button class="btn btn-primary btn-sm" (click)="refreshCloud()">
-              <i class="icofont icofont-cloud"></i>
-              Refrescar
-            </button>
-          </div>
         </div>
 
       </div>
@@ -41,7 +35,6 @@
         </div>
       </div>
 
-
       <ngx-datatable
         class="data-table"
         [rows]="paginate.data"
@@ -53,12 +46,6 @@
         [count]="paginate.total"
         [limit]="paginate.per_page"
         (page)='setPage($event)'>
-
-        <!--<ngx-datatable-column name="Código">-->
-        <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
-        <!--{{ row?.ID }}-->
-        <!--</ng-template>-->
-        <!--</ngx-datatable-column>-->
 
         <ngx-datatable-column name="Fecha Registro">
           <ng-template let-row="row" ngx-datatable-cell-template>
@@ -91,17 +78,13 @@
           </ng-template>
         </ngx-datatable-column>
 
-        <!--<ngx-datatable-column name="Formulario">-->
-        <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
-        <!--{{ row?.formulario?.Descripcion }}-->
-        <!--</ng-template>-->
-        <!--</ngx-datatable-column>-->
-
         <ngx-datatable-column name="Acciones">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div class="btn-group-icons">
               <i class="icofont icofont-upload-alt m-r-15 f-20 text-primary" ngbTooltip="Sincronizar"
                  *ngIf="row.colaborador && row.updated_at != row.firebase_at" (click)="synchronize(row)"></i>
+              <a class="icofont icofont-eye-alt m-r-15 f-20 text-primary" ngbTooltip="Anexos"
+                 *ngIf="row.Estado == 'APR'" [routerLink]="['../view']"></a>
               <i class="icofont icofont-user-alt-3 m-r-15 f-20 text-dark" ngbTooltip="Colaborador"
                  *ngIf="!row.colaborador && row?.Estado == 'PEN'" (click)="asign_colaborador(row)"></i>
               <i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"

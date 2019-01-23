@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import swal from "sweetalert2";
 
 @Injectable({
   providedIn: 'root'

@@ -1,3 +1,21 @@
-<p>
-  ubicacion works!
-</p>
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Listado Dispositivos'" [cardOptionBlock]="true">
+
+      <agm-map [latitude]="lsDispositivos[0].lat" [longitude]="lsDispositivos[0].lng" [zoom]="17">
+
+        <agm-marker *ngFor="let dispositivo of lsDispositivos" [latitude]="dispositivo.lat"
+                    [longitude]="dispositivo.lng" >
+          <agm-info-window [isOpen]="true" >
+            <h5><strong>{{ dispositivo.label }}</strong></h5>
+          </agm-info-window>
+        </agm-marker>
+
+      </agm-map>
+
+    </app-card>
+  </div>
+</div>
+
+
+

@@ -125,16 +125,4 @@ export class ListComponent implements OnInit {
     this.reload();
   }
 
-  refreshCloud(){
-
-
-
-      /* Traer datos */
-    // this.db.list('/files/forms')
-    //   .valueChanges()
-    //   .subscribe((item)=>{
-    //     console.log(item);
-    //   });
-  }
-
 }

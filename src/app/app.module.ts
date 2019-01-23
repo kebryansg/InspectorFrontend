@@ -25,6 +25,10 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
 
+// Maps
+import { AgmCoreModule } from '@agm/core';
+import {LightboxModule} from 'angular2-lightbox';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +45,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
     DragulaModule.forRoot(),
     UiSwitchModule,
     NouisliderModule,
+    LightboxModule,
     TagInputModule,
     SharedModule,
     CatalogoModule,
@@ -49,6 +54,9 @@ import {AngularFireDatabase} from '@angular/fire/database';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapsKey
+    })
   ],
   schemas: [],
   providers: [

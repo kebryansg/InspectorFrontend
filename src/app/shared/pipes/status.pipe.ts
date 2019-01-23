@@ -12,6 +12,7 @@ export class StatusPipe implements PipeTransform {
       case 'INA': result = 'Inactivo';  break;
       case 'ANU': result = 'Anulado';  break;
       case 'PEN': result = 'Pendiente';  break;
+      case 'APR': result = 'Aprobado';  break;
     }
     return result;
   }

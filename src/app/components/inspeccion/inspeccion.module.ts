@@ -12,6 +12,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireDatabase} from '@angular/fire/database';
+import { ViewInspeccionComponent } from './list/view/view.component';
+import {LightboxModule} from 'angular2-lightbox';
 
 @NgModule({
   imports: [
@@ -24,11 +26,13 @@ import {AngularFireDatabase} from '@angular/fire/database';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    LightboxModule,
   ],
   declarations: [
     ListComponent,
     NewInspeccionComponent,
     AsignColaboradorComponent,
+    ViewInspeccionComponent,
   ],
   entryComponents:[
     AsignColaboradorComponent,

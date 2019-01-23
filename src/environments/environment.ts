@@ -11,7 +11,8 @@ export const environment = {
     projectId: "inspector-7933a",
     storageBucket: "inspector-7933a.appspot.com",
     messagingSenderId: "401843590269"
-  }
+  },
+  googleMapsKey: 'AIzaSyBCMLN-ZbmFDw7Rf_OLsCDrYzI4n-jcaX0'
 };
 
 /*

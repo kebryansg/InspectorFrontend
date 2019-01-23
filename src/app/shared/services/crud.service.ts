@@ -60,4 +60,8 @@ export class CrudService {
       header.append('Authorization', `${ localStorage.getItem('tokenType') } ${ localStorage.getItem('authToken') }`);
     return header;
   }
+
+  getURLServer(){
+    return this.puerto;
+  }
 }
