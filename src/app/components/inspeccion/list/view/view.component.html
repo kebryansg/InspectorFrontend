@@ -4,12 +4,19 @@
 
       <div class="row">
         <div class="col-md-12">
+          <div class="pull-left">
+            <button class="btn btn-sm btn-danger m-r-15" (click)="goBack()">
+              <i class="icofont icofont-reply f-35"></i>
+              Regresar
+            </button>
+          </div>
+
           <div class="pull-right">
             <button class="btn btn-sm btn-dropbox m-r-15" (click)="downloadFormulario()">
               <i class="icofont icofont-download f-35"></i>
               Descargar Resultados
             </button>
-            <button class="btn btn-sm btn-danger" (click)="sendMailFormulario()">
+            <button class="btn btn-sm btn-primary" (click)="sendMailFormulario()">
               <i class="icofont icofont-send-mail f-35"></i>
               Reenviar Resultados
             </button>
@@ -79,9 +86,7 @@
                   </div>
                 </div>
 
-
                 <h5>Empresa</h5>
-
                 <div class="row">
                   <div class="col-md-12">
                     <div class="general-info">
@@ -134,8 +139,18 @@
                   </div>
                 </div>
 
-
-
+                <div *ngIf="dataInspeccion?.observacions.length > 0">
+                  <h5 class="text-c-red">Observación</h5>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="basic-list">
+                        <li *ngFor="let observacion of dataInspeccion.observacions">
+                          <h6>{{ observacion.Observacion }}</h6>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
 
               </div>
             </ng-template>

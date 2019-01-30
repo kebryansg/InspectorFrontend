@@ -85,11 +85,11 @@
                  *ngIf="row.colaborador && row.updated_at != row.firebase_at" (click)="synchronize(row)"></i>
 
               <a class="icofont icofont-eye-alt m-r-15 f-20 text-primary" ngbTooltip="Revisar Resultados"
-                 *ngIf="row.Estado == 'APR'" [routerLink]="['../view', row.ID]"></a>
+                 *ngIf="validVerResultados(row)" [routerLink]="['../view', row.ID]"></a>
               <i class="icofont icofont-download m-r-15 f-20 text-success" ngbTooltip="Descargar Resultados"
-                 *ngIf="row.Estado == 'APR'" (click)="downloadFormulario(row)"></i>
+                 *ngIf="validVerResultados(row)" (click)="downloadFormulario(row)"></i>
               <i class="icofont icofont-send-mail m-r-15 f-20 text-dark" ngbTooltip="Reenviar Resultados"
-                 *ngIf="row.Estado == 'APR'" (click)="sendMailFormulario(row)"></i>
+                 *ngIf="validVerResultados(row)" (click)="sendMailFormulario(row)"></i>
 
               <i class="icofont icofont-user-alt-3 m-r-15 f-20 text-dark" ngbTooltip="Colaborador"
                  *ngIf="!row.colaborador && row?.Estado == 'PEN'" (click)="asign_colaborador(row)"></i>
@@ -98,7 +98,6 @@
             </div>
           </ng-template>
         </ngx-datatable-column>
-
 
       </ngx-datatable>
 

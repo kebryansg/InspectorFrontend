@@ -22,7 +22,7 @@
           <a class="mobile-menu ripple light" id="mobile-collapse" href="javascript:" (click)="toggleOpened($event)" [exclude]="'#main_navbar'" (clickOutside)="onClickedOutsideSidebar($event)">
             <i class="feather" [ngClass]="toggleIcon"></i>
           </a>
-          <a [routerLink]="['/dashboard/default/']" class="ripple light">
+          <a [routerLink]="['/dashboard/']" class="ripple light">
             <img class="img-fluid" src="assets/images/Polux.png" style="height: 60px !important;" />
           </a>
           <a href="javascript:" class="mobile-options ripple light" (click)="toggleHeaderNavRight()">

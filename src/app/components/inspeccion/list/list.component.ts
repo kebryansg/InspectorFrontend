@@ -6,7 +6,6 @@ import {ModalService} from '../../../shared/services/modal.service';
 import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
 import {AsignColaboradorComponent} from './asign/asign.component';
 import {AngularFireDatabase} from '@angular/fire/database';
-import {Observable} from 'rxjs';
 import {ExportService} from '../../../shared/services/export.service';
 
 @Component({
@@ -49,6 +48,10 @@ export class ListComponent implements OnInit {
 
   setPage(event) {
     this.reload(event.offset + 1);
+  }
+
+  validVerResultados(row){
+    return row.Estado == 'APR' || row.Estado == 'REP';
   }
 
   onEnter(value: string) {

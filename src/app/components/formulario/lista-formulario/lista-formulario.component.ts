@@ -5,6 +5,7 @@ import {ModalService} from '../../../shared/services/modal.service';
 import {ToolsService} from '../../../shared/services/tools.service';
 import {PopupFormularioComponent} from './popup/popup.component';
 import {PopupSeccionComponent} from '../catalogo/seccion/popup/popup.component';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-formulario',
@@ -43,20 +44,19 @@ export class ListaFormularioComponent implements OnInit {
   }
 
   async reload() {
-    this.paginate = await this.crudService.SeleccionarAsync('formulario', { page: 1, psize: this.selPageSize });
+    this.paginate = await this.crudService.SeleccionarAsync('formulario', {page: 1, psize: this.selPageSize});
   }
 
   async edit(row?) {
     let data = {};
     this.titleModal = 'Nuevo';
-    if (row)
-    {
-      data = await this.crudService.SeleccionarAsync(`formulario/${ row.ID }`);
+    if (row) {
+      data = await this.crudService.SeleccionarAsync(`formulario/${row.ID}`);
       this.titleModal = 'Editar';
     }
 
-    this.modalService.setRootViewContainerRef( this.entry );
-    this.modalService.addDynamicComponent( PopupFormularioComponent, {
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupFormularioComponent, {
       datos: data,
       modal: this.modalForm,
       result: (data => {
@@ -65,7 +65,7 @@ export class ListaFormularioComponent implements OnInit {
             this.reload();
           });
         else
-          this.crudService.Actualizar(data, `formulario/${ data.ID }`).subscribe(data => {
+          this.crudService.Actualizar(data, `formulario/${data.ID}`).subscribe(data => {
             this.reload();
           });
       })
@@ -75,15 +75,29 @@ export class ListaFormularioComponent implements OnInit {
 
   }
 
-  async synchronize(row) {
-    await this.crudService.SeleccionarAsync(`formulario_async`,{
-      ID : row.ID
+  synchronize(row) {
+    this.crudService.SeleccionarAsync(`formulario_async`, {
+      ID: row.ID
+    }).then((result: any) => {
+      if (result.status)
+        swal(
+          'Exito!',
+          'Se sincronizo el Formulario.',
+          'success'
+        );
+      else
+        swal(
+          'Error!',
+          result.message,
+          'warning'
+        );
+      this.reload();
     });
-    this.reload();
+
   }
 
   delete(row) {
-    this.crudService.Eliminar(`formulario/${ row.ID }`)
+    this.crudService.Eliminar(`formulario/${row.ID}`)
       .subscribe(data => {
         this.reload();
       });

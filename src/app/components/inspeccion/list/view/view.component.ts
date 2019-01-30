@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Location } from '@angular/common';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {IAlbum, IEvent, Lightbox, LIGHTBOX_EVENT, LightboxConfig, LightboxEvent} from 'angular2-lightbox';
@@ -42,6 +43,7 @@ export class ViewInspeccionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private crudService: CrudService,
+    private location: Location,
     private exportService: ExportService,
     private _lightbox: Lightbox,
     private _lightboxEvent: LightboxEvent,
@@ -77,6 +79,10 @@ export class ViewInspeccionComponent implements OnInit {
 
   ngOnInit() {
     this.loadInspeccion();
+  }
+
+  goBack(){
+    this.location.back();
   }
 
   async loadInspeccion(){
