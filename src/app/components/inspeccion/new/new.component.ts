@@ -1,14 +1,12 @@
 import {Component, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation} from '@angular/core';
 import {CrudService} from '../../../shared/services/crud.service';
 import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
-import {NgbCalendar, NgbDateParserFormatter, NgbDateStruct, NgbDateNativeAdapter, NgbDateAdapter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateNativeAdapter, NgbDateAdapter} from '@ng-bootstrap/ng-bootstrap';
 import {ModalService} from '../../../shared/services/modal.service';
 import {ModalEmpresaComponent} from '../../catalogo/empresa/modal/modal.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {catchError} from 'rxjs/operators';
-import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-new',
@@ -37,7 +35,6 @@ export class NewInspeccionComponent implements OnInit {
     private modalService: ModalService,
     private router: Router,
     private route: ActivatedRoute,
-    // private afs: AngularFirestore,
     private fb: FormBuilder,
   ) {
   }

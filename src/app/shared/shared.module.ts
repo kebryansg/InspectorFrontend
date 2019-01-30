@@ -22,6 +22,7 @@ import {ModalService} from './services/modal.service';
 import { StatusPipe } from './pipes/status.pipe';
 import {AutorizadoPipe} from './pipes/autorizado.pipe';
 import { MomentPipe } from './pipes/moment.pipe';
+import {ExportService} from './services/export.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -77,6 +78,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CrudService,
     ToolsService,
     ModalService,
+    ExportService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -73,7 +73,7 @@ export class PopupEmpresaComponent implements OnInit {
       IDCanton: [this.datos.IDCanton || null, Validators.required],
       IDParroquia: [this.datos.IDParroquia || null, Validators.required],
       IDSector: [this.datos.IDSector || null, Validators.required],
-      Email: [this.datos.Email || '', Validators.required],
+      Email: [this.datos.Email || ''],
       Estado: [this.datos.Estado || 'ACT', Validators.required]
     });
 

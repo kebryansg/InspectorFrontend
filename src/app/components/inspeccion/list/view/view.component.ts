@@ -3,13 +3,17 @@ import {CrudService} from '../../../../shared/services/crud.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {IAlbum, IEvent, Lightbox, LIGHTBOX_EVENT, LightboxConfig, LightboxEvent} from 'angular2-lightbox';
 import {Subscription} from 'rxjs/Subscription';
+import {ActivatedRoute} from '@angular/router';
+import swal from "sweetalert2";
+import {ExportService} from '../../../../shared/services/export.service';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
   styleUrls: [
     './view.component.scss',
-    '../../../../../../node_modules/angular2-lightbox/lightbox.css'
+    '../../../../../../node_modules/angular2-lightbox/lightbox.css',
+    '../../../../../assets/icon/icofont/css/icofont.scss'
   ],
   animations: [
     trigger('fadeInOutTranslate', [
@@ -30,16 +34,31 @@ export class ViewInspeccionComponent implements OnInit {
   public albums: Array<IAlbum>;
   private _options: Object;
   private _subscription: Subscription;
+  IDInspeccion: number;
+  dataInspeccion: any;
+
+  seccions = [];
 
   constructor(
+    private route: ActivatedRoute,
     private crudService: CrudService,
+    private exportService: ExportService,
     private _lightbox: Lightbox,
     private _lightboxEvent: LightboxEvent,
     private _lighboxConfig: LightboxConfig,) {
     this.albums = [];
     this._options = {};
 
-    this.crudService.SeleccionarAsync('inspeccion/1/anexos')
+    this.route.params.subscribe((params) => {
+      this.IDInspeccion = (params.id);
+    });
+
+    // dataInspeccion
+
+    this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }/result`)
+      .then((data: any[]) => this.seccions = (data));
+
+    this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }/anexos`)
       .then((data: string[]) => {
 
         this.albums = data.map(row => {
@@ -57,7 +76,37 @@ export class ViewInspeccionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadInspeccion();
+  }
 
+  async loadInspeccion(){
+    this.dataInspeccion = await this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }/`);
+  }
+
+  downloadFormulario(){
+    this.crudService.GetToFile('pdf_download/' + this.IDInspeccion)
+      .subscribe(response => {
+        this.exportService.saveAsExcelFile(response, `Inspeccion - ${ this.dataInspeccion.empresa.RazonSocial }`);
+      });
+  }
+
+  sendMailFormulario(){
+    this.crudService.SeleccionarAsync(`pdf_send/${ this.IDInspeccion }`)
+      .then((response: any) => {
+        if (response) {
+          swal(
+            'Error!',
+            response.message,
+            'warning'
+          );
+        } else {
+          swal(
+            'Exito!',
+            'Los resultados fueron reenviados con exito.',
+            'success'
+          );
+        }
+      });
   }
 
   open(index: number): void {

@@ -14,6 +14,11 @@ export class UbicacionComponent implements OnInit {
       lat: -1.0234771,
       lng: -79.4655461,
       label: 'BuhoCorp'
+    },
+    {
+      lat: -1.0240917,
+      lng: -79.4681409,
+      label: 'Shopping Center'
     }
   ];
 

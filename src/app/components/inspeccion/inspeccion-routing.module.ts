@@ -25,7 +25,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'view',
+        path: 'view/:id',
         component: ViewInspeccionComponent,
         data: {
           title: 'Ver Inspección',

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {Router} from '@angular/router';
@@ -16,6 +16,9 @@ import { ToastData, ToastOptions, ToastyService} from 'ng2-toasty';
   encapsulation: ViewEncapsulation.None
 })
 export class BasicLoginComponent implements OnInit {
+
+  @ViewChild('email') email: ElementRef;
+
   position = 'bottom-right';
   signinForm: FormGroup;
   constructor(
@@ -26,6 +29,9 @@ export class BasicLoginComponent implements OnInit {
 
   ngOnInit() {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
+
+    this.email.nativeElement.focus();
+
     this.signinForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
-import { Http, Headers } from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
 
 @Injectable()
@@ -59,6 +59,10 @@ export class CrudService {
     if (localStorage.getItem('authToken'))
       header.append('Authorization', `${ localStorage.getItem('tokenType') } ${ localStorage.getItem('authToken') }`);
     return header;
+  }
+
+  GetToFile(api, param?) {
+    return this.httpClient.get( this.puerto + api, { params: param, headers: this.getHeaders().toJSON(), responseType: 'blob' } );
   }
 
   getURLServer(){

@@ -5,8 +5,9 @@ import swal from 'sweetalert2';
 import {ModalService} from '../../../shared/services/modal.service';
 import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
 import {AsignColaboradorComponent} from './asign/asign.component';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable } from 'rxjs';
+import {AngularFireDatabase} from '@angular/fire/database';
+import {Observable} from 'rxjs';
+import {ExportService} from '../../../shared/services/export.service';
 
 @Component({
   selector: 'app-list',
@@ -38,6 +39,7 @@ export class ListComponent implements OnInit {
     private crudService: CrudService,
     private modalService: ModalService,
     private tools: ToolsService,
+    private exportService: ExportService,
     private db: AngularFireDatabase) {
   }
 
@@ -62,7 +64,7 @@ export class ListComponent implements OnInit {
   async edit(row?) {
     let data = {};
     if (row)
-      data = await this.crudService.SeleccionarAsync(`inspeccion/${ row.ID }`);
+      data = await this.crudService.SeleccionarAsync(`inspeccion/${row.ID}`);
   }
 
   asign_colaborador(row) {
@@ -70,12 +72,12 @@ export class ListComponent implements OnInit {
       NombreComercial: row.empresa.NombreComercial
     };
 
-    this.modalService.setRootViewContainerRef( this.entry );
-    this.modalService.addDynamicComponent( AsignColaboradorComponent , {
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(AsignColaboradorComponent, {
       datos: data,
       modal: this.modalForm,
       result: (data => {
-        this.crudService.Actualizar({}, `inspeccion/${ row.ID }/coladorador/${ data }/`)
+        this.crudService.Actualizar({}, `inspeccion/${row.ID}/coladorador/${data}/`)
           .subscribe(res => {
             swal(
               'Exito!',
@@ -104,7 +106,7 @@ export class ListComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        this.crudService.Eliminar(`inspeccion/${ row.ID }`)
+        this.crudService.Eliminar(`inspeccion/${row.ID}`)
           .subscribe(
             data => {
               swal(
@@ -121,8 +123,39 @@ export class ListComponent implements OnInit {
   }
 
   async synchronize(row) {
-    await this.crudService.SeleccionarAsync(`inspeccion/${ row.ID }/async`);
+    await this.crudService.SeleccionarAsync(`inspeccion/${row.ID}/async`);
+    swal(
+      'Exito!',
+      'Se sincronizo la inspección.',
+      'success'
+    );
     this.reload();
+  }
+
+  downloadFormulario(row) {
+    this.crudService.GetToFile('pdf_download/' + row.ID)
+      .subscribe(response => {
+        this.exportService.saveAsExcelFile(response, `Inspeccion - ${row.empresa.RazonSocial}`);
+      });
+  }
+
+  sendMailFormulario(row) {
+    this.crudService.SeleccionarAsync(`pdf_send/${row.ID}`)
+      .then((response: any) => {
+        if (response) {
+          swal(
+            'Error!',
+            response.message,
+            'warning'
+          );
+        } else {
+          swal(
+            'Exito!',
+            'Los resultados fueron reenviados con exito.',
+            'success'
+          );
+        }
+      });
   }
 
 }
