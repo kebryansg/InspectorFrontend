@@ -42,7 +42,7 @@ export class ConfigFormularioComponent implements OnInit {
     if (this.datos == null)
       this.cancel();
 
-    this.crudService.SeleccionarAsync(`formulario/${ this.IDFormulario }/seccion/config/`).then((rows: any) => this.lsSeccion = rows);
+    this.crudService.SeleccionarAsync(`formulario/${ this.IDFormulario }/seccion/config`).then((rows: any) => this.lsSeccion = rows);
 
   }
 
@@ -114,7 +114,7 @@ export class ConfigFormularioComponent implements OnInit {
   }
 
   save() {
-    this.crudService.Insertar(this.lsSeccion, `formulario/${ this.IDFormulario }/seccion/config/`)
+    this.crudService.Insertar(this.lsSeccion, `formulario/${ this.IDFormulario }/seccion/config`)
       .subscribe(res => {
         this.cancel();
       });

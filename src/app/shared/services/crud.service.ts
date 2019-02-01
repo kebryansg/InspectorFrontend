@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
+declare  var configuracion: any;
 
 @Injectable()
 export class CrudService {
-  readonly puerto = 'http://192.168.1.138:8000/';
+  readonly puerto = configuracion.url;
 
   constructor(
     private http: Http,
@@ -21,7 +22,8 @@ export class CrudService {
     return this.http.get(this.puerto + api, {params: param, headers: this.getHeaders()});
   }
 
-  SeleccionarAsync(api, param?) {
+  async SeleccionarAsync(api, param?) {
+    //this.fixOut();
     var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
     return this.httpClient.get(this.puerto + api, {params: param, headers: headerOptions}).toPromise();
   }
@@ -63,6 +65,10 @@ export class CrudService {
 
   GetToFile(api, param?) {
     return this.httpClient.get( this.puerto + api, { params: param, headers: this.getHeaders().toJSON(), responseType: 'blob' } );
+  }
+
+  fixOut(){
+    return this.httpClient.get(this.puerto).toPromise();
   }
 
   getURLServer(){

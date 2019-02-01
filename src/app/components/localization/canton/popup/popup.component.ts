@@ -20,7 +20,7 @@ export class PopupCantonComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    protected tools: ToolsService,
+    public tools: ToolsService,
     private crudService: CrudService
   ) { }
 

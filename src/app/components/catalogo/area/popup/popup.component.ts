@@ -21,7 +21,7 @@ export class PopupAreaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private crudService: CrudService,
-    protected tools: ToolsService
+    public tools: ToolsService
   ) { }
 
   ngOnInit() {

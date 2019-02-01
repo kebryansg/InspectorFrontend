@@ -18,6 +18,7 @@ import {UiSwitchModule} from 'ng2-ui-switch';
 import {NouisliderModule} from 'ng2-nouislider';
 import {TagInputModule} from 'ngx-chips';
 import {CatalogoModule} from './components/catalogo/catalogo.module';
+// import {environment} from '../environments/environment.prod';
 import {environment} from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';

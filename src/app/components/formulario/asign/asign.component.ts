@@ -61,7 +61,7 @@ export class AsignFormularioComponent implements OnInit {
 
   save() {
     let items = this.selected.map(item => item.ID);
-    this.crudService.Insertar(items, `clasificacion_ls_asign/${ this.slFormulario }/`)
+    this.crudService.Insertar(items, `clasificacion_ls_asign/${ this.slFormulario }`)
       .subscribe(res => {
         this.selected = this.lsFilterClasificacion = [];
         this.slActEconomica = this.slCategoria = this.slFormulario = null;

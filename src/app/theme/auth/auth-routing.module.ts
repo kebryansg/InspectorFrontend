@@ -13,18 +13,6 @@ const routes: Routes = [
         path: 'login',
         loadChildren: './login/login.module#LoginModule'
       },
-      {
-        path: 'registration',
-        loadChildren: './registration/registration.module#RegistrationModule'
-      },
-      {
-        path: 'forgot',
-        loadChildren: './forgot/forgot.module#ForgotModule'
-      },
-      {
-        path: 'lock-screen',
-        loadChildren: './lock-screen/lock-screen.module#LockScreenModule'
-      }
     ]
   }
 ];

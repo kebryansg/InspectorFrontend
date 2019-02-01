@@ -22,7 +22,7 @@ export class PopupClasificaconComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private crudService: CrudService,
-    protected tools: ToolsService) {
+    public tools: ToolsService) {
 
   }
 

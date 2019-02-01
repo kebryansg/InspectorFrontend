@@ -6,6 +6,7 @@ import {ChartModule} from 'angular2-chartjs';
 /*import {SimpleNotificationsModule} from 'angular2-notifications';*/
 import {AgmCoreModule} from '@agm/core';
 import {DefaultComponent} from './default.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import {DefaultComponent} from './default.component';
     DefaultRoutingModule,
     SharedModule,
     ChartModule,
+    FormsModule,
     /*SimpleNotificationsModule.forRoot(),*/
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCE0nvTeHBsiQIrbpMVTe489_O5mwyqofk'})
   ],

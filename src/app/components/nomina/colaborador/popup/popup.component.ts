@@ -24,8 +24,8 @@ export class PopupColaboradorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    protected crudService: CrudService,
-    protected tools: ToolsService
+    public crudService: CrudService,
+    public tools: ToolsService
   ) { }
 
   async ngOnInit() {
