@@ -25,6 +25,7 @@ import {PopupClasificaconComponent} from './clasificacion/popup/popup.component'
 import {EmpresaComponent} from './empresa/empresa.component';
 import { PopupEmpresaComponent} from './empresa/popup/popup.component';
 import { ModalEmpresaComponent } from './empresa/modal/modal.component';
+import { NewEmpresaComponent } from './empresa/new/new.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { ModalEmpresaComponent } from './empresa/modal/modal.component';
     PopupClasificaconComponent,
     EmpresaComponent,
     PopupEmpresaComponent,
-    ModalEmpresaComponent
+    ModalEmpresaComponent,
+    NewEmpresaComponent
   ],
   entryComponents: [
     PopupCompaniaComponent,

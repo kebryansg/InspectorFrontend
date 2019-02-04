@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
-            <button class="btn btn-primary btn-sm" (click)="edit()">
+            <button class="btn btn-primary btn-sm" routerLink="./new" >
               <i class="icofont icofont-plus"></i>
               Agregar
             </button>
@@ -72,13 +72,13 @@
 
         <ngx-datatable-column name="Tipo Act. Económica">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.clasificacion.tipoacteconomica.Descripcion }}
+            {{ (row?.clasificacion)? row?.clasificacion.tipoacteconomica.Descripcion : '' }}
           </ng-template>
         </ngx-datatable-column>
 
         <ngx-datatable-column name="Clasificación">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.clasificacion.Descripcion }}
+            {{ (row?.clasificacion)? row?.clasificacion.Descripcion : '' }}
           </ng-template>
         </ngx-datatable-column>
 

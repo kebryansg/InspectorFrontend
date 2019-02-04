@@ -56,7 +56,6 @@ export class PopupEmpresaComponent implements OnInit {
 
     this.form = this.fb.group({
       ID: [this.datos.ID || 0],
-      Descripcion: [this.datos.Descripcion, Validators.required],
       RUC: [this.datos.RUC || null, Validators.required],
       NombreComercial: [this.datos.NombreComercial || '', Validators.required],
       RazonSocial: [this.datos.RazonSocial || '', Validators.required],
@@ -77,7 +76,7 @@ export class PopupEmpresaComponent implements OnInit {
       Estado: [this.datos.Estado || 'ACT', Validators.required]
     });
 
-    // Events
+    //#region Events
     this.form.controls['IDActEconomica'].valueChanges.subscribe(item => {
       if (item)
         this.lsTipoActEcon = this.lsActEconomica.find(row => row.ID == item).tipoacteconomicas;
@@ -110,6 +109,7 @@ export class PopupEmpresaComponent implements OnInit {
       }
 
     });
+    //#endregion
 
 
     this.lsEntidad = <any> this.crudService.SeleccionarAsync('entidad_combo');

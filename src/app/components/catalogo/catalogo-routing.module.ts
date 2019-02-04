@@ -9,6 +9,7 @@ import {DepartamentoComponent} from './departamento/departamento.component';
 import {AreaComponent} from './area/area.component';
 import {ClasificacionComponent} from './clasificacion/clasificacion.component';
 import {EmpresaComponent} from './empresa/empresa.component';
+import {NewEmpresaComponent} from './empresa/new/new.component';
 
 const routes: Routes = [
   {
@@ -48,11 +49,33 @@ const routes: Routes = [
       },
       {
         path: 'empresa',
-        component: EmpresaComponent,
-        data: {
-          title: 'Empresa',
-          status: true
-        }
+        children: [
+          {
+            path: '',
+            component: EmpresaComponent,
+            data: {
+              title: 'Empresa',
+              status: true
+            }
+          },
+          {
+            path: 'new',
+            component: NewEmpresaComponent,
+            data: {
+              title: 'Empresa',
+              status: true
+            }
+          },
+          {
+            path: 'new/:id',
+            component: NewEmpresaComponent,
+            data: {
+              title: 'Empresa',
+              status: true
+            }
+          },
+
+        ]
       },
       {
         path: 'departamento',

@@ -1,0 +1,206 @@
+<div class="row form-material">
+  <div class="col-sm-12">
+    <app-card [title]="'Config. Empresa'">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pull-left">
+            <button class="btn btn-primary btn-sm" >
+              <i class="icofont icofont-plus"></i>
+              Agregar
+            </button>
+          </div>
+          <!--<div class="pull-right">-->
+          <!--<select style="width: 120px;" class="form-control form-control-primary" [(ngModel)]="selPageSize"-->
+          <!--(change)="ngOnInit()">-->
+          <!--<option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>-->
+          <!--</select>-->
+          <!--</div>-->
+        </div>
+
+      </div>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
+        <div class="md-tabs">
+        <ngb-tabset>
+          <ngb-tab>
+            <ng-template ngbTabTitle style="padding: 10px 0;"><i class="icofont icofont-home"></i>Información Básica
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="m-t-20">
+                <div class="row">
+                  <div class="col-md-6">
+
+                    <div class="form-group form-default">
+                      <input type="text" [formControl]="form.controls['RUC']" class="form-control" autocomplete="off">
+                      <span class="form-bar"></span>
+                      <label class="float-label">RUC</label>
+                    </div>
+
+                    <div class="form-group form-default">
+                      <input type="text" [formControl]="form.controls['NombreComercial']" class="form-control"
+                             autocomplete="off">
+                      <span class="form-bar"></span>
+                      <label class="float-label">Nombre Comercial</label>
+                    </div>
+
+                    <div class="form-group form-primary">
+                      <input type="text" [formControl]="form.controls['RazonSocial']" class="form-control">
+                      <span class="form-bar"></span>
+                      <label class="float-label">Razón Social</label>
+                    </div>
+
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
+                        <option *ngFor="let item of tools.listEstados() " [value]="item.value">{{ item.label }}</option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Estado</label>
+                    </div>
+
+
+                  </div>
+                  <div class="col-md-6">
+
+
+                    <div class="form-group form-primary">
+                      <input type="text" [formControl]="form.controls['Direccion']" class="form-control">
+                      <span class="form-bar"></span>
+                      <label class="float-label">Dirección</label>
+                    </div>
+
+                    <div class="form-group form-primary">
+                      <input type="text" [formControl]="form.controls['Telefono']" class="form-control">
+                      <span class="form-bar"></span>
+                      <label class="float-label">Teléfono</label>
+                    </div>
+
+                    <div class="form-group form-primary">
+                      <input type="text" [formControl]="form.controls['Celular']" class="form-control">
+                      <span class="form-bar"></span>
+                      <label class="float-label">Celular</label>
+                    </div>
+
+                    <div class="form-group form-primary">
+                      <input type="email" [formControl]="form.controls['Email']" class="form-control">
+                      <span class="form-bar"></span>
+                      <label class="float-label">Email</label>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab>
+            <ng-template ngbTabTitle style="padding: 10px 0;">
+              <i class="icofont icofont-cur-dollar"></i>Actividad Económica
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="m-t-20">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDEntidad']">
+                        <option *ngFor="let item of lsEntidad | async" [value]="item.ID">{{ item.Descripcion }}</option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Entidad</label>
+                    </div>
+
+
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDTipoActEcon']">
+                        <option *ngFor="let item of lsTipoActEcon" [value]="item.ID">{{ item.Descripcion }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Tipo Act. Económica</label>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDActEconomica']">
+                        <option *ngFor="let item of lsActEconomica" [value]="item.ID">{{ item.Descripcion }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Act. Económica</label>
+                    </div>
+
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDClasificacion']">
+                        <option *ngFor="let item of lsClasificacion" [value]="item.ID">{{ item.Descripcion }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Clasificación</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab>
+            <ng-template ngbTabTitle style="padding: 10px 0;">
+              <i class="icofont icofont-location-pin "></i>Localizacion
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="m-t-20">
+                <div class="row">
+                  <div class="col-md-6">
+
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDProvincia']" >
+                        <option *ngFor="let item of lsProvincias" [value]="item.ID"> {{ item.Descripcion }}</option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Provincia</label>
+                    </div>
+
+                    <div class="form-group form-primary" >
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDCanton']">
+                        <option *ngFor="let item of lsCanton" [value]="item.ID"> {{ item.Descripcion }}</option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Cantón</label>
+                    </div>
+
+
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group form-primary" >
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDParroquia']" >
+                        <option *ngFor="let item of lsParroquia" [value]="item.ID"> {{ item.Descripcion }}</option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Parroquía</label>
+                    </div>
+
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary" [formControl]="form.controls['IDSector']" >
+                        <option *ngFor="let item of lsSector" [value]="item.ID">{{ item.Descripcion }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Sector</label>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+        </ngb-tabset>
+      </div>
+      </form>
+
+
+    </app-card>
+  </div>
+</div>
