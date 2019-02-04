@@ -13,7 +13,7 @@ import swal from 'sweetalert2';
     '../../../../../assets/icon/icofont/css/icofont.scss'
   ]
 })
-export class NewComponent implements OnInit {
+export class NewRolComponent implements OnInit {
 
   lsSubModulos: any[];
   selected: any[] = [];

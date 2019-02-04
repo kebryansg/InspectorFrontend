@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../../../shared/services/crud.service';
 import {ToolsService} from '../../../shared/services/tools.service';
 
@@ -23,7 +23,8 @@ export class RolesComponent implements OnInit {
 
   constructor(
     private crudService: CrudService,
-    private tools: ToolsService) { }
+    private tools: ToolsService) {
+  }
 
   ngOnInit() {
     this.reload();
@@ -33,11 +34,11 @@ export class RolesComponent implements OnInit {
     this.paginate = await this.crudService.SeleccionarAsync('rol', {page: event.offset + 1, psize: this.selPageSize});
   }
 
-  edit(){}
-  delete(){}
+  delete() {
+  }
 
-  async reload( ){
-    this.paginate = await this.crudService.SeleccionarAsync('rol', { page: 1, psize: this.selPageSize });
+  async reload() {
+    this.paginate = await this.crudService.SeleccionarAsync('rol', {page: 1, psize: this.selPageSize});
   }
 
 }

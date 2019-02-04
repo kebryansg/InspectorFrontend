@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {UsuarioComponent} from './usuario/usuario.component';
 import {RolesComponent} from './roles/roles.component';
-import {NewComponent} from './roles/new/new.component';
+import { NewRolComponent } from './roles/new/new.component';
+import {NewUsuarioComponent} from './usuario/new/new.component';
 
 const routes: Routes = [
   {
@@ -10,11 +11,32 @@ const routes: Routes = [
     children: [
       {
         path: 'usuario',
-        component: UsuarioComponent,
-        data: {
-          title: 'Usuario',
-          status: true
-        }
+        children: [
+          {
+            path: '',
+            component: UsuarioComponent,
+            data: {
+              title: 'Usuario',
+              status: true
+            }
+          },
+          {
+            path: 'new',
+            component: NewUsuarioComponent,
+            data: {
+              title: 'Config. Usuario',
+              status: true
+            },
+          },
+          {
+            path: 'new/:id',
+            component: NewUsuarioComponent,
+            data: {
+              title: 'Config. Usuario',
+              status: true
+            },
+          }
+        ]
       },
       {
         path: 'roles',
@@ -29,7 +51,7 @@ const routes: Routes = [
           },
           {
             path: 'new',
-            component: NewComponent,
+            component: NewRolComponent,
             data: {
               title: 'Config . Roles - Permisos',
               status: true
@@ -37,7 +59,7 @@ const routes: Routes = [
           },
           {
             path: 'new/:id',
-            component: NewComponent,
+            component: NewRolComponent,
             data: {
               title: 'Config . Roles - Permisos',
               status: true

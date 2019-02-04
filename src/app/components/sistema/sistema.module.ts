@@ -7,7 +7,8 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {FormsModule} from '@angular/forms';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { RolesComponent } from './roles/roles.component';
-import { NewComponent } from './roles/new/new.component';
+import { NewRolComponent } from './roles/new/new.component';
+import {NewUsuarioComponent} from './usuario/new/new.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { NewComponent } from './roles/new/new.component';
     NgxDatatableModule,
     FormsModule
   ],
-  declarations: [UsuarioComponent, RolesComponent, NewComponent]
+  declarations: [UsuarioComponent, RolesComponent, NewRolComponent, NewUsuarioComponent]
 })
 export class SistemaModule { }
