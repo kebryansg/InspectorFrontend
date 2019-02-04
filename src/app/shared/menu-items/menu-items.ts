@@ -10,7 +10,7 @@ export interface ChildrenItems {
   target?: boolean;
   name: string;
   type?: string;
-  children?: ChildrenItems[];
+  modulos?: ChildrenItems[];
 }
 
 export interface MainMenuItems {
@@ -22,7 +22,7 @@ export interface MainMenuItems {
   type: string;
   icon: string;
   badge?: BadgeItem[];
-  children?: ChildrenItems[];
+  modulos?: ChildrenItems[];
 }
 
 export interface Menu {
@@ -86,10 +86,10 @@ const MENUITEMS = [
         icon: 'feather icon-gitlab',
         type: 'sub',
         children: [
-          { state: 'provincia', name: 'Provincia' },
-          { state: 'canton', name: 'Cantón' },
-          { state: 'parroquia', name: 'Parroquia' },
-          { state: 'sector', name: 'Sector' },
+          {state: 'provincia', name: 'Provincia'},
+          {state: 'canton', name: 'Cantón'},
+          {state: 'parroquia', name: 'Parroquia'},
+          {state: 'sector', name: 'Sector'},
         ]
       },
       {

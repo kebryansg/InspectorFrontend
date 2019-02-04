@@ -74,7 +74,6 @@ export class CargoComponent implements OnInit {
       .subscribe(data => {
         this.reload();
       });
-
   }
 
 }

@@ -12,13 +12,13 @@ import {SharedModule} from './shared/shared.module';
 import {MenuItems} from './shared/menu-items/menu-items';
 import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.component';
 import {HttpModule} from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {DragulaModule} from 'ng2-dragula';
 import {UiSwitchModule} from 'ng2-ui-switch';
 import {NouisliderModule} from 'ng2-nouislider';
 import {TagInputModule} from 'ngx-chips';
 import {CatalogoModule} from './components/catalogo/catalogo.module';
-// import {environment} from '../environments/environment.prod';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import {environment} from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -29,6 +29,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 // Maps
 import { AgmCoreModule } from '@agm/core';
 import {LightboxModule} from 'angular2-lightbox';
+import {httpInterceptorProviders} from './http-interceptor';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {LightboxModule} from 'angular2-lightbox';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    NgxSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googleMapsKey
     })
@@ -62,7 +64,8 @@ import {LightboxModule} from 'angular2-lightbox';
   schemas: [],
   providers: [
     MenuItems,
-    AngularFireDatabase
+    AngularFireDatabase,
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

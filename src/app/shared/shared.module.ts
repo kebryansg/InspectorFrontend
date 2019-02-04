@@ -23,6 +23,7 @@ import { StatusPipe } from './pipes/status.pipe';
 import {AutorizadoPipe} from './pipes/autorizado.pipe';
 import { MomentPipe } from './pipes/moment.pipe';
 import {ExportService} from './services/export.service';
+import {httpInterceptorProviders} from '../http-interceptor';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -82,7 +83,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    },
+    httpInterceptorProviders
 
   ],
   schemas: [ NO_ERRORS_SCHEMA ]

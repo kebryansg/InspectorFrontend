@@ -7,6 +7,7 @@ import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.compo
 import {AsignColaboradorComponent} from './asign/asign.component';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {ExportService} from '../../../shared/services/export.service';
+declare  var configuracion: any;
 
 @Component({
   selector: 'app-list',
@@ -30,6 +31,7 @@ export class ListComponent implements OnInit {
     total: 0,
     per_page: 0
   };
+  urlHost: string;
 
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
@@ -43,6 +45,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.urlHost = configuracion.url;
     this.reload();
   }
 
@@ -80,7 +83,7 @@ export class ListComponent implements OnInit {
       datos: data,
       modal: this.modalForm,
       result: (data => {
-        this.crudService.Actualizar({}, `inspeccion/${row.ID}/coladorador/${data}/`)
+        this.crudService.Actualizar({}, `inspeccion/${row.ID}/coladorador/${data}`)
           .subscribe(res => {
             swal(
               'Exito!',
@@ -122,6 +125,10 @@ export class ListComponent implements OnInit {
       }
     });
 
+
+  }
+
+  reimprimir(row){
 
   }
 

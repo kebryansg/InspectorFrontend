@@ -154,6 +154,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   public searchInterval: any;
   //#endregion
 
+  menuItems: any;
+
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
     if (scrollPosition > 50) {
@@ -173,8 +175,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(public menuItems: MenuItems,
-              private crudService: CrudService) {
+  constructor(private crudService: CrudService) {
+
+
 
     //#region InitAtributos Plantilla
     this.animateSidebar = '';
@@ -253,12 +256,18 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setVerticalLayout();*/
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.setBackgroundPattern('theme1');
+    this.menuItems = [
+      {
+        label: 'Mi Panel',
+        main: await this.crudService.SeleccionarAsync('menu_items')
+      }
+    ];
   }
 
   async loadUsuario(){
-    this.crudService.SeleccionarAsync('',{})
+    // this.crudService.SeleccionarAsync('',{})
     this.usuario.Username = 'Kevin Suárez'
   }
 

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
+import {NgxSpinnerModule, NgxSpinnerService} from 'ngx-spinner';
 declare  var configuracion: any;
 
 @Injectable()
@@ -10,7 +11,8 @@ export class CrudService {
 
   constructor(
     private http: Http,
-    private httpClient: HttpClient) {
+    private httpClient: HttpClient,
+    private spinner: NgxSpinnerService) {
 
   }
 
@@ -23,7 +25,6 @@ export class CrudService {
   }
 
   async SeleccionarAsync(api, param?) {
-    //this.fixOut();
     var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
     return this.httpClient.get(this.puerto + api, {params: param, headers: headerOptions}).toPromise();
   }
@@ -34,10 +35,6 @@ export class CrudService {
     // return this.http.post(this.puerto + api, body, requestOptions).map(res => res.json());
     var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
     return this.httpClient.post(this.puerto + api, objeto, {headers: headerOptions});
-  }
-
-  _listParams(api, params?) {
-    return this.httpClient.post(this.puerto + api + '/list', params).toPromise();
   }
 
   Actualizar(objeto, api) {
@@ -65,10 +62,6 @@ export class CrudService {
 
   GetToFile(api, param?) {
     return this.httpClient.get( this.puerto + api, { params: param, headers: this.getHeaders().toJSON(), responseType: 'blob' } );
-  }
-
-  fixOut(){
-    return this.httpClient.get(this.puerto).toPromise();
   }
 
   getURLServer(){

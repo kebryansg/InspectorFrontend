@@ -86,7 +86,7 @@ export class ViewInspeccionComponent implements OnInit {
   }
 
   async loadInspeccion(){
-    this.dataInspeccion = await this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }/`);
+    this.dataInspeccion = await this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }`);
   }
 
   downloadFormulario(){

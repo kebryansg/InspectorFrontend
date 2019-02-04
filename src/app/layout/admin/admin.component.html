@@ -128,7 +128,7 @@
                 </div>
               </div>
 
-              <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
+              <div *ngFor="let asideItems of menuItems" class="d-color">
                 <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}</div>
                 <ul class="pcoded-item pcoded-left-item" [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder" *ngFor="let asideItem of asideItems.main" appAccordionLink group="{{asideItem.state}}">
                   <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink group="{{asideItem.state}}">
@@ -165,7 +165,7 @@
                           <span class="pcoded-mcaret"></span>
                       </a>
                     <ul class="pcoded-submenu">
-                      <ng-template ngFor let-asideChildren [ngForOf]="asideItem.children">
+                      <ng-template ngFor let-asideChildren [ngForOf]="asideItem.modulos">
                         <li [routerLinkActive]="['active']" *ngIf="asideChildren.type !== 'sub'">
                           <a [routerLinkActive]="['active']" [routerLink]="['/', asideItem.state, asideChildren.state]" target="{{asideChildren.target ? '_blank' : '_self'}}">
                             <div class="ripple menu-ripple"></div>
@@ -185,7 +185,7 @@
                             <span class="pcoded-mcaret"></span>
                           </a>
                           <ul class="pcoded-submenu">
-                            <ng-template ngFor let-asideChildrenSub [ngForOf]="asideChildren.children">
+                            <ng-template ngFor let-asideChildrenSub [ngForOf]="asideChildren.modulos">
                               <li [routerLinkActive]="['active']">
                                 <a [routerLinkActive]="['active']" [routerLink]="['/', asideItem.state, asideChildren.state, asideChildrenSub.state]" target="{{asideChildrenSub.target ? '_blank' : '_self'}}">
                                   <div class="ripple menu-ripple"></div>

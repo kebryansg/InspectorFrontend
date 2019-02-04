@@ -1,8 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import {Validators, FormGroup, FormControl} from '@angular/forms';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {Router} from '@angular/router';
-import { ToastData, ToastOptions, ToastyService} from 'ng2-toasty';
+import {ToastData, ToastOptions, ToastyService} from 'ng2-toasty';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-basic-login',
@@ -21,11 +22,14 @@ export class BasicLoginComponent implements OnInit {
 
   position = 'bottom-right';
   signinForm: FormGroup;
+
   constructor(
     private crudService: CrudService,
     private router: Router,
-    private toastyService: ToastyService
-  ) { }
+    private toastyService: ToastyService,
+    private spinner: NgxSpinnerService
+  ) {
+  }
 
   ngOnInit() {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
@@ -49,15 +53,14 @@ export class BasicLoginComponent implements OnInit {
       username: signinData.email,
       password: signinData.password
     }).subscribe(data => {
-
-        if (data["access_token"]) {
-          localStorage.setItem('authToken', data["access_token"]);
-          localStorage.setItem('tokenType', data["token_type"]);
+        if (data['access_token']) {
+          localStorage.setItem('authToken', data['access_token']);
+          localStorage.setItem('tokenType', data['token_type']);
           this.router.navigate(['/dashboard']);
 
         }
       },
-      error  => {
+      error => {
         const toastOptions: ToastOptions = {
           title: 'Credenciales Invalidas',
           msg: 'Las credenciales de usuario son incorrectas.',

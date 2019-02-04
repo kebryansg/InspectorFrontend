@@ -64,6 +64,7 @@
     "ngx-color-picker": "^5.3.8",
     "ngx-perfect-scrollbar": "^5.3.5",
     "ngx-quill-editor": "^2.2.2",
+    "ngx-spinner": "^7.0.0",
     "ngx-tour-ng-bootstrap": "^2.0.1",
     "nouislider": "^11.1.0",
     "rxjs": "^6.0.0",

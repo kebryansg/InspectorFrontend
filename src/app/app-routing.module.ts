@@ -31,6 +31,10 @@ const routes: Routes = [
         loadChildren: './theme/ui-elements/advance/advance.module#AdvanceModule'
       },
       {
+        path: 'sistema',
+        loadChildren: './components/sistema/sistema.module#SistemaModule'
+      },
+      {
         path: 'catalogo',
         loadChildren: './components/catalogo/catalogo.module#CatalogoModule'
       },
