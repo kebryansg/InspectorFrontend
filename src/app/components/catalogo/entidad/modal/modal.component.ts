@@ -1,18 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ToolsService} from '../../../../shared/services/tools.service';
 import {CrudService} from '../../../../shared/services/crud.service';
+import {ToolsService} from '../../../../shared/services/tools.service';
 import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
-import {ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modalentidad',
   templateUrl: './modal.component.html',
   styleUrls: [
     '../../../../../assets/icon/icofont/css/icofont.scss'
   ],
-  encapsulation: ViewEncapsulation.None,
 })
-export class ModalEmpresaComponent implements OnInit {
+export class ModalEntidadComponent implements OnInit {
 
   /* Modal Propery */
   @Output() result = new EventEmitter<any>();
@@ -33,11 +31,8 @@ export class ModalEmpresaComponent implements OnInit {
   };
   selected: any = [];
 
-  constructor(
-    private crudService: CrudService,
-    private tools: ToolsService
-  ) {
-  }
+  constructor(private crudService: CrudService,
+              private tools: ToolsService) { }
 
   ngOnInit() {
     this.reload();
@@ -57,7 +52,7 @@ export class ModalEmpresaComponent implements OnInit {
 
   async reload(page: number = 1) {
     this.params_dt.page = page;
-    this.paginate = await this.crudService.SeleccionarAsync('empresa', {...this.params_dt, modal: true});
+    this.paginate = await this.crudService.SeleccionarAsync('entidad', {...this.params_dt, modal: true});
   }
 
   returnSelect() {

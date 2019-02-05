@@ -2,19 +2,67 @@
   <div class="row">
     <div class="col-md-6">
 
-      <div class="material-group">
-        <div class="material-addone">
-          <i class="icofont icofont-bank-alt"></i>
-        </div>
-        <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['Descripcion']" class="form-control">
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['Identificacion']" class="form-control" maxlength="13">
+        <span class="form-bar"></span>
+        <label class="float-label">Identificación</label>
+      </div>
+
+      <div class="form-group form-primary">
+          <input type="text" [formControl]="form.controls['Nombres']" class="form-control">
           <span class="form-bar"></span>
-          <label class="float-label">Nombre</label>
-        </div>
+          <label class="float-label">Nombres</label>
+      </div>
+
+      <div class="form-group form-primary">
+          <input type="text" [formControl]="form.controls['Apellidos']" class="form-control">
+          <span class="form-bar"></span>
+          <label class="float-label">Apellidos</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <input type="email" [formControl]="form.controls['Email']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Email</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['Tipo']">
+          <option *ngFor="let item of tools.listTipoEntidad() " [value]="item.value">{{ item.label }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Tipo</label>
       </div>
 
     </div>
     <div class="col-md-6">
+
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['Direccion']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Dirección</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['Telefono']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Teléfono</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <input type="text" [formControl]="form.controls['Celular']" class="form-control">
+        <span class="form-bar"></span>
+        <label class="float-label">Celular</label>
+      </div>
+
+      <div class="form-group form-primary">
+        <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
+          <option *ngFor="let item of tools.listEstados() " [value]="item.value">{{ item.label }}</option>
+        </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Estado</label>
+      </div>
+
 
 
 

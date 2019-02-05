@@ -3,7 +3,8 @@ import 'rxjs/add/operator/delay';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
 import {NgxSpinnerModule, NgxSpinnerService} from 'ngx-spinner';
-declare  var configuracion: any;
+
+declare var configuracion: any;
 
 @Injectable()
 export class CrudService {
@@ -26,7 +27,7 @@ export class CrudService {
 
   async SeleccionarAsync(api, param?) {
     var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
-    return this.httpClient.get(this.puerto + api, {params: param, headers: headerOptions}).toPromise();
+    return await this.httpClient.get(this.puerto + api, {params: param, headers: headerOptions}).toPromise();
   }
 
   login(api, objeto) {
@@ -56,15 +57,15 @@ export class CrudService {
   getHeaders() {
     let header = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
     if (localStorage.getItem('authToken'))
-      header.append('Authorization', `${ localStorage.getItem('tokenType') } ${ localStorage.getItem('authToken') }`);
+      header.append('Authorization', `${localStorage.getItem('tokenType')} ${localStorage.getItem('authToken')}`);
     return header;
   }
 
   GetToFile(api, param?) {
-    return this.httpClient.get( this.puerto + api, { params: param, headers: this.getHeaders().toJSON(), responseType: 'blob' } );
+    return this.httpClient.get(this.puerto + api, {params: param, headers: this.getHeaders().toJSON(), responseType: 'blob'});
   }
 
-  getURLServer(){
+  getURLServer() {
     return this.puerto;
   }
 }

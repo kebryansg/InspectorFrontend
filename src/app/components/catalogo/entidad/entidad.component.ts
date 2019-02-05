@@ -16,6 +16,11 @@ export class EntidadComponent implements OnInit {
 
   pageSize: number[] = this.tools.pagSize();
   selPageSize: any = this.pageSize[0];
+  params_dt: any = {
+    page: 1,
+    psize: this.pageSize[0],
+    search: ''
+  };
   paginate: any = {
     data: [],
     page: 1,
@@ -32,16 +37,19 @@ export class EntidadComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.reload();
 
-    this.paginate = await this.crudService.SeleccionarAsync('entidad', {page: 1, psize: this.selPageSize});
+    // this.paginate = await this.crudService.SeleccionarAsync('entidad', {page: 1, psize: this.selPageSize});
   }
 
   async setPage(event) {
-    this.paginate = await this.crudService.SeleccionarAsync('entidad', {page: event.offset + 1, psize: this.selPageSize});
+    this.reload(event.offset + 1);
   }
 
-  async reload( ){
-    this.paginate = await this.crudService.SeleccionarAsync('entidad', { page: 1, psize: this.selPageSize });
+  async reload(page: number = 1){
+    this.params_dt.page = page;
+    this.paginate = await this.crudService.SeleccionarAsync('entidad', this.params_dt);
+    // this.paginate = await this.crudService.SeleccionarAsync('entidad', { page: 1, psize: this.selPageSize });
   }
 
   async edit(row?) {
@@ -66,7 +74,11 @@ export class EntidadComponent implements OnInit {
     });
 
     this.modalForm.show();
+  }
 
+  onEnter(value: string) {
+    this.params_dt.search = value;
+    this.reload();
   }
 
   delete(row) {

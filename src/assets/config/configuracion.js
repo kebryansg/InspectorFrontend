@@ -1,3 +1,4 @@
 var configuracion = {
-  url: 'http://192.168.4.134:8080/api/public/'
+  // url: 'http://localhost/api/public/'
+  url: 'http://inspector.buhocorp.com/'
 }

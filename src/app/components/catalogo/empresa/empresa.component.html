@@ -1,22 +1,18 @@
 <div class="row">
   <div class="col-sm-12">
     <app-card [title]="'Empresa'">
+
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
+
             <button class="btn btn-primary btn-sm" routerLink="./new" >
               <i class="icofont icofont-plus"></i>
               Agregar
             </button>
-          </div>
-          <!--<div class="pull-right">-->
-            <!--<select style="width: 120px;" class="form-control form-control-primary" [(ngModel)]="selPageSize"-->
-                    <!--(change)="ngOnInit()">-->
-              <!--<option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>-->
-            <!--</select>-->
-          <!--</div>-->
-        </div>
 
+          </div>
+        </div>
       </div>
 
       <div class="row">
@@ -72,32 +68,20 @@
 
         <ngx-datatable-column name="Tipo Act. Económica">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ (row?.clasificacion)? row?.clasificacion.tipoacteconomica.Descripcion : '' }}
+            {{ row?.clasificacion?.tipoacteconomica?.Descripcion }}
           </ng-template>
         </ngx-datatable-column>
 
         <ngx-datatable-column name="Clasificación">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ (row?.clasificacion)? row?.clasificacion.Descripcion : '' }}
+            {{ row?.clasificacion?.Descripcion }}
           </ng-template>
         </ngx-datatable-column>
-
-        <ngx-datatable-column name="Email">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Email }}
-          </ng-template>
-        </ngx-datatable-column>
-
-        <!--<ngx-datatable-column name="Estado">-->
-          <!--<ng-template let-row="row" ngx-datatable-cell-template>-->
-            <!--{{ row?.Estado | status }}-->
-          <!--</ng-template>-->
-        <!--</ngx-datatable-column>-->
 
         <ngx-datatable-column name="Acciones">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div class="btn-group-icons">
-              <i class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar"  (click)="edit(row)"></i>
+              <a class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar"  [routerLink]="['./new/', row.ID]"></a>
               <i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"  (click)="delete(row)"></i>
 
             </div>

@@ -14,6 +14,8 @@ export class StatusPipe implements PipeTransform {
       case 'PEN': result = 'Pendiente';  break;
       case 'APR': result = 'Aprobado';  break;
       case 'REP': result = 'Reprobado';  break;
+      case 'P': result = 'Persona';  break;
+      case 'E': result = 'Empresa';  break;
     }
     return result;
   }

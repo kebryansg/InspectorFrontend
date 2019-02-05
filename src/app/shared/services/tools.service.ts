@@ -23,6 +23,13 @@ export class ToolsService {
     return items;
   }
 
+  listTipoEntidad(){
+    return [
+      { value: 'P', label: "Persona" },
+      { value: 'E', label: "Empresa" },
+    ];
+  }
+
   optionsModalCatalogo(): NgbModalOptions{
     return {
       ariaLabelledBy: 'modal-basic-title',
