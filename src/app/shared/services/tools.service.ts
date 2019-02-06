@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import swal from "sweetalert2";
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class ToolsService {
       { value: 'P', label: "Persona" },
       { value: 'E', label: "Empresa" },
     ];
+  }
+
+  getMomentoFormat(value){
+    return moment(value).format('YYYY-MM-DD');
   }
 
   optionsModalCatalogo(): NgbModalOptions{

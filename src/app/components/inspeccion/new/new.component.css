@@ -7,3 +7,12 @@ div.scrollmenu {
   white-space: nowrap;
 }
 
+#seccion_search{
+  display: flex;
+  flex-flow: row;
+  width: 50%;
+  align-items: center;
+}
+#seccion_search input{
+  width: 200px;
+}

@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation} from '@angular/core';
 import {CrudService} from '../../../shared/services/crud.service';
 import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
-import {NgbDateNativeAdapter, NgbDateAdapter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import {ModalService} from '../../../shared/services/modal.service';
-import {ModalEmpresaComponent} from '../../catalogo/empresa/modal/modal.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
+import {ModalEntidadComponent} from '../../catalogo/entidad/modal/modal.component';
+import {ToolsService} from '../../../shared/services/tools.service';
 
 @Component({
   selector: 'app-new',
@@ -26,17 +27,20 @@ export class NewInspeccionComponent implements OnInit {
   modelPopup: Date;
   toggle = false;
   lsColaborador: any[];
-  empresa: any;
+  lsEmpresa: any[];
+
+  empresa: any = [];
+  entidad: any = [];
 
   form: FormGroup;
 
   constructor(
     private crudService: CrudService,
     private modalService: ModalService,
+    private toolsService: ToolsService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
-  ) {
+    private fb: FormBuilder,) {
   }
 
   async ngOnInit() {
@@ -52,33 +56,47 @@ export class NewInspeccionComponent implements OnInit {
 
     let now = new Date();
     // this.modelPopup = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-    this.lsColaborador = await <any> this.crudService.SeleccionarAsync('colaborador_inspector');
+    this.lsColaborador = await <any>this.crudService.SeleccionarAsync('colaborador_inspector');
 
 
+  }
+
+  async onEnter(value: string) {
+    if(value.length >= 10){
+      this.entidad = await this.crudService.SeleccionarAsync(`entidad_search`, {search: value});
+      this.lsEmpresa = this.entidad.empresas;
+    }
   }
 
   loadmodal(event) {
     event.preventDefault();
     let data = {};
     this.modalService.setRootViewContainerRef(this.entry);
-    this.modalService.addDynamicComponent(ModalEmpresaComponent, {
+    this.modalService.addDynamicComponent(ModalEntidadComponent, {
       datos: data,
       modal: this.modalForm,
-      result: (data => {
-        this.empresa = data;
-        this.form.controls['IDEmpresa'].setValue(data.ID);
+      result: (async (data) => {
+        this.entidad = data;
+        this.lsEmpresa = await this.crudService.SeleccionarAsync(`entidad/${data.ID}/empresa`) as any[];
+        // this.form.controls['IDEmpresa'].setValue(data.ID);
       })
     });
 
     this.modalForm.show();
   }
 
-  clearColaborador(){
-    this.form.controls["IDColaborador"].setValue(null);
+  onSelect({selected}) {
+    this.form.controls['IDEmpresa'].setValue(selected[0].ID);
+    console.log(this.form.value);
+  }
+
+  clearColaborador() {
+    this.form.controls['IDColaborador'].setValue(null);
   }
 
   save() {
     let data = this.form.value;
+    data.FechaTentativa = this.toolsService.getMomentoFormat(data.FechaTentativa);
     console.log(data);
     this.crudService.Insertar(data, 'inspeccion')
       .subscribe(

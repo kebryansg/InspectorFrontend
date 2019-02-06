@@ -37,6 +37,12 @@ export class NewEmpresaComponent implements OnInit {
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
 
+  /* Maps */
+  lat: number = -0.8948968;
+  lng: number = -79.4903393;
+
+  lsMarcardoresMaps: any[] = [];
+
   lsActEconomica: any[] = [];
   lsProvincias: any[] = [];
 
@@ -100,8 +106,11 @@ export class NewEmpresaComponent implements OnInit {
       IDClasificacion: [datos.IDClasificacion || null, Validators.required],
       IDSector: [datos.IDSector || null, Validators.required],
       Email: [datos.Email || ''],
+      Referencia: [datos.Referencia || '', Validators.required],
       Estado: [datos.Estado || 'ACT', Validators.required],
       EstadoAplicacion: ['P', Validators.required],
+      Latitud: [datos.Latitud || null],
+      Longitud: [datos.Longitud || null],
 
       IDActEconomica: [null, Validators.required],
       IDTipoActEcon: [null, Validators.required],
@@ -116,6 +125,9 @@ export class NewEmpresaComponent implements OnInit {
 
     this.events();
 
+    if (datos.Latitud)
+      this.lsMarcardoresMaps = [{lat: datos.Latitud, lng: datos.Longitud}];
+
     if (datos.IDClasificacion) {
       this.form.controls['IDActEconomica'].setValue(datos.clasificacion.tipoacteconomica.IDActEconomica);
       this.form.controls['IDTipoActEcon'].setValue(datos.clasificacion.IDTipoActEcon);
@@ -129,7 +141,7 @@ export class NewEmpresaComponent implements OnInit {
     }
   }
 
-  loadmodal(event){
+  loadmodal(event) {
     event.preventDefault();
     let data = {};
     this.modalService.setRootViewContainerRef(this.entry);
@@ -148,8 +160,11 @@ export class NewEmpresaComponent implements OnInit {
   events() {
 
     this.form.controls['IDActEconomica'].valueChanges.subscribe(item => {
-      if (item)
+      if (item) {
         this.lsTipoActEcon = [...this.lsActEconomica.find(row => row.ID == item).tipoacteconomicas];
+        if (this.lsTipoActEcon.length > 0) this.form.controls['IDTipoActEcon'].setValue(this.lsTipoActEcon[0].ID);
+      }
+
 
     });
 
@@ -183,7 +198,6 @@ export class NewEmpresaComponent implements OnInit {
 
   submit() {
     let data = (this.form.value);
-    console.log(data);
     let exec: any = (data.ID == 0) ? this.crudService.Insertar(this.form.value, 'empresa') : this.crudService.Actualizar(this.form.value, 'empresa/' + data.ID);
 
     exec.subscribe(response => {
@@ -195,6 +209,12 @@ export class NewEmpresaComponent implements OnInit {
         this.cancel();
       }
     );
+  }
+
+  selectMarcador(evento) {
+    this.form.controls['Latitud'].setValue(evento.coords.lat);
+    this.form.controls['Longitud'].setValue(evento.coords.lng);
+    this.lsMarcardoresMaps = [evento.coords];
   }
 
 

@@ -29,6 +29,7 @@
 
             <div class="md-tabs">
               <ngb-tabset>
+
                 <ngb-tab>
                   <ng-template ngbTabTitle style="padding: 10px 0;">
                     <i class="icofont icofont-home"></i>
@@ -77,6 +78,12 @@
                             <input type="text" [formControl]="form.controls['Direccion']" class="form-control">
                             <span class="form-bar"></span>
                             <label class="float-label">Dirección</label>
+                          </div>
+
+                          <div class="form-group form-primary">
+                            <input type="text" [formControl]="form.controls['Referencia']" class="form-control">
+                            <span class="form-bar"></span>
+                            <label class="float-label">Referencia</label>
                           </div>
 
                           <div class="form-group form-primary">
@@ -284,8 +291,31 @@
                   </ng-template>
                 </ngb-tab>
 
+                <ngb-tab>
+                  <ng-template ngbTabTitle style="padding: 10px 0;">
+                    <i class="icofont icofont-map-search"></i>
+                    Maps
+                  </ng-template>
+                  <ng-template ngbTabContent>
+                    <div [@fadeInOutTranslate] class="m-t-20">
+                      <div class="row">
+                        <div class="col-md-12">
 
+                          <agm-map (mapClick)="selectMarcador($event)" [latitude]="lat" [longitude]="lng" [zoom]="17" style="height: 450px;">
 
+                            <agm-marker *ngFor="let coord of lsMarcardoresMaps" [latitude]="coord.lat" [longitude]="coord.lng" >
+                              <agm-info-window [isOpen]="true" >
+                                <h5><strong> Ubicación de la empresa </strong></h5>
+                              </agm-info-window>
+                            </agm-marker>
+
+                          </agm-map>
+
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-tab>
 
               </ngb-tabset>
             </div>
