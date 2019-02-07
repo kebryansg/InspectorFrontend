@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {ListComponent} from './list/list.component';
 import {NewInspeccionComponent} from './new/new.component';
 import {ViewInspeccionComponent} from './list/view/view.component';
+import {WebInspeccionComponent} from './web/web.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,14 @@ const routes: Routes = [
         component: ViewInspeccionComponent,
         data: {
           title: 'Ver Inspección',
+          status: true
+        }
+      },
+      {
+        path: 'inspweb/:id',
+        component: WebInspeccionComponent,
+        data: {
+          title: 'Realizar Inspección Web',
           status: true
         }
       },

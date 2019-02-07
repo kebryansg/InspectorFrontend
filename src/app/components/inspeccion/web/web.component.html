@@ -1,0 +1,138 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Información Inspección'" [cardOptionBlock]="true">
+
+    </app-card>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header"
+           style="display: flex; flex-flow: row nowrap; justify-content: flex-end; align-items: center;">
+
+        <button class="btn btn-sm btn-danger mr-1">
+          <i class="icofont icofont-reply"></i>
+          Cancelar
+        </button>
+        <button class="btn btn-sm btn-primary">
+          <i class="icofont icofont-save"></i>
+          Guardar Inspección
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-sm-6" *ngFor="let seccion of lsSeccion">
+
+    <app-card [title]="seccion.Descripcion" [cardOptionBlock]="true" [cardClass]="'form-material'">
+
+      <ul class="basic-list">
+        <li class="" *ngFor="let component of seccion.componentes">
+
+          <div class="componente" *ngIf="component.IDTipoComp != 5">
+
+            <span>{{ component.Descripcion }}</span>
+
+            <select *ngIf="component.IDTipoComp == 1" class="form-control form-control-primary"
+                    [(ngModel)]="component.Result">
+              <option *ngFor="let atributo of component.Atributo" [value]="atributo.display">
+                {{ atributo.display }}
+              </option>
+            </select>
+
+            <input *ngIf="component.IDTipoComp == 2" [(ngModel)]="component.Result" type="text" class="form-control"
+                   placeholder="Ingresar...">
+
+            <input *ngIf="component.IDTipoComp == 3" [(ngModel)]="component.Result" type="text" class="form-control"
+                   placeholder="Ingresar...">
+
+            <ui-switch *ngIf="component.IDTipoComp == 4"
+                       class="js-single float-right" color="#1abc9c"
+                       switchColor="#fff"
+                       size="small"
+                       ngbTooltip="Obligatorio"
+                       [checked]="component.Result || false"
+                       (change)="ui_switchChange($event, component)"></ui-switch>
+
+          </div>
+
+          <div *ngIf="component.IDTipoComp == 5">
+
+            <div class="row">
+              <div class="col-md-12 componente">
+                <span>{{ component.Descripcion }}</span>
+
+                <ui-switch class="js-single float-right" color="#1abc9c"
+                           switchColor="#fff"
+                           size="small"
+                           [checked]="component.Show"
+                           (change)="ui_switchAcordion($event, component)"></ui-switch>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="component.Show">
+              <div class="col-md-12">
+                <ul class="basic-list">
+                  <li>
+                    <div class="componente">
+                      <span>Cantidad</span>
+                      <input type="text" class="form-control" [(ngModel)]="component.Result.Cantidad"
+                             placeholder="Cantidad...">
+                    </div>
+
+                    <div class="componente">
+                      <span>Cumple</span>
+                      <select class="form-control form-control-primary" [(ngModel)]="component.Result.Cumple">
+                        <option *ngFor="let atributo of component.Atributo" [value]="atributo.abr">
+                          {{ atributo.display }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div *ngIf="component.Result.Cumple == 'N'" class="componente">
+                      <span>Adquirir</span>
+                      <input type="text" class="form-control" [(ngModel)]="component.Result.Adquirir"
+                             placeholder="Adquirir...">
+                    </div>
+
+                    <div *ngIf="component.Result.Cumple == 'N'" class="componente">
+                      <span>Disposición</span>
+                      <input type="text" class="form-control" [(ngModel)]="component.Result.Disposicion"
+                             placeholder="Disposición...">
+                    </div>
+
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+
+          </div>
+
+
+        </li>
+      </ul>
+
+    </app-card>
+
+    <!--<div class="card">-->
+    <!--<div class="card-header"-->
+    <!--style="display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center">-->
+    <!--<h5>{{ seccion.Descripcion }}</h5>-->
+
+    <!--</div>-->
+    <!--<div class="card-block"></div>-->
+    <!--</div>-->
+
+  </div>
+</div>
+

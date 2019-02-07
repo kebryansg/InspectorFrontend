@@ -103,6 +103,10 @@
                  *ngIf="row?.Estado == 'PEN' " (click)="asign_colaborador(row)"></i>
 
 
+              <a class="icofont icofont-eye-alt m-r-15 f-20 text-primary" ngbTooltip="Realizar en Web"
+                 [routerLink]="['../inspweb/', row.ID]"></a>
+
+
             </div>
           </ng-template>
         </ngx-datatable-column>

@@ -8,7 +8,8 @@
             <div class="pull-left" id="seccion_search">
               <label class="mr-2" style="font-size: 1.25rem;"> Entidad</label>
 
-              <input type="text" class="form-control form-control-sm mr-1" placeholder="Buscar por Identificación" maxlength="13" #box (keyup.enter)="onEnter(box.value)">
+              <input type="text" class="form-control form-control-sm mr-1" placeholder="Buscar por Identificación"
+                     maxlength="13" #box (keyup.enter)="onEnter(box.value)">
 
               <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;" ngbTooltip="Buscar Entidad"
                  placement="right" (click)="loadmodal($event)"></a>
@@ -25,8 +26,8 @@
               </button>
             </div>
 
-            </div>
           </div>
+        </div>
 
         <hr>
         <!-- Información de la Entidad solicitante -->
@@ -124,10 +125,25 @@
         </ngx-datatable>
 
         <hr>
-        <!-- Colaborador - Fecha Tentativa -->
+
         <div class="row">
+          <div class="col-md-3">
+            <span>Ingresar por la web</span>
+            <ui-switch class="js-single float-right" color="#1abc9c"
+                       switchColor="#fff"
+                       size="small"
+                       [checked]="InspWeb"
+                       (change)="ui_switchChange($event)"></ui-switch>
+          </div>
+
+        </div>
+        <br>
+
+        <!-- Colaborador - Fecha Tentativa -->
+        <div class="row" *ngIf="!InspWeb">
 
           <div class="col-md-4">
+
             <div class="form-material">
               <h4 class="sub-title" style="margin-bottom: 13px;">Colaborador</h4>
               <div class="material-group">
@@ -139,7 +155,8 @@
                   </select>
                 </div>
                 <div class="material-addone">
-                  <i class="icofont icofont-close " style="color: red;cursor: pointer;" (click)="clearColaborador()"></i>
+                  <i class="icofont icofont-close " style="color: red;cursor: pointer;"
+                     (click)="clearColaborador()"></i>
                 </div>
               </div>
             </div>
@@ -164,6 +181,9 @@
           </div>
 
         </div>
+
+
+
       </app-card>
     </div>
   </div>

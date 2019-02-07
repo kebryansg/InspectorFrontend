@@ -1,0 +1,14 @@
+.componente {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.componente input{
+  width: 250px;
+}
+
+.componente select{
+  width: 250px;
+}
+

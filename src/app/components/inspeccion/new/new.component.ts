@@ -34,6 +34,8 @@ export class NewInspeccionComponent implements OnInit {
 
   form: FormGroup;
 
+  InspWeb: boolean = false;
+
   constructor(
     private crudService: CrudService,
     private modalService: ModalService,
@@ -49,9 +51,8 @@ export class NewInspeccionComponent implements OnInit {
       ID: [0],
       IDEmpresa: [null, Validators.required],
       IDColaborador: [null],
-      FechaTentativa: [null],
+      FechaTentativa: [null]
       // Estado: ['ACT'],
-      // Observacion: ['']
     });
 
     let now = new Date();
@@ -62,7 +63,7 @@ export class NewInspeccionComponent implements OnInit {
   }
 
   async onEnter(value: string) {
-    if(value.length >= 10){
+    if (value.length >= 10) {
       this.entidad = await this.crudService.SeleccionarAsync(`entidad_search`, {search: value});
       this.lsEmpresa = this.entidad.empresas;
     }
@@ -83,6 +84,10 @@ export class NewInspeccionComponent implements OnInit {
     });
 
     this.modalForm.show();
+  }
+
+  ui_switchChange($event) {
+    this.InspWeb = $event;
   }
 
   onSelect({selected}) {

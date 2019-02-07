@@ -14,6 +14,8 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireDatabase} from '@angular/fire/database';
 import { ViewInspeccionComponent } from './list/view/view.component';
 import {LightboxModule} from 'angular2-lightbox';
+import {UiSwitchModule} from 'ng2-ui-switch/dist';
+import { WebInspeccionComponent } from './web/web.component';
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import {LightboxModule} from 'angular2-lightbox';
     SharedModule,
     NgxDatatableModule,
     FormsModule,
+    UiSwitchModule,
     ReactiveFormsModule,
     InspeccionRoutingModule,
     AngularFirestoreModule,
@@ -33,6 +36,7 @@ import {LightboxModule} from 'angular2-lightbox';
     NewInspeccionComponent,
     AsignColaboradorComponent,
     ViewInspeccionComponent,
+    WebInspeccionComponent,
   ],
   entryComponents:[
     AsignColaboradorComponent,

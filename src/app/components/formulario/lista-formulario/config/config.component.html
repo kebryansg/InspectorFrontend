@@ -107,6 +107,7 @@
 
         <ul class="basic-list">
           <li class="" *ngFor="let component of seccion.componentes; let idxComp = index">
+
             <div>
               <span>{{ component.Descripcion }} - [ {{ component.tipocomp?.Descripcion || component.TipoComp }} ]</span>
 
@@ -123,8 +124,7 @@
                          (change)="ui_switchChange($event, component)"></ui-switch>
             </div>
 
-
-            <div *ngIf="component.IDTipoComp == 1" style="margin-top: 15px;">
+            <div *ngIf="component.IDTipoComp == 1 || component.IDTipoComp == 6" style="margin-top: 15px;">
               <tag-input [ngClass]="'tag-select'" theme='bootstrap' [placeholder]="'+'"
                          [secondaryPlaceholder]="'Añadir items'"
                          [(ngModel)]="component.Atributo"
@@ -142,81 +142,15 @@
               <span class="sub-title">Min - Max: <code> {{ component.Atributo | json }} </code></span>
             </div>
 
-
-            <!--<p>Laborum nihil aliquam nulla praesentium illo libero nihil at odio maxime.</p>-->
           </li>
         </ul>
 
-
       </div>
     </div>
-    <!--<div class="card-block">-->
-    <!--<div class="row" >-->
-    <!--<div class="col-md-5 card" *ngFor="let seccion of lsSeccion">-->
-    <!--<div class="card-header">-->
-    <!--<h5>{{ seccion.Descripcion }}</h5>-->
-    <!--</div>-->
-    <!--<div class="card-block">-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--</div>-->
-    <!--</div>-->
   </div>
 
 </div>
-<!--<div class="col-sm-12">-->
-<!--<app-card [title]="'Configuración'">-->
-<!--<div class="row">-->
 
-<!--<div class="col-md-6 col-xl-4" *ngFor="let seccion of lsSeccion">-->
-<!--<div class="card">-->
-<!--<div class="card-header">-->
-<!--<h5>{{ seccion.Descripcion }}</h5>-->
-<!--</div>-->
-<!--<div class="card-block">-->
-<!--<ul class="basic-list">-->
-<!--<li class="" *ngFor="let component of seccion.componentes">-->
-<!--<div>-->
-<!--<span>{{ component.Descripcion }}</span>-->
-<!--<ui-switch class="js-single float-right" color="#1abc9c"-->
-<!--switchColor="#fff"-->
-<!--size="small"-->
-<!--[checked]="component.Obligatorio"-->
-<!--(change)="ui_switchChange($event, component)"></ui-switch>-->
-<!--</div>-->
-
-
-<!--<div *ngIf="component.IDTipoComp == 1" style="margin-top: 15px;">-->
-<!--<tag-input [ngClass]="'tag-select'" theme='bootstrap' [placeholder]="'+'"-->
-<!--[secondaryPlaceholder]="'Añadir items'"-->
-<!--[(ngModel)]="component.Atributo"-->
-<!--[identifyBy]="'display'"-->
-<!--[addOnBlur]="true"-->
-<!--[clearOnBlur]="true">-->
-<!--</tag-input>-->
-<!--</div>-->
-
-<!--<div *ngIf="component.IDTipoComp == 2">-->
-<!--<div class="ag-slider">-->
-<!--<nouislider [min]="1" [max]="10" [step]="1" [(ngModel)]="component.Atributo"-->
-<!--[tooltips]="[ true, true ]" style="margin-top: 5em;"></nouislider>-->
-<!--</div>-->
-<!--<span class="sub-title">Min - Max: <code> {{ component.Atributo | json }} </code></span>-->
-<!--</div>-->
-
-
-<!--&lt;!&ndash;<p>Laborum nihil aliquam nulla praesentium illo libero nihil at odio maxime.</p>&ndash;&gt;-->
-<!--</li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</app-card>-->
-<!--</div>-->
-
-<!--</div>-->
 <app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg'">
 
   <div class="app-modal-header">
