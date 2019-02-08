@@ -24,9 +24,9 @@
               </select>
             </div>
 
-            <div class="dt-content-search" >
+            <div class="dt-content-search">
               <input type="text" class="form-control" placeholder="Buscar" #box (keyup.enter)="onEnter(box.value)">
-              <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()" ></i>
+              <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()"></i>
             </div>
 
           </div>
@@ -84,6 +84,7 @@
               <i class="icofont icofont-upload-alt m-r-15 f-20 text-primary" ngbTooltip="Sincronizar"
                  *ngIf="row.colaborador && row.updated_at != row.firebase_at" (click)="synchronize(row)"></i>
 
+              <!-- Aprobada - Reprobada -->
               <a class="icofont icofont-eye-alt m-r-15 f-20 text-primary" ngbTooltip="Revisar Resultados"
                  *ngIf="validVerResultados(row)" [routerLink]="['../view', row.ID]"></a>
               <i class="icofont icofont-download m-r-15 f-20 text-success" ngbTooltip="Descargar Resultados"
@@ -92,18 +93,19 @@
                  *ngIf="validVerResultados(row)" (click)="sendMailFormulario(row)"></i>
 
               <i class="icofont icofont-user-alt-3 m-r-15 f-20 text-dark" ngbTooltip="Colaborador"
-                 *ngIf="!row.colaborador && row?.Estado == 'PEN'" (click)="asign_colaborador(row)"></i>
+                 *ngIf="!row.colaborador && row?.Estado == 'PEN' && !row.InspWeb" (click)="asign_colaborador(row)"></i>
 
-
+              <!-- Pendiente -->
               <i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"
                  *ngIf="row?.Estado == 'PEN' " (click)="delete(row)"></i>
               <a class="icofont icofont-printer m-r-15 f-20 text-success" ngbTooltip="Reimprimir solicitud"
                  *ngIf="row?.Estado == 'PEN' " target="_blank" [href]="urlHost + 'solicitud_pdf/' + row.ID"></a>
               <i class="icofont icofont-ui-user m-r-15 f-20 text-primary" ngbTooltip="Reasignar Colaborador"
-                 *ngIf="row?.Estado == 'PEN' " (click)="asign_colaborador(row)"></i>
+                 *ngIf="row?.Estado == 'PEN' && !row.InspWeb" (click)="asign_colaborador(row)"></i>
 
-
+              <!-- Si se Ingresa por la Web -->
               <a class="icofont icofont-eye-alt m-r-15 f-20 text-primary" ngbTooltip="Realizar en Web"
+                 *ngIf="row.InspWeb"
                  [routerLink]="['../inspweb/', row.ID]"></a>
 
 
@@ -119,7 +121,7 @@
   </div>
 </div>
 
-<app-modal-basic #modalForm [hideFooter]="true" >
+<app-modal-basic #modalForm [hideFooter]="true">
 
   <div class="app-modal-header">
     <h4 class="modal-title">Asignar Colaborador - Inspección</h4>

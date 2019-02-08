@@ -102,6 +102,12 @@ export class NewInspeccionComponent implements OnInit {
   save() {
     let data = this.form.value;
     data.FechaTentativa = this.toolsService.getMomentoFormat(data.FechaTentativa);
+    data.InspWeb = this.InspWeb;
+    if (data.InspWeb) {
+      data.FechaTentativa = null;
+    }
+
+
     console.log(data);
     this.crudService.Insertar(data, 'inspeccion')
       .subscribe(
