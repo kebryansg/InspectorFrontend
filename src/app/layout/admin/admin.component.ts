@@ -238,7 +238,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setHeaderAttributes(this.windowWidth);
     //#endregion
 
-    this.loadUsuario()
+
 
     // dark theme
     /*this.setLayoutType('dark');*/
@@ -264,11 +264,10 @@ export class AdminComponent implements OnInit, OnDestroy {
         main: await this.crudService.SeleccionarAsync('menu_items')
       }
     ];
-  }
 
-  async loadUsuario(){
-    // this.crudService.SeleccionarAsync('',{})
-    this.usuario.Username = 'Kevin Suárez'
+    this.usuario = await this.crudService.SeleccionarAsync('users_login')
+
+
   }
 
   logout(){

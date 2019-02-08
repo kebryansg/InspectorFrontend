@@ -53,7 +53,7 @@
             <li (clickOutside)="notificationOutsideClick('profile')" class="user-profile header-notification ripple light" (click)="toggleProfileNotification()">
               <a href="javascript:">
                 <img src="assets/images/avatar-blank.jpg" class="img-radius" alt="User-Profile-Image">
-                <span>{{ usuario.Username }}</span>
+                <span>{{ usuario.UserName  | uppercase }}</span>
                 <i class="feather icon-chevron-down"></i>
               </a>
               <ul [@notificationBottom]="profileNotification" class="show-notification profile-notification" [ngClass]="profileNotificationClass">
@@ -112,7 +112,7 @@
                 <div class="main-menu-header">
                   <img class="img-menu-user img-radius" src="assets/images/avatar-blank.jpg" alt="User-Profile-Image">
                   <div class="user-details">
-                    <p id="more-details" (click)="toggleOpenedSidebar()"> {{ usuario.Username }}
+                    <p id="more-details" (click)="toggleOpenedSidebar()"> {{ usuario.UserName | uppercase }}
                       <i class="feather icon-chevron-down m-l-10"></i>
                     </p>
                   </div>

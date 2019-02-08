@@ -1,3 +1,105 @@
-<p>
-  new works!
-</p>
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Config. de Usuarios'">
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="pull-right">
+              <button type="reset" class="btn btn-sm btn-danger mr-1" (click)="cancel()">
+                <i class="icofont icofont-reply"></i> Cancelar
+              </button>
+              <button type="submit" class="btn btn-sm btn-primary" [disabled]="form.invalid">
+                <i class="icofont icofont-save"></i> Guardar
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <div class="material-group">
+              <div class="material-addone">
+                <i class="icofont icofont-email"></i>
+              </div>
+              <div class="form-group form-primary form-static-label">
+                <input type="text" [formControl]="form.controls['name']" class="form-control form-control-uppercase" [readOnly]="form.controls['id'].value != 0">
+                <span class="form-bar"></span>
+                <label class="float-label">Nombre de Usuario</label>
+              </div>
+            </div>
+
+
+            <div class="material-group">
+              <div class="material-addone">
+                <i class="icofont icofont-user"></i>
+              </div>
+              <div class="form-group form-static-label">
+
+
+                <select *ngIf="!colaborador" class="form-control form-control-primary" [formControl]="form.controls['IDColaborador']">
+                  <option *ngFor="let colaborador of lsColaborador | async" [value]="colaborador | json">
+                    {{ colaborador.ApellidoPaterno + ' ' + colaborador.ApellidoMaterno + ' ' + colaborador.NombrePrimero }}
+                  </option>
+                </select>
+
+                <input *ngIf="colaborador" type="text" class="form-control" readonly [value]="colaborador">
+
+                <span class="form-bar"></span>
+                <label class="float-label">Colaborador</label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <div class="material-group">
+              <div class="material-addone">
+                <i class="icofont icofont-email"></i>
+              </div>
+              <div class="form-group form-static-label">
+                <input type="text" [formControl]="form.controls['email']" class="form-control" readonly>
+                <span class="form-bar"></span>
+                <label class="float-label">Email</label>
+              </div>
+            </div>
+
+            <div class="material-group">
+              <div class="material-addone">
+                <i class="icofont icofont-email"></i>
+              </div>
+              <div class="form-group form-danger">
+                <select class="form-control form-control-primary" [formControl]="form.controls['IDRol']">
+                  <option *ngFor="let rol of lsRol | async" [value]="rol.ID">{{ rol.Descripcion }}</option>
+                </select>
+                <span class="form-bar"></span>
+                <label class="float-label">Roles del Sistema</label>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <span>Por defecto la contraseña sera del <strong>CÉDULA</strong> del colaborador</span>
+          </div>
+        </div>
+
+
+      </form>
+
+
+    </app-card>
+  </div>
+</div>
