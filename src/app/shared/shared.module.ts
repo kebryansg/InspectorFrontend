@@ -24,6 +24,7 @@ import {AutorizadoPipe} from './pipes/autorizado.pipe';
 import { MomentPipe } from './pipes/moment.pipe';
 import {ExportService} from './services/export.service';
 import {httpInterceptorProviders} from '../http-interceptor';
+import { KeysPipe } from './pipes/keys.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -57,7 +58,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DataFilterPipe,
     StatusPipe,
     AutorizadoPipe,
-    MomentPipe
+    MomentPipe,
+    KeysPipe
   ],
   declarations: [
     ToggleFullScreenDirective,
@@ -73,7 +75,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DataFilterPipe,
     StatusPipe,
     AutorizadoPipe,
-    MomentPipe
+    MomentPipe,
+    KeysPipe
   ],
   providers: [
     CrudService,

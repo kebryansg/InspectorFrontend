@@ -29,6 +29,7 @@
 
       <div class="md-tabs">
         <ngb-tabset>
+
           <ngb-tab title="Información Básica">
             <ng-template ngbTabContent>
               <div [@fadeInOutTranslate] class="m-t-15">
@@ -63,18 +64,24 @@
                           <div class="table-responsive">
                             <table class="table table-sm">
                               <tbody>
-                                <tr>
-                                  <th scope="row">Estado</th>
-                                  <td>{{ dataInspeccion?.Estado | status }}</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Formulario</th>
-                                  <td>{{ dataInspeccion?.formulario.Descripcion }}</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Observación</th>
-                                  <td>{{ dataInspeccion?.Observacion }}</td>
-                                </tr>
+
+                              <tr>
+                                <th scope="row">Estado</th>
+                                <td>{{ dataInspeccion?.Estado | status }}</td>
+                              </tr>
+
+                              <tr *ngIf="dataInspeccion?.FechaPlazo">
+                                <th scope="row">Fecha Plazo</th>
+                                <td>{{ dataInspeccion?.FechaPlazo}}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Formulario</th>
+                                <td>{{ dataInspeccion?.formulario.Descripcion }}</td>
+                              </tr>
+                              <!--<tr>-->
+                              <!--<th scope="row">Observación</th>-->
+                              <!--<td>{{ dataInspeccion?.Observacion }}</td>-->
+                              <!--</tr>-->
                               </tbody>
                             </table>
                           </div>
@@ -140,7 +147,7 @@
                 </div>
 
                 <div *ngIf="dataInspeccion?.observacions.length > 0">
-                  <h5 class="text-c-red">Observación</h5>
+                  <h5 class="text-c-red">Disposición</h5>
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="basic-list">
@@ -155,6 +162,7 @@
               </div>
             </ng-template>
           </ngb-tab>
+
           <ngb-tab title="Formulario">
             <ng-template ngbTabContent>
               <div [@fadeInOutTranslate] class="m-t-15">
@@ -165,50 +173,70 @@
 
                   </div>
                   <div class="card-block">
-                    <div class="table-responsive">
-                      <table class="table matrics-table custom">
-                        <tbody>
-                        <tr *ngFor="let component of seccion.rcomponentes; let idxComp = index"
-                            [ngSwitch]="component.IDTipoComp">
-                          <td>
-                            <span
+
+                    <ul class="basic-list">
+                      <!--style="display:flex; justify-content: space-between;"-->
+                      <li *ngFor="let component of seccion.rcomponentes; let idxComp = index"
+                          [ngSwitch]="true">
+
+                        <span class="f-left f-w-100"
                               [ngClass]="component.Cumple? 'font-success': 'font-danger'">{{ component.Descripcion }}</span>
-                          </td>
-                          <td *ngSwitchCase="'1'" >
-                            {{ component.Result }}
-                          </td>
-                          <td *ngSwitchCase="'2'">
-                            {{ component.Result }}
-                          </td>
-                          <td *ngSwitchCase="'3'">
-                            {{ component.Result }}
-                          </td>
-                          <td *ngSwitchCase="'4'">
-                            {{ (component.Result)? 'Si': 'No' }}
-                          </td>
-                        </tr>
 
-                        </tbody>
-                        <!-- end of tbody -->
-                      </table>
-                    </div>
+                        <div class="float-right"
+                             *ngSwitchCase="component.IDTipoComp == '1' || component.IDTipoComp == '2' || component.IDTipoComp == '3'">
+                          <span>{{ component.Result }}</span>
+                        </div>
 
-                    <!--<ul class="basic-list">-->
-                    <!--<li class="" *ngFor="let component of seccion.rcomponentes; let idxComp = index"-->
-                    <!--[ngSwitch]="component.IDTipoComp">-->
+                        <div class="float-right" *ngSwitchCase="component.IDTipoComp == '4'">
+                          <span>{{ (component.Result) ? 'Si' : 'No' }}</span>
+                        </div>
 
-                    <!--<span [ngClass]="component.Cumple? 'font-success': 'font-danger'" >{{ component.Descripcion }}</span>-->
-                    <!--<div *ngSwitchCase="'1'">-->
+                        <div *ngSwitchCase="component.IDTipoComp == '5'">
+                          <!--<span>{{ (component.Result) | json }}</span>-->
+                          <span class="clearfix">
+                            <strong>Cantidad :</strong> {{ component.Result.Cantidad }}
+                          </span>
+                          <span class="clearfix">
+                            <strong>Cumple:</strong> {{ component.Result.Cumple | status }}
+                          </span>
+                          <span *ngIf="component.Result.Cumple == 'N'" class="clearfix">
+                            <strong>Adquirir:</strong> {{ component.Result.Adquirir }}
+                          </span>
+                          <span *ngIf="component.Result.Cumple == 'N'" class="clearfix">
+                            <strong>Disposición:</strong> {{ component.Result.Dispocision }}
+                          </span>
 
-                    <!--</div>-->
-                    <!--<div *ngSwitchCase="'2'">-->
-                    <!--</div>-->
-                    <!--<div *ngSwitchCase="'3'">-->
-                    <!--</div>-->
-                    <!--<div *ngSwitchCase="'4'">-->
-                    <!--</div>-->
-                    <!--</li>-->
-                    <!--</ul>-->
+                        </div>
+
+                        <div *ngSwitchCase="component.IDTipoComp == '6'">
+                          <!--<span>{{ (component.Result) | json }}</span>-->
+                          <div class="row">
+                            <div class="col-md-4">
+                              <span class="clearfix" *ngFor="let atributo of component.Result.Atributo">
+                                <strong>{{ atributo.display }}:</strong> {{ atributo.value }}
+                              </span>
+                            </div>
+                            <div class="col-md-6">
+                              <span class="clearfix">
+                                <strong>Cumple:</strong> {{ component.Result.Cumple | status }}
+                              </span>
+                              <span class="clearfix">
+                                <strong>Operativos:</strong> {{ component.Result.Operativos }}
+                              </span>
+                              <span class="clearfix">
+                                <strong>No Operativos:</strong> {{ component.Result.NoOperativos }}
+                              </span>
+                              <span *ngIf="component.Result.Cumple == 'N'" class="clearfix">
+                                <strong>Disposición:</strong> {{ component.Result.Disposicion }}
+                              </span>
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </li>
+                    </ul>
+
                   </div>
                 </div>
 

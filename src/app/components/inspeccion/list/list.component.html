@@ -8,11 +8,55 @@
               <i class="icofont icofont-plus"></i>
               Nueva Inspección
             </button>
+
+            <button class="btn btn-info btn-sm ml-1" (click)="showFilter()">
+              <i class="icofont icofont-filter"></i>
+              Filtrar
+            </button>
           </div>
         </div>
 
       </div>
       <br>
+
+      <div class="row form-material" *ngIf="show">
+        <div class="col-md-3 ">
+
+          <div class="form-group form-primary">
+            <select class="form-control form-control-primary form-control-sm"
+                    [(ngModel)]="params_dt.other.Estado">
+              <option value="*">Todos</option>
+              <option *ngFor="let estado of tools.listEstadosInspeccion()"
+                      [value]="estado.value">{{ estado.label }}</option>
+            </select>
+            <span class="form-bar"></span>
+            <label class="float-label">Estado</label>
+          </div>
+
+        </div>
+        <div class="col-sm-12 col-lg-6">
+          <div class="scrollmenu">
+            <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+            </ngb-datepicker>
+
+            <ng-template #t let-date="date" let-focused="focused">
+              <span class="custom-range"
+                    [class.focused]="focused"
+                    [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                    [class.faded]="isHovered(date) || isInside(date)"
+                    (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                {{ date.day }}
+              </span>
+            </ng-template>
+          </div>
+          <pre class="m-t-20">Fechas Seleccionadas: {{ parserFormatter.format(fromDate) }} to {{ parserFormatter.format(toDate) }}</pre>
+        </div>
+
+
+        <hr>
+      </div>
+
       <div class="row">
         <div class="col-md-12">
           <div class="dt-custom-header">
@@ -82,7 +126,7 @@
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div class="btn-group-icons">
               <i class="icofont icofont-upload-alt m-r-15 f-20 text-primary" ngbTooltip="Sincronizar"
-                 *ngIf="row.colaborador && row.updated_at != row.firebase_at" (click)="synchronize(row)"></i>
+                 *ngIf="row.colaborador && row?.Estado == 'PEN' && row.updated_at != row.firebase_at" (click)="synchronize(row)"></i>
 
               <!-- Aprobada - Reprobada -->
               <a class="icofont icofont-eye-alt m-r-15 f-20 text-primary" ngbTooltip="Revisar Resultados"

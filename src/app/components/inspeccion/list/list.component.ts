@@ -5,9 +5,21 @@ import swal from 'sweetalert2';
 import {ModalService} from '../../../shared/services/modal.service';
 import {ModalBasicComponent} from '../../../shared/modal-basic/modal-basic.component';
 import {AsignColaboradorComponent} from './asign/asign.component';
-import {AngularFireDatabase} from '@angular/fire/database';
 import {ExportService} from '../../../shared/services/export.service';
-declare  var configuracion: any;
+import {NgbDateStruct, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+
+const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
+  one && two && two.year === one.year && two.month === one.month && two.day === one.day;
+
+const before = (one: NgbDateStruct, two: NgbDateStruct) =>
+  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+    ? false : one.day < two.day : one.month < two.month : one.year < two.year;
+
+const after = (one: NgbDateStruct, two: NgbDateStruct) =>
+  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+    ? false : one.day > two.day : one.month > two.month : one.year > two.year;
+
+declare var configuracion: any;
 
 @Component({
   selector: 'app-list',
@@ -19,11 +31,26 @@ declare  var configuracion: any;
 })
 export class ListComponent implements OnInit {
 
+  /* Date */
+  hoveredDate: NgbDateStruct;
+  fromDate: NgbDateStruct;
+  toDate: NgbDateStruct;
+
+  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+  isInside = date => after(date, this.fromDate) && before(date, this.toDate);
+  isFrom = date => equals(date, this.fromDate);
+  isTo = date => equals(date, this.toDate);
+
   pageSize: number[] = this.tools.pagSize();
   params_dt: any = {
     page: 1,
     psize: this.pageSize[0],
-    search: ''
+    search: '',
+    other: {
+      Estado: '*',
+      Desde: '*',
+      Hasta: '*'
+    }
   };
   paginate: any = {
     data: [],
@@ -32,6 +59,7 @@ export class ListComponent implements OnInit {
     per_page: 0
   };
   urlHost: string;
+  show: boolean = false;
 
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
@@ -39,9 +67,9 @@ export class ListComponent implements OnInit {
   constructor(
     private crudService: CrudService,
     private modalService: ModalService,
-    private tools: ToolsService,
+    public tools: ToolsService,
     private exportService: ExportService,
-    private db: AngularFireDatabase) {
+    public parserFormatter: NgbDateParserFormatter) {
   }
 
   ngOnInit() {
@@ -53,7 +81,7 @@ export class ListComponent implements OnInit {
     this.reload(event.offset + 1);
   }
 
-  validVerResultados(row){
+  validVerResultados(row) {
     return row.Estado == 'APR' || row.Estado == 'REP';
   }
 
@@ -64,7 +92,14 @@ export class ListComponent implements OnInit {
 
   async reload(page: number = 1) {
     this.params_dt.page = page;
+
+    this.params_dt.other.Desde = this.parserFormatter.format(this.fromDate) || '*';
+    this.params_dt.other.Hasta = this.parserFormatter.format(this.toDate) || '*';
+    console.log(this.params_dt.other);
+
+    this.params_dt.other = JSON.stringify(this.params_dt.other);
     this.paginate = await this.crudService.SeleccionarAsync('inspeccion', this.params_dt);
+    this.params_dt.other = JSON.parse(this.params_dt.other);
   }
 
   async edit(row?) {
@@ -128,10 +163,6 @@ export class ListComponent implements OnInit {
 
   }
 
-  reimprimir(row){
-
-  }
-
   async synchronize(row) {
     await this.crudService.SeleccionarAsync(`inspeccion/${row.ID}/async`);
     swal(
@@ -167,5 +198,32 @@ export class ListComponent implements OnInit {
         }
       });
   }
+
+
+  /* DateTimePicker */
+  onDateChange(date: NgbDateStruct) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  showFilter() {
+    this.show = !this.show;
+    if (!this.show) {
+      this.params_dt.other = {
+        Estado: '*',
+        Desde: '*',
+        Hasta: '*'
+      };
+      this.reload();
+    }
+
+  }
+
 
 }

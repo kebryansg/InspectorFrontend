@@ -23,6 +23,15 @@ export class ToolsService {
     ];
     return items;
   }
+  listEstadosInspeccion() {
+    let items = [
+      { value: 'PEN', label: "Pendiente" },
+      { value: 'APR', label: "Aprobado" },
+      { value: 'REP', label: "Reprobado" },
+      { value: 'REI', label: "Reinspección" },
+    ];
+    return items;
+  }
 
   listTipoEntidad(){
     return [

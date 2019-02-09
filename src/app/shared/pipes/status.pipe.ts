@@ -16,6 +16,9 @@ export class StatusPipe implements PipeTransform {
       case 'REP': result = 'Reprobado';  break;
       case 'P': result = 'Persona';  break;
       case 'E': result = 'Empresa';  break;
+      case 'S': result = 'Si';  break;
+      case 'N': result = 'No';  break;
+      case 'A': result = 'No Aplica';  break;
     }
     return result;
   }

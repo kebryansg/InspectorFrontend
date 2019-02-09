@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CrudService} from '../../../shared/services/crud.service';
 import {ToolsService} from '../../../shared/services/tools.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuario',
@@ -31,7 +32,12 @@ export class UsuarioComponent implements OnInit {
     this.paginate = await this.crudService.SeleccionarAsync('usuario', {page: event.offset + 1, psize: this.selPageSize});
   }
 
-  delete() {
+  delete(row) {
+    this.crudService.Eliminar('usuario/'+ row.id)
+      .subscribe(data => {
+        swal('Exito','El usuario se desactivo.','success')
+        this.reload();
+      });
   }
 
 
