@@ -25,6 +25,7 @@ import { MomentPipe } from './pipes/moment.pipe';
 import {ExportService} from './services/export.service';
 import {httpInterceptorProviders} from '../http-interceptor';
 import { KeysPipe } from './pipes/keys.pipe';
+import {FcmService} from './services/fcm.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -80,6 +81,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [
     CrudService,
+    FcmService,
     ToolsService,
     ModalService,
     ExportService,

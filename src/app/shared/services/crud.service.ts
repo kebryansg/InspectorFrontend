@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
-import {NgxSpinnerModule, NgxSpinnerService} from 'ngx-spinner';
 
 declare var configuracion: any;
 
@@ -12,8 +11,7 @@ export class CrudService {
 
   constructor(
     private http: Http,
-    private httpClient: HttpClient,
-    private spinner: NgxSpinnerService) {
+    private httpClient: HttpClient) {
 
   }
 

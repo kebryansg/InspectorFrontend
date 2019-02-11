@@ -26,9 +26,9 @@
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="MAC">
+        <ngx-datatable-column name="Nombre">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.MAC }}
+            {{ row?.Nombre }}
           </ng-template>
         </ngx-datatable-column>
 
@@ -45,6 +45,9 @@
               <i class="icofont icofont-key m-r-15 f-20 text-primary" ngbTooltip="Token - Clave" (click)="showKey(row)"></i>
               <i class="icofont icofont-check-circled m-r-15 f-20 text-success" ngbTooltip="Autorizar" *ngIf="!row?.Autorizado" (click)="autorizarDevice(row)"></i>
               <i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="No Autorizar" *ngIf="row?.Autorizado" (click)="removeDevice(row)"></i>
+              <i class="icofont icofont-notification m-r-15 f-20 text-danger" ngbTooltip="Enviar notificación"
+                 (click)="sendNotification(row)"
+              ></i>
             </div>
           </ng-template>
         </ngx-datatable-column>
