@@ -105,7 +105,7 @@ const routes: Routes = [
         path: 'tipo-empresa',
         component: TipoEmpresaComponent,
         data: {
-          title: 'Tipo Act. Económica',
+          title: 'Tipo Empresa',
           status: true
         }
       }

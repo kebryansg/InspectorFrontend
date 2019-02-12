@@ -95,7 +95,6 @@ export class ListComponent implements OnInit {
 
     this.params_dt.other.Desde = this.parserFormatter.format(this.fromDate) || '*';
     this.params_dt.other.Hasta = this.parserFormatter.format(this.toDate) || '*';
-    console.log(this.params_dt.other);
 
     this.params_dt.other = JSON.stringify(this.params_dt.other);
     this.paginate = await this.crudService.SeleccionarAsync('inspeccion', this.params_dt);

@@ -34,22 +34,22 @@ export class TipoEmpresaComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.paginate = await this.crudService.SeleccionarAsync('tipoact', {page: 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', {page: 1, psize: this.selPageSize});
   }
 
   async setPage(event) {
-    this.paginate = await this.crudService.SeleccionarAsync('tipoact', {page: event.offset + 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', {page: event.offset + 1, psize: this.selPageSize});
   }
 
   async reload() {
-    this.paginate = await this.crudService.SeleccionarAsync('tipoact', {page: 1, psize: this.selPageSize});
+    this.paginate = await this.crudService.SeleccionarAsync('tipoempresa', {page: 1, psize: this.selPageSize});
   }
 
   async edit(row?) {
     let data = {};
     this.titleModal = 'Nuevo';
     if (row) {
-      data = await this.crudService.SeleccionarAsync(`tipoact/${ row.ID }`);
+      data = await this.crudService.SeleccionarAsync(`tipoempresa/${row.ID}`);
       this.titleModal = 'Editar';
     }
 
@@ -58,14 +58,10 @@ export class TipoEmpresaComponent implements OnInit {
       datos: data,
       modal: this.modalForm,
       result: (data => {
-        if (data.ID == 0)
-          this.crudService.Insertar(data, 'tipoact').subscribe(data => {
-            this.reload();
-          });
-        else
-          this.crudService.Actualizar(data, `tipoact/${ data.ID }`).subscribe(data => {
-            this.reload();
-          });
+        let exec = (data.ID == 0) ? this.crudService.Insertar(data, 'tipoempresa') : this.crudService.Actualizar(data, `tipoempresa/${data.ID}`);
+        exec.subscribe(data => {
+          this.reload();
+        });
       })
     });
 
@@ -74,7 +70,7 @@ export class TipoEmpresaComponent implements OnInit {
   }
 
   delete(row) {
-    this.crudService.Eliminar(`tipoact/${ row.ID }`)
+    this.crudService.Eliminar(`tipoempresa/${row.ID}`)
       .subscribe(data => {
         this.reload();
       });

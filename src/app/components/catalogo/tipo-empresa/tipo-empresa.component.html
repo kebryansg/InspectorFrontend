@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Tipo Act. Económica'">
+    <app-card [title]="'Tipo Empresa'">
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
@@ -34,15 +34,11 @@
 
         <ngx-datatable-column name="Nombre">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Descripcion }}
+            {{ row?.Nombre }}
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Act. Económica">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.ActEconomica }}
-          </ng-template>
-        </ngx-datatable-column>
+
 
         <ngx-datatable-column name="Estado">
           <ng-template let-row="row" ngx-datatable-cell-template>

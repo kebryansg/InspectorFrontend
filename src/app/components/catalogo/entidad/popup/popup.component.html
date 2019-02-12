@@ -14,14 +14,14 @@
           <label class="float-label">Nombres</label>
       </div>
 
-      <div class="form-group form-primary">
-          <input type="text" [formControl]="form.controls['Apellidos']" class="form-control">
+      <div class="form-group form-primary" *ngIf="this.form.controls['Tipo'].value == 'P'">
+          <input type="text" [formControl]="form.controls['Apellidos']" class="form-control" >
           <span class="form-bar"></span>
           <label class="float-label">Apellidos</label>
       </div>
 
       <div class="form-group form-primary">
-        <input type="email" [formControl]="form.controls['Email']" class="form-control">
+        <input type="email" [formControl]="form.controls['Email']" class="form-control" >
         <span class="form-bar"></span>
         <label class="float-label">Email</label>
       </div>

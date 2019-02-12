@@ -44,12 +44,16 @@ export class NewEmpresaComponent implements OnInit {
   lsMarcardoresMaps: any[] = [];
 
   lsActEconomica: any[] = [];
-  lsProvincias: any[] = [];
+  lsTipoEmpresa: any[] = [];
 
-  lsTipoActEcon: any[] = [];
-  lsClasificacion: any[] = [];
-  lsCanton: any[] = [];
+
+  lsGrupo: any[] = [];
+  lsActividad: any[] = [];
+  lsCategoria: any[] = [];
+
+  lsProvincias: any[] = [];
   lsParroquia: any[] = [];
+  lsCanton: any[] = [];
   lsSector: any[] = [];
   datos: any;
   entidad: any = {};
@@ -66,11 +70,15 @@ export class NewEmpresaComponent implements OnInit {
 
     let combine = await Promise.all([
       this.crudService.SeleccionarAsync('acteconomica_combo'),
-      this.crudService.SeleccionarAsync('location_combo_sector')
+      this.crudService.SeleccionarAsync('tipoempresa_combo'),
+      this.crudService.SeleccionarAsync('location_combo_sector'),
+      this.crudService.SeleccionarAsync('grupo_combo')
     ]);
 
     this.lsActEconomica = combine[0] as any[];
-    this.lsProvincias = combine[1] as any[];
+    this.lsTipoEmpresa = combine[1] as any[];
+    this.lsProvincias = combine[2] as any[];
+    this.lsGrupo = combine[3] as any[];
 
     this.route.params.subscribe(async (params) => {
       let datos = await this.getData(params.id);
@@ -102,9 +110,6 @@ export class NewEmpresaComponent implements OnInit {
       Direccion: [datos.Direccion || '', Validators.required],
       Telefono: [datos.Telefono || '', Validators.required],
       Celular: [datos.Celular || '', Validators.required],
-      IDEntidad: [datos.IDEntidad || null, Validators.required],
-      IDClasificacion: [datos.IDClasificacion || null, Validators.required],
-      IDSector: [datos.IDSector || null, Validators.required],
       Email: [datos.Email || ''],
       Referencia: [datos.Referencia || '', Validators.required],
       Estado: [datos.Estado || 'ACT', Validators.required],
@@ -112,13 +117,20 @@ export class NewEmpresaComponent implements OnInit {
       Latitud: [datos.Latitud || null],
       Longitud: [datos.Longitud || null],
 
-      IDActEconomica: [null, Validators.required],
-      IDTipoActEcon: [null, Validators.required],
+      IDEntidad: [datos.IDEntidad || null, Validators.required],
+
+      IDActEconomica: [datos.IDActEconomica || null],
+      IDTipoEmpresa: [datos.IDTipoEmpresa || null],
+
+      IDTarifaGrupo: [datos.IDTarifaGrupo || null],
+      IDTarifaActividad: [datos.IDTarifaActividad || null],
+      IDTarifaCategoria: [datos.IDTarifaCategoria || null],
+
 
       IDProvincia: [null, Validators.required],
       IDCanton: [null, Validators.required],
       IDParroquia: [null, Validators.required],
-
+      IDSector: [datos.IDSector || null, Validators.required],
     });
 
     this.entidad = datos.entidad;
@@ -128,11 +140,12 @@ export class NewEmpresaComponent implements OnInit {
     if (datos.Latitud)
       this.lsMarcardoresMaps = [{lat: datos.Latitud, lng: datos.Longitud}];
 
-    if (datos.IDClasificacion) {
-      this.form.controls['IDActEconomica'].setValue(datos.clasificacion.tipoacteconomica.IDActEconomica);
-      this.form.controls['IDTipoActEcon'].setValue(datos.clasificacion.IDTipoActEcon);
-      this.form.controls['IDClasificacion'].setValue(datos.IDClasificacion);
-    }
+    // if(datos.IDTarifaGrupo){
+    //   this.form.controls['IDTarifaActividad'].setValue(this.lsActividad[0].ID);
+    //   this.form.controls['IDTarifaCategoria'].setValue(this.lsCategoria[0].ID);
+    // }
+
+
     if (datos.IDSector) {
       this.form.controls['IDProvincia'].setValue(datos.sector.parroquium.canton.IDProvincia);
       this.form.controls['IDCanton'].setValue(datos.sector.parroquium.IDCanton);
@@ -159,21 +172,16 @@ export class NewEmpresaComponent implements OnInit {
 
   events() {
 
-    this.form.controls['IDActEconomica'].valueChanges.subscribe(item => {
+    this.form.controls['IDTarifaGrupo'].valueChanges.subscribe(item => {
       if (item) {
-        this.lsTipoActEcon = [...this.lsActEconomica.find(row => row.ID == item).tipoacteconomicas];
-        if (this.lsTipoActEcon.length > 0) this.form.controls['IDTipoActEcon'].setValue(this.lsTipoActEcon[0].ID);
-      }
+        this.lsActividad = [...this.lsGrupo.find(row => row.ID == item).acttarifarios];
+        this.lsCategoria = [...this.lsGrupo.find(row => row.ID == item).grupocategorium];
 
-
-    });
-
-    this.form.controls['IDTipoActEcon'].valueChanges.subscribe(item => {
-      if (item) {
-        this.lsClasificacion = [...this.lsTipoActEcon.find(row => row.ID == item).clasificacions];
-        if (this.lsClasificacion.length > 0) this.form.controls['IDClasificacion'].setValue(this.lsClasificacion[0].ID);
+        if (this.lsActividad.length > 0) this.form.controls['IDTarifaActividad'].setValue(this.lsActividad[0].ID);
+        if (this.lsCategoria.length > 0) this.form.controls['IDTarifaCategoria'].setValue(this.lsCategoria[0].ID);
       }
     });
+
 
     this.form.controls['IDProvincia'].valueChanges.subscribe(item => {
       if (item)
