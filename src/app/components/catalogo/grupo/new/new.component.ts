@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ModalService} from '../../../../shared/services/modal.service';
 import {ToolsService} from '../../../../shared/services/tools.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
+import {PopupActividadComponent} from '../actividad/popup/popup.component';
 
 @Component({
   selector: 'app-new',
@@ -28,10 +30,17 @@ import {animate, style, transition, trigger} from '@angular/animations';
 export class NewGrupoComponent implements OnInit {
 
   form: FormGroup;
+  formActividad: FormGroup;
+
   lsCategoria: any;
   lsActividad: any[] = [];
   selected: any[] = [];
+  titleModal: string;
+  IDGlobal: number;
 
+
+  @ViewChild('modalForm') modalForm: ModalBasicComponent;
+  @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
 
   constructor(private fb: FormBuilder,
               protected crudService: CrudService,
@@ -44,6 +53,13 @@ export class NewGrupoComponent implements OnInit {
   ngOnInit() {
 
     this.lsCategoria = this.crudService.SeleccionarAsync('categoria_combo');
+
+    this.formActividad = this.fb.group({
+      ID: [0],
+      Nombre: [null, Validators.required],
+      Descripcion: [null],
+      Estado: ['ACT', Validators.required],
+    });
 
     this.route.params.subscribe(async (params) => {
       let datos = await this.getData(params.id);
@@ -59,6 +75,7 @@ export class NewGrupoComponent implements OnInit {
   }
 
   loadGrupo(datos) {
+    this.IDGlobal = datos.ID || 0;
     this.form = this.fb.group({
       ID: [datos.ID || 0],
       Nombre: [datos.Nombre || null, Validators.required],
@@ -70,7 +87,7 @@ export class NewGrupoComponent implements OnInit {
       this.selected = [...datos.grupocategorium];
     }
     if (datos.acttarifarios)
-      this.lsActividad = datos.acttarifarios;
+      this.lsActividad = [...datos.acttarifarios];
 
   }
 
@@ -84,11 +101,22 @@ export class NewGrupoComponent implements OnInit {
     this.router.navigate([ruta], {relativeTo: this.route});
   }
 
-  modalActividad(row = {}){
+  modalActividad(row: any = {ID: 0}, idx = -1) {
+    this.titleModal = (idx == -1) ? 'Actividad - Nuevo' : 'Actividad - Editar';
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupActividadComponent, {
+      datos: row,
+      modal: this.modalForm,
+      result: data => {
+        this.reloadActividad(data, idx);
+      }
+    });
+
+    this.modalForm.show();
 
   }
 
-  delete(row){
+  delete(row) {
     row.Estado = 'INA';
   }
 
@@ -103,6 +131,16 @@ export class NewGrupoComponent implements OnInit {
 
   getSelection() {
     return this.selected.map(row => row.ID);
+  }
+
+  reloadActividad(data, idx) {
+
+    if(idx != -1)
+      this.lsActividad[idx] = data;
+    else
+      this.lsActividad.unshift(data);
+    this.lsActividad = [...this.lsActividad];
+
   }
 
 }
