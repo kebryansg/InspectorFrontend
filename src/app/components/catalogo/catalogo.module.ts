@@ -28,6 +28,8 @@ import { ModalEmpresaComponent } from './empresa/modal/modal.component';
 import { NewEmpresaComponent } from './empresa/new/new.component';
 import { ModalEntidadComponent } from './entidad/modal/modal.component';
 import {AgmCoreModule} from '@agm/core';
+import { GrupoComponent } from './grupo/grupo.component';
+import { NewGrupoComponent } from './grupo/new/new.component';
 
 @NgModule({
   imports: [
@@ -60,7 +62,9 @@ import {AgmCoreModule} from '@agm/core';
     PopupEmpresaComponent,
     ModalEmpresaComponent,
     NewEmpresaComponent,
-    ModalEntidadComponent
+    ModalEntidadComponent,
+    GrupoComponent,
+    NewGrupoComponent
   ],
   entryComponents: [
     PopupCompaniaComponent,

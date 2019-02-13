@@ -10,6 +10,8 @@ import {AreaComponent} from './area/area.component';
 import {ClasificacionComponent} from './clasificacion/clasificacion.component';
 import {EmpresaComponent} from './empresa/empresa.component';
 import {NewEmpresaComponent} from './empresa/new/new.component';
+import {GrupoComponent} from './grupo/grupo.component';
+import {NewGrupoComponent} from './grupo/new/new.component';
 
 const routes: Routes = [
   {
@@ -108,7 +110,36 @@ const routes: Routes = [
           title: 'Tipo Empresa',
           status: true
         }
-      }
+      },
+      {
+        path: 'grupo',
+        children: [
+          {
+            path: '',
+            component: GrupoComponent,
+            data: {
+              title: 'Grupo Económico',
+              status: true
+            }
+          },
+          {
+            path: 'new',
+            component: NewGrupoComponent,
+            data: {
+              title: 'Config. Grupo Económico',
+              status: true
+            }
+          },
+          {
+            path: 'new/:id',
+            component: NewGrupoComponent,
+            data: {
+              title: 'Config. Grupo Económico',
+              status: true
+            }
+          }
+        ]
+      },
     ]
   }
 ];
