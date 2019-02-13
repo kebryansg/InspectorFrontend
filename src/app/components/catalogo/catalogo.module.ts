@@ -20,8 +20,6 @@ import {DepartamentoComponent} from './departamento/departamento.component';
 import {AreaComponent} from './area/area.component';
 import {PopupDepartamentoComponent} from './departamento/popup/popup.component';
 import {PopupAreaComponent} from './area/popup/popup.component';
-import {ClasificacionComponent} from './clasificacion/clasificacion.component';
-import {PopupClasificaconComponent} from './clasificacion/popup/popup.component';
 import {EmpresaComponent} from './empresa/empresa.component';
 import { PopupEmpresaComponent} from './empresa/popup/popup.component';
 import { ModalEmpresaComponent } from './empresa/modal/modal.component';
@@ -30,6 +28,9 @@ import { ModalEntidadComponent } from './entidad/modal/modal.component';
 import {AgmCoreModule} from '@agm/core';
 import { GrupoComponent } from './grupo/grupo.component';
 import { NewGrupoComponent } from './grupo/new/new.component';
+import {  PopupActividadComponent } from './grupo/actividad/popup/popup.component';
+import { CategoriaComponent } from './categoria/categoria.component';
+import { PopupCategoriaComponent } from './categoria/popup/popup.component';
 
 @NgModule({
   imports: [
@@ -56,15 +57,16 @@ import { NewGrupoComponent } from './grupo/new/new.component';
     AreaComponent,
     PopupDepartamentoComponent,
     PopupAreaComponent,
-    ClasificacionComponent,
-    PopupClasificaconComponent,
     EmpresaComponent,
     PopupEmpresaComponent,
     ModalEmpresaComponent,
     NewEmpresaComponent,
     ModalEntidadComponent,
     GrupoComponent,
-    NewGrupoComponent
+    NewGrupoComponent,
+    PopupActividadComponent,
+    CategoriaComponent,
+    PopupCategoriaComponent
   ],
   entryComponents: [
     PopupCompaniaComponent,
@@ -73,10 +75,11 @@ import { NewGrupoComponent } from './grupo/new/new.component';
     PopupEntidadComponent,
     PopupDepartamentoComponent,
     PopupAreaComponent,
-    PopupClasificaconComponent,
     PopupEmpresaComponent,
     ModalEmpresaComponent,
-    ModalEntidadComponent
+    ModalEntidadComponent,
+    PopupActividadComponent,
+    PopupCategoriaComponent
   ]
 })
 export class CatalogoModule {

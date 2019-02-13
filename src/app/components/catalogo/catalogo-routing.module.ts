@@ -7,11 +7,11 @@ import {ActividadEconomicaComponent} from './actividad-economica/actividad-econo
 import {TipoEmpresaComponent} from './tipo-empresa/tipo-empresa.component';
 import {DepartamentoComponent} from './departamento/departamento.component';
 import {AreaComponent} from './area/area.component';
-import {ClasificacionComponent} from './clasificacion/clasificacion.component';
 import {EmpresaComponent} from './empresa/empresa.component';
 import {NewEmpresaComponent} from './empresa/new/new.component';
 import {GrupoComponent} from './grupo/grupo.component';
 import {NewGrupoComponent} from './grupo/new/new.component';
+import {CategoriaComponent} from './categoria/categoria.component';
 
 const routes: Routes = [
   {
@@ -42,10 +42,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'clasificacion',
-        component: ClasificacionComponent,
+        path: 'categoria',
+        component: CategoriaComponent,
         data: {
-          title: 'Clasificación',
+          title: 'Categoría',
           status: true
         }
       },

@@ -26,6 +26,7 @@ import {ExportService} from './services/export.service';
 import {httpInterceptorProviders} from '../http-interceptor';
 import { KeysPipe } from './pipes/keys.pipe';
 import {FcmService} from './services/fcm.service';
+import { CardTabsComponent } from './card-tabs/card-tabs.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -60,7 +61,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     StatusPipe,
     AutorizadoPipe,
     MomentPipe,
-    KeysPipe
+    KeysPipe,
+    CardTabsComponent
   ],
   declarations: [
     ToggleFullScreenDirective,
@@ -77,7 +79,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     StatusPipe,
     AutorizadoPipe,
     MomentPipe,
-    KeysPipe
+    KeysPipe,
+    CardTabsComponent
   ],
   providers: [
     CrudService,

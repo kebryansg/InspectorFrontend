@@ -1,21 +1,199 @@
-<app-card [title]="'Config. Grupo Económico'">
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
-    <div class="col-md-12">
-      <div class="pull-right">
-        <button type="reset" class="btn btn-danger btn-sm mr-1" (click)="cancel()">
-          <i class="icofont icofont-reply"></i>
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-primary btn-sm" [disabled]="form.invalid">
-          <i class="icofont icofont-save"></i>
-          Guardar
-        </button>
-      </div>
-    </div>
-  </form>
+<app-card-tabs>
+  <div class="md-tabs">
+    <ngb-tabset>
+
+      <!-- Información de la Empresa -->
+      <ngb-tab>
+        <ng-template ngbTabTitle style="padding: 10px 0;">
+          <i class="icofont icofont-home"></i>
+          Información Básica
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div [@fadeInOutTranslate] class="m-20">
+            <div class="row">
+
+              <div class="col-md-5">
+                <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <div class="form-group form-default">
+                        <input type="text" [formControl]="form.controls['Nombre']" class="form-control"
+                               autocomplete="off">
+                        <span class="form-bar"></span>
+                        <label class="float-label">Nombre</label>
+                      </div>
+
+                      <div class="form-group form-default">
+                        <input type="text" [formControl]="form.controls['Descripcion']" class="form-control"
+                               autocomplete="off">
+                        <span class="form-bar"></span>
+                        <label class="float-label">Descripcion</label>
+                      </div>
+
+                      <div class="form-group form-primary">
+                        <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
+                          <option *ngFor="let item of tools.listEstados() "
+                                  [value]="item.value">{{ item.label }}</option>
+                        </select>
+                        <span class="form-bar"></span>
+                        <label class="float-label">Estado</label>
+                      </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12">
+                      <div class="pull-right">
+                        <button type="reset" class="btn btn-danger btn-sm mr-1" (click)="cancel()">
+                          <i class="icofont icofont-reply"></i>
+                          Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-sm" [disabled]="form.invalid">
+                          <i class="icofont icofont-save"></i>
+                          Guardar
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+                <div class="divider"></div>
+
+                <div class="row">
+
+                </div>
+
+              </div>
+              <div class="col-md-7">
+                <ngx-datatable
+                  class="data-table dt-chk scroll"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="50"
+
+                  [rows]="lsCategoria | async"
+                  [columnMode]="'force'"
+                  [scrollbarV]="true"
+
+                  [rowIdentity]="getID"
+                  [selected]="selected"
+                  [selectionType]="'checkbox'"
+                  (select)='onSelect($event)'>
+
+                  <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                                        [resizeable]="false">
+                    <ng-template class="datatable-checkbox" ngx-datatable-header-template let-value="value"
+                                 let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                      <div class="checkbox-fade fade-in-default datatable-header-cell-label">
+                        <label>
+                          <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>
+                          <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                        </label>
+                      </div>
+
+                    </ng-template>
+                    <ng-template class="datatable-checkbox" ngx-datatable-cell-template
+                                 let-value="value"
+                                 let-isSelected="isSelected"
+                                 let-onCheckboxChangeFn="onCheckboxChangeFn">
+                      <div class="checkbox-fade fade-in-default datatable-header-cell-label">
+                        <label>
+                          <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)"/>
+                          <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                        </label>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Categoría">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Nombre }}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                </ngx-datatable>
+              </div>
+
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <!-- Actividad Grupo -->
+      <ngb-tab>
+        <ng-template ngbTabTitle style="padding: 10px 0;">
+          <i class="icofont icofont-home"></i>
+          Grupo - Actividad
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div [@fadeInOutTranslate] class="m-20">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pull-left">
+                  <span class="sub-title text-c-blue">Grupo: <strong>{{ form.controls['Nombre'].value }}</strong></span>
+                </div>
+                <div class="pull-right">
+                  <button class="btn btn-primary btn-sm" (click)="modalActividad()">
+                    <i class="icofont icofont-plus"></i>
+                    Agregar Actividad
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-datatable
+                  class="data-table scroll"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="50"
+
+                  [rows]="lsActividad"
+                  [columnMode]="'force'"
+                  [scrollbarV]="true">
+
+                  <ngx-datatable-column name="Nombre">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Nombre }}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Descripción">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Descripcion }}
+                    </ng-template>
+                  </ngx-datatable-column>
 
 
-  <div class="clearfix"></div>
+                  <ngx-datatable-column name="Estado">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.Estado | status }}
+                    </ng-template>
+                  </ngx-datatable-column>
 
-</app-card>
+                  <ngx-datatable-column name="Acciones">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <div class="btn-group-icons">
+                        <i class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar"  (click)="modalActividad()"></i>
+                        <i *ngIf="row.Estado == 'ACT'" class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"  (click)="delete(row)"></i>
 
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                </ngx-datatable>
+              </div>
+            </div>
+
+
+
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+    </ngb-tabset>
+
+  </div>
+</app-card-tabs>
