@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
 import {PopupActividadComponent} from '../actividad/popup/popup.component';
+import {PopupCategoriaComponent} from '../../categoria/popup/popup.component';
 
 @Component({
   selector: 'app-new',
@@ -32,7 +33,7 @@ export class NewGrupoComponent implements OnInit {
   form: FormGroup;
   formActividad: FormGroup;
 
-  lsCategoria: any;
+  lsCategoria: any[] = [];
   lsActividad: any[] = [];
   selected: any[] = [];
   titleModal: string;
@@ -52,8 +53,6 @@ export class NewGrupoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.lsCategoria = this.crudService.SeleccionarAsync('categoria_combo');
-
     this.formActividad = this.fb.group({
       ID: [0],
       Nombre: [null, Validators.required],
@@ -63,6 +62,7 @@ export class NewGrupoComponent implements OnInit {
 
     this.route.params.subscribe(async (params) => {
       let datos = await this.getData(params.id);
+      this.lsCategoria = await this.crudService.SeleccionarAsync('categoria_combo') as any[];
       await this.loadGrupo(datos);
     });
   }
@@ -83,8 +83,8 @@ export class NewGrupoComponent implements OnInit {
       Estado: [datos.Estado || 'ACT'],
     });
 
-    if (datos.grupocategorium) {
-      this.selected = [...datos.grupocategorium];
+    if (datos.categorium) {
+      this.selected = [...datos.categorium];
     }
     if (datos.acttarifarios)
       this.lsActividad = [...datos.acttarifarios];
@@ -92,6 +92,11 @@ export class NewGrupoComponent implements OnInit {
   }
 
   submit() {
+    let data = this.form.value;
+    data.actividades = this.lsActividad;
+    data.categoria = this.getSelection();
+    let exec = (data.ID == 0) ? this.crudService.Insertar(data, 'grupo') : this.crudService.Actualizar(data, 'grupo/' + data.ID);
+    exec.subscribe(response => this.cancel());
 
   }
 
@@ -116,6 +121,23 @@ export class NewGrupoComponent implements OnInit {
 
   }
 
+  modalCategoria() {
+    this.titleModal = 'Categoría - Nuevo';
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupCategoriaComponent, {
+      datos: {},
+      modal: this.modalForm,
+      result: data => {
+        this.crudService.Insertar(data, 'categoria')
+          .subscribe(response => {
+            this.reloadCategoria(response);
+          });
+      }
+    });
+
+    this.modalForm.show();
+  }
+
   delete(row) {
     row.Estado = 'INA';
   }
@@ -130,12 +152,19 @@ export class NewGrupoComponent implements OnInit {
   }
 
   getSelection() {
-    return this.selected.map(row => row.ID);
+    return this.selected.map(row => ({ IDCategoria : row.ID}));
+  }
+
+  aaaaaa;
+
+  reloadCategoria(data) {
+    this.lsCategoria = [data, ...this.lsCategoria];
+    this.selected = [data, ...this.selected];
   }
 
   reloadActividad(data, idx) {
 
-    if(idx != -1)
+    if (idx != -1)
       this.lsActividad[idx] = data;
     else
       this.lsActividad.unshift(data);
