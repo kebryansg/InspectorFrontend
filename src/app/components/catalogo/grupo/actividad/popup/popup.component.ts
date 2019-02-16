@@ -23,6 +23,7 @@ export class PopupActividadComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       ID: [ this.datos.ID || 0 ],
+      IDGrupo: [ this.datos.IDGrupo || null, Validators.required],
       Nombre: [ this.datos.Nombre || '', Validators.required],
       Descripcion: [ this.datos.Descripcion || ''],
       Estado: [ this.datos.Estado || 'ACT', Validators.required]

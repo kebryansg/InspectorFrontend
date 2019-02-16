@@ -125,7 +125,8 @@
                         <div class="col-md-12">
                           <div class="pull-left">
                             <label style="margin-right: 5px; font-size: 1.45rem;"> Entidad</label>
-                            <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;" ngbTooltip="Buscar Entidad"
+                            <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;"
+                               ngbTooltip="Buscar Entidad"
                                placement="right" (click)="loadmodal($event)"></a>
                           </div>
                         </div>
@@ -197,57 +198,107 @@
                       <div class="row">
                         <div class="col-md-6">
                           <h3 class="sub-title text-c-blue font-weight-bold">Organización</h3>
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary"
-                                    [formControl]="form.controls['IDActEconomica']">
-                              <option *ngFor="let item of lsActEconomica" [value]="item.ID">{{ item.Descripcion }}
-                              </option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Act. Económica</label>
+
+                          <div class="material-group">
+                            <div class="form-group form-primary">
+                              <select class="form-control form-control-primary"
+                                      [formControl]="form.controls['IDActEconomica']">
+                                <option *ngFor="let item of lsActEconomica" [value]="item.ID">
+                                  {{ item.Descripcion }}
+                                </option>
+                              </select>
+                              <span class="form-bar"></span>
+                              <label class="float-label">Act. Económica</label>
+                            </div>
+                            <div class="material-addone">
+                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                                 (click)="modalActividadEconomica()"></i>
+                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
+                                 (click)="reloadCombo('ActEco')"></i>
+                            </div>
                           </div>
 
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary"
-                                    [formControl]="form.controls['IDTipoEmpresa']">
-                              <option *ngFor="let item of lsTipoEmpresa" [value]="item.ID">{{ item.Nombre }}
-                              </option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Tipo Empresa</label>
+                          <!--<div class="form-group form-primary">-->
+                          <!--<select class="form-control form-control-primary"-->
+                          <!--[formControl]="form.controls['IDActEconomica']">-->
+                          <!--<option *ngFor="let item of lsActEconomica" [value]="item.ID">{{ item.Descripcion }}-->
+                          <!--</option>-->
+                          <!--</select>-->
+                          <!--<span class="form-bar"></span>-->
+                          <!--<label class="float-label">Act. Económica</label>-->
+                          <!--</div>-->
+                          <div class="material-group">
+                            <div class="form-group form-primary">
+                              <select class="form-control form-control-primary"
+                                      [formControl]="form.controls['IDTipoEmpresa']">
+                                <option *ngFor="let item of lsTipoEmpresa" [value]="item.ID">{{ item.Nombre }}
+                                </option>
+                              </select>
+                              <span class="form-bar"></span>
+                              <label class="float-label">Tipo Empresa</label>
+                            </div>
+                            <div class="material-addone">
+                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                                 (click)="modalTipoEmpresa()"></i>
+                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
+                                 (click)="reloadCombo('TipoEmpresa')"></i>
+                            </div>
                           </div>
 
                         </div>
                         <div class="col-md-6">
                           <h3 class="sub-title text-c-blue font-weight-bold">Tarifario</h3>
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary"
-                                    [formControl]="form.controls['IDTarifaGrupo']">
-                              <option *ngFor="let item of lsGrupo" [value]="item.ID">{{ item.Nombre }}
-                              </option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Grupo</label>
+
+                          <div class="material-group">
+                            <div class="form-group form-primary">
+                              <select class="form-control form-control-primary"
+                                      [formControl]="form.controls['IDTarifaGrupo']">
+                                <option *ngFor="let item of lsGrupo" [value]="item.ID">{{ item.Nombre }}
+                                </option>
+                              </select>
+                              <span class="form-bar"></span>
+                              <label class="float-label">Grupo</label>
+                            </div>
+                            <div class="material-addone">
+                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                                 (click)="modalActividadTarifario()"></i>
+                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
+                                 (click)="reloadCombo('')"></i>
+                            </div>
                           </div>
 
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary"
-                                    [formControl]="form.controls['IDTarifaActividad']">
-                              <option *ngFor="let item of lsActividad" [value]="item.ID">{{ item.Nombre }}
-                              </option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Actividad</label>
+                          <div class="material-group">
+                            <div class="form-group form-primary">
+                              <select class="form-control form-control-primary"
+                                      [formControl]="form.controls['IDTarifaActividad']">
+                                <option *ngFor="let item of lsActividad" [value]="item.ID">{{ item.Nombre }}
+                                </option>
+                              </select>
+                              <span class="form-bar"></span>
+                              <label class="float-label">Actividad</label>
+                            </div>
+                            <div class="material-addone">
+                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                                 (click)="modalActividadTarifario()"></i>
+                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>
+                            </div>
                           </div>
 
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary"
-                                    [formControl]="form.controls['IDTarifaCategoria']">
-                              <option *ngFor="let item of lsCategoria" [value]="item.ID">{{ item.Nombre }}
-                              </option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Categoría</label>
+                          <div class="material-group">
+                            <div class="form-group form-primary">
+                              <select class="form-control form-control-primary"
+                                      [formControl]="form.controls['IDTarifaCategoria']">
+                                <option *ngFor="let item of lsCategoria" [value]="item.ID">{{ item.Nombre }}
+                                </option>
+                              </select>
+                              <span class="form-bar"></span>
+                              <label class="float-label">Categoría</label>
+                            </div>
+                            <div class="material-addone">
+                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                                 (click)="modalCategoria()"></i>
+                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>
+                            </div>
                           </div>
 
                         </div>
@@ -323,10 +374,12 @@
                       <div class="row">
                         <div class="col-md-12">
 
-                          <agm-map (mapClick)="selectMarcador($event)" [latitude]="lat" [longitude]="lng" [zoom]="17" style="height: 450px;">
+                          <agm-map (mapClick)="selectMarcador($event)" [latitude]="lat" [longitude]="lng" [zoom]="17"
+                                   style="height: 450px;">
 
-                            <agm-marker *ngFor="let coord of lsMarcardoresMaps" [latitude]="coord.lat" [longitude]="coord.lng" >
-                              <agm-info-window [isOpen]="true" >
+                            <agm-marker *ngFor="let coord of lsMarcardoresMaps" [latitude]="coord.lat"
+                                        [longitude]="coord.lng">
+                              <agm-info-window [isOpen]="true">
                                 <h5><strong> Ubicación de la empresa </strong></h5>
                               </agm-info-window>
                             </agm-marker>
@@ -353,10 +406,10 @@
 </form>
 
 
-<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="'modal-lg custom-lg'">
+<app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="cssModal">
 
   <div class="app-modal-header">
-    <h4 class="modal-title">Buscar Entidad</h4>
+    <h4 class="modal-title">{{ titleModal }}</h4>
     <button type="button" class="close basic-close" (click)="modalForm.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

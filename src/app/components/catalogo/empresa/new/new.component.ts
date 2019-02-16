@@ -8,6 +8,10 @@ import swal from 'sweetalert2';
 import {ModalBasicComponent} from '../../../../shared/modal-basic/modal-basic.component';
 import {ModalService} from '../../../../shared/services/modal.service';
 import {ModalEntidadComponent} from '../../entidad/modal/modal.component';
+import {PopupActividadEconomicaComponent} from '../../actividad-economica/popup/popup.component';
+import {PopupTipoEmpresaComponent} from '../../tipo-empresa/popup/popup.component';
+import {PopupActividadComponent} from '../../grupo/actividad/popup/popup.component';
+import {PopupCategoriaComponent} from '../../categoria/popup/popup.component';
 
 @Component({
   selector: 'app-new',
@@ -57,6 +61,8 @@ export class NewEmpresaComponent implements OnInit {
   lsSector: any[] = [];
   datos: any;
   entidad: any = {};
+  titleModal: string = '';
+  cssModal: string = '';
 
   constructor(private fb: FormBuilder,
               protected crudService: CrudService,
@@ -140,10 +146,11 @@ export class NewEmpresaComponent implements OnInit {
     if (datos.Latitud)
       this.lsMarcardoresMaps = [{lat: datos.Latitud, lng: datos.Longitud}];
 
-    // if(datos.IDTarifaGrupo){
-    //   this.form.controls['IDTarifaActividad'].setValue(this.lsActividad[0].ID);
-    //   this.form.controls['IDTarifaCategoria'].setValue(this.lsCategoria[0].ID);
-    // }
+    if (datos.IDTarifaGrupo) {
+      this.form.controls['IDTarifaGrupo'].setValue(datos.IDTarifaGrupo);
+      this.form.controls['IDTarifaActividad'].setValue(datos.IDTarifaActividad);
+      this.form.controls['IDTarifaCategoria'].setValue(datos.IDTarifaCategoria);
+    }
 
 
     if (datos.IDSector) {
@@ -156,6 +163,8 @@ export class NewEmpresaComponent implements OnInit {
 
   loadmodal(event) {
     event.preventDefault();
+    this.titleModal = 'Buscar Entidad';
+    this.cssModal = 'modal-lg custom-lg';
     let data = {};
     this.modalService.setRootViewContainerRef(this.entry);
     this.modalService.addDynamicComponent(ModalEntidadComponent, {
@@ -175,7 +184,7 @@ export class NewEmpresaComponent implements OnInit {
     this.form.controls['IDTarifaGrupo'].valueChanges.subscribe(item => {
       if (item) {
         this.lsActividad = [...this.lsGrupo.find(row => row.ID == item).acttarifarios];
-        this.lsCategoria = [...this.lsGrupo.find(row => row.ID == item).grupocategorium];
+        this.lsCategoria = [...this.lsGrupo.find(row => row.ID == item).categorium];
 
         if (this.lsActividad.length > 0) this.form.controls['IDTarifaActividad'].setValue(this.lsActividad[0].ID);
         if (this.lsCategoria.length > 0) this.form.controls['IDTarifaCategoria'].setValue(this.lsCategoria[0].ID);
@@ -223,6 +232,99 @@ export class NewEmpresaComponent implements OnInit {
     this.form.controls['Latitud'].setValue(evento.coords.lat);
     this.form.controls['Longitud'].setValue(evento.coords.lng);
     this.lsMarcardoresMaps = [evento.coords];
+  }
+
+  modalActividadEconomica() {
+    this.titleModal = 'Nueva Actividad Económica';
+    this.cssModal = 'modal-lg';
+    let data = {};
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupActividadEconomicaComponent, {
+      datos: data,
+      modal: this.modalForm,
+      result: (data => {
+        this.crudService.Insertar(data, 'acteconomica')
+          .subscribe((response: any) => {
+            this.lsActEconomica = [...this.lsActEconomica, response];
+            this.form.controls['IDActEconomica'].setValue(response.ID);
+          });
+      })
+    });
+
+    this.modalForm.show();
+  }
+
+  modalTipoEmpresa() {
+    this.titleModal = 'Nuevo Tipo Empresa';
+    this.cssModal = 'modal-lg';
+    let data = {};
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupTipoEmpresaComponent, {
+      datos: data,
+      modal: this.modalForm,
+      result: (data => {
+        this.crudService.Insertar(data, 'tipoempresa')
+          .subscribe((response: any) => {
+            this.lsTipoEmpresa = [...this.lsTipoEmpresa, response];
+            this.form.controls['IDTipoEmpresa'].setValue(response.ID);
+          });
+      })
+    });
+
+    this.modalForm.show();
+  }
+
+  modalActividadTarifario(){
+    this.titleModal = 'Nuevo Grupo - Actividad';
+    this.cssModal = 'modal-lg';
+    let data = { IDGrupo: this.form.controls['IDTarifaGrupo'].value };
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupActividadComponent, {
+      datos: data,
+      modal: this.modalForm,
+      result: (data => {
+        this.crudService.Insertar(data, 'acttarifario')
+          .subscribe((response: any) => {
+            this.lsActividad = [...this.lsActividad, response];
+            this.form.controls['IDTarifaActividad'].setValue(response.ID);
+          });
+      })
+    });
+
+    this.modalForm.show();
+  }
+
+  modalCategoria(){
+    this.titleModal = 'Nuevo Grupo - Categoría';
+    this.cssModal = 'modal-lg';
+    let data = {};
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupCategoriaComponent, {
+      datos: data,
+      modal: this.modalForm,
+      result: (data => {
+        this.crudService.Insertar(data, 'categoria/' + this.form.controls['IDTarifaGrupo'].value )
+          .subscribe((response: any) => {
+            this.lsCategoria = [...this.lsCategoria, response];
+            this.form.controls['IDTarifaCategoria'].setValue(response.ID);
+          });
+      })
+    });
+
+    this.modalForm.show();
+  }
+
+  async reloadCombo(combo) {
+    switch (combo) {
+      case 'TipoEmpresa':
+        this.lsTipoEmpresa = await this.crudService.SeleccionarAsync('tipoempresa_combo') as any[];
+        break;
+      case 'ActEco':
+        this.lsActEconomica = await this.crudService.SeleccionarAsync('acteconomica_combo') as any[];
+        break;
+      default:
+        break;
+    }
   }
 
 

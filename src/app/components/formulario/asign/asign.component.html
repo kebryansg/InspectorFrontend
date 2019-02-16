@@ -3,25 +3,12 @@
     <app-card [title]="'Asignar Formulario - Act. Económica'">
 
       <div class="view-info">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="pull-right">
-              <button class="btn btn-sm btn-danger">
-                <i class="icofont icofont-reply"></i> Cancelar
-              </button>
-              <button class="btn btn-sm btn-primary" (click)="save()">
-                <i class="icofont icofont-save"></i> Asignar
-              </button>
-            </div>
-          </div>
-
-        </div>
-        <!-- Clasificacion - Categoria - Clasificacion -->
         <div class="row form-material">
-          <div class="col-md-3">
+          <!-- ActEcono - TipoEmpresa -->
+          <div class="col-md-5">
+
             <div class="form-group form-primary">
-              <select class="form-control form-control-primary" [(ngModel)]="slActEconomica"
-                      (ngModelChange)="loadCategoria()">
+              <select class="form-control form-control-primary">
                 <option *ngFor="let actEconomica of lsActEconomica" [value]="actEconomica.ID">
                   {{ actEconomica.Descripcion }}
                 </option>
@@ -29,35 +16,57 @@
               <span class="form-bar"></span>
               <label class="float-label">Act. Económica</label>
             </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="material-group">
-              <div class="form-group form-primary">
-                <select class="form-control form-control-primary" [(ngModel)]="slCategoria"
-                        (ngModelChange)="filterClasificacion()">
-                  <option *ngFor="let categoria of lsCategoria" [value]="categoria.ID">
-                    {{ categoria.Descripcion }}
-                  </option>
-                </select>
-                <span class="form-bar"></span>
-                <label class="float-label">Categoría</label>
-              </div>
-              <div class="material-addone">
-                <i class="icofont icofont-close " style="color: red;" (click)="clearCategoria()" ></i>
-              </div>
+            <div class="form-group form-primary">
+              <select class="form-control form-control-primary">
+                <option *ngFor="let tipo of lsTipoEmpresa" [value]="tipo.ID">
+                  {{ tipo.Nombre }}
+                </option>
+              </select>
+              <span class="form-bar"></span>
+              <label class="float-label">Tipo Empresa</label>
             </div>
+
+          </div>
+          <!-- Grupo - Actividad - Categoria -->
+          <div class="col-md-5">
+            <!--<h3 class="sub-title text-c-blue font-weight-bold">Tarifario</h3>-->
+            <div class="form-group form-primary">
+              <select class="form-control form-control-primary" [(ngModel)]="slGrupo" (ngModelChange)="changeGrupo($event)">
+                <option *ngFor="let item of lsGrupo" [value]="item.ID">{{ item.Nombre }}
+                </option>
+              </select>
+              <span class="form-bar"></span>
+              <label class="float-label">Grupo</label>
+            </div>
+
+            <div class="form-group form-primary">
+              <select class="form-control form-control-primary">
+                <option *ngFor="let item of lsActividad" [value]="item.ID">{{ item.Nombre }}
+                </option>
+              </select>
+              <span class="form-bar"></span>
+              <label class="float-label">Actividad</label>
+            </div>
+
+            <div class="form-group form-primary">
+              <select class="form-control form-control-primary">
+                <option *ngFor="let item of lsCategoria" [value]="item.ID">{{ item.Nombre }}
+                </option>
+              </select>
+              <span class="form-bar"></span>
+              <label class="float-label">Categoría</label>
+            </div>
+
           </div>
 
         </div>
 
-
         <div class="row form-material">
-
-          <div class="col-md-5">
+          <!-- Formulario -->
+          <div class="col-md-5 col-xs-12">
             <div class="form-group form-primary">
               <select class="form-control form-control-primary" [(ngModel)]="slFormulario">
-                <option *ngFor="let formulario of lsFormulario | async" [value]="formulario.ID">
+                <option *ngFor="let formulario of lsFormulario" [value]="formulario.ID">
                   {{ formulario.Descripcion }}
                 </option>
               </select>
@@ -65,6 +74,18 @@
               <label class="float-label">Formulario</label>
             </div>
           </div>
+
+          <div class="col-md-7 col-xs-12">
+            <div class="pull-right">
+              <button class="btn btn-sm btn-danger">
+                <i class="icofont icofont-reply"></i> Cancelar
+              </button>
+              <button class="btn btn-sm btn-primary" *ngIf="false" (click)="save()">
+                <i class="icofont icofont-save"></i> Asignar
+              </button>
+            </div>
+          </div>
+
 
         </div>
         <div class="clearfix"></div>
@@ -108,13 +129,13 @@
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Clasificación">
+              <ngx-datatable-column name="?">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{ row?.Clasificacion }}
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Categoría">
+              <ngx-datatable-column name="?">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{ row?.Categoria }}
                 </ng-template>
