@@ -31,6 +31,7 @@ import { NewGrupoComponent } from './grupo/new/new.component';
 import {  PopupActividadComponent } from './grupo/actividad/popup/popup.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { PopupCategoriaComponent } from './categoria/popup/popup.component';
+import { PopupGrupoComponent } from './grupo/popup/popup.component';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { PopupCategoriaComponent } from './categoria/popup/popup.component';
     NewGrupoComponent,
     PopupActividadComponent,
     CategoriaComponent,
-    PopupCategoriaComponent
+    PopupCategoriaComponent,
+    PopupGrupoComponent
   ],
   entryComponents: [
     PopupCompaniaComponent,
@@ -79,7 +81,8 @@ import { PopupCategoriaComponent } from './categoria/popup/popup.component';
     ModalEmpresaComponent,
     ModalEntidadComponent,
     PopupActividadComponent,
-    PopupCategoriaComponent
+    PopupCategoriaComponent,
+    PopupGrupoComponent
   ]
 })
 export class CatalogoModule {

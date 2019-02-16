@@ -1,408 +1,417 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()" class="general-info form-material">
-  <div class="row">
-    <div class="col-sm-12">
-      <app-card [title]="'Config. Empresa'">
+  <app-card-tabs>
+    <div class="md-tabs">
+      <ngb-tabset>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="pull-right">
-              <button type="reset" class="btn btn-danger btn-sm mr-1" (click)="cancel()">
-                <i class="icofont icofont-reply"></i>
-                Cancelar
-              </button>
-              <button type="submit" class="btn btn-primary btn-sm" [disabled]="form.invalid">
-                <i class="icofont icofont-save"></i>
-                Guardar
-              </button>
+        <!-- Información de la Empresa -->
+        <ngb-tab>
+          <ng-template ngbTabTitle style="padding: 10px 0;">
+            <i class="icofont icofont-home"></i>
+            Información Básica
+          </ng-template>
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="m-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <button type="reset" class="btn btn-danger btn-sm mr-1" (click)="cancel()">
+                      <i class="icofont icofont-reply"></i>
+                      Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm" [disabled]="form.invalid">
+                      <i class="icofont icofont-save"></i>
+                      Guardar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+
+                  <div class="form-group form-default">
+                    <input type="text" [formControl]="form.controls['RUC']" class="form-control" maxlength="13"
+                           autocomplete="off">
+                    <span class="form-bar"></span>
+                    <label class="float-label">RUC</label>
+                  </div>
+
+                  <div class="form-group form-default">
+                    <input type="text" [formControl]="form.controls['NombreComercial']" class="form-control"
+                           autocomplete="off">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Nombre Comercial</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <input type="text" [formControl]="form.controls['RazonSocial']" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Razón Social</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
+                      <option *ngFor="let item of tools.listEstados() "
+                              [value]="item.value">{{ item.label }}</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Estado</label>
+                  </div>
+
+
+                </div>
+                <div class="col-md-6">
+
+
+                  <div class="form-group form-primary">
+                    <input type="text" [formControl]="form.controls['Direccion']" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Dirección</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <input type="text" [formControl]="form.controls['Referencia']" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Referencia</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <input type="text" [formControl]="form.controls['Telefono']" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Teléfono</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <input type="text" [formControl]="form.controls['Celular']" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Celular</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <input type="email" [formControl]="form.controls['Email']" class="form-control">
+                    <span class="form-bar"></span>
+                    <label class="float-label">Email</label>
+                  </div>
+
+
+                </div>
+              </div>
             </div>
-            <!--<div class="pull-right">-->
-            <!--<select style="width: 120px;" class="form-control form-control-primary" [(ngModel)]="selPageSize"-->
-            <!--(change)="ngOnInit()">-->
-            <!--<option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>-->
-            <!--</select>-->
-            <!--</div>-->
-          </div>
+          </ng-template>
+        </ngb-tab>
+        <!-- Entidad -->
+        <ngb-tab>
+          <ng-template ngbTabTitle style="padding: 10px 0;">
+            <i class="fa fa-building "></i>
+            Entidad
+          </ng-template>
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="m-20">
 
-          <div class="clearfix"></div>
+              <div class="row">
 
-          <div class="col-md-12">
+                <div class="col-md-12">
+                  <div class="pull-left">
+                    <label style="margin-right: 5px; font-size: 1.45rem;"> Entidad</label>
+                    <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;"
+                       ngbTooltip="Buscar Entidad"
+                       placement="right" (click)="loadmodal($event)"></a>
+                  </div>
+                </div>
+              </div>
 
-            <div class="md-tabs">
-              <ngb-tabset>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="general-info">
+                    <div class="row">
 
-                <!-- Información de la Empresa -->
-                <ngb-tab>
-                  <ng-template ngbTabTitle style="padding: 10px 0;">
-                    <i class="icofont icofont-home"></i>
-                    Información Básica
-                  </ng-template>
-                  <ng-template ngbTabContent>
-                    <div [@fadeInOutTranslate] class="m-t-20">
-                      <div class="row">
-                        <div class="col-md-6">
-
-                          <div class="form-group form-default">
-                            <input type="text" [formControl]="form.controls['RUC']" class="form-control" maxlength="13"
-                                   autocomplete="off">
-                            <span class="form-bar"></span>
-                            <label class="float-label">RUC</label>
-                          </div>
-
-                          <div class="form-group form-default">
-                            <input type="text" [formControl]="form.controls['NombreComercial']" class="form-control"
-                                   autocomplete="off">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Nombre Comercial</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <input type="text" [formControl]="form.controls['RazonSocial']" class="form-control">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Razón Social</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary" [formControl]="form.controls['Estado']">
-                              <option *ngFor="let item of tools.listEstados() "
-                                      [value]="item.value">{{ item.label }}</option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Estado</label>
-                          </div>
-
-
-                        </div>
-                        <div class="col-md-6">
-
-
-                          <div class="form-group form-primary">
-                            <input type="text" [formControl]="form.controls['Direccion']" class="form-control">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Dirección</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <input type="text" [formControl]="form.controls['Referencia']" class="form-control">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Referencia</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <input type="text" [formControl]="form.controls['Telefono']" class="form-control">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Teléfono</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <input type="text" [formControl]="form.controls['Celular']" class="form-control">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Celular</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <input type="email" [formControl]="form.controls['Email']" class="form-control">
-                            <span class="form-bar"></span>
-                            <label class="float-label">Email</label>
-                          </div>
-
-
+                      <div class="col-lg-12 col-xl-6">
+                        <div class="table-responsive">
+                          <table class="table m-0 table-sm">
+                            <tbody>
+                            <tr>
+                              <th scope="row">Nombres</th>
+                              <td>{{ entidad?.Nombres }}</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Apellidos</th>
+                              <td>{{ entidad?.Apellidos }}</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Identificación</th>
+                              <td>{{ entidad?.Identificacion }}</td>
+                            </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
+                      <!-- end of table col-lg-6 -->
+                      <div class="col-lg-12 col-xl-6">
+                        <div class="table-responsive">
+                          <table class="table table-sm">
+                            <tbody>
+                            <tr>
+                              <th scope="row">Dirección</th>
+                              <td>{{ entidad?.Direccion }}</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Teléfono - Celular</th>
+                              <td>{{ entidad?.Telefono }} - {{ entidad?.Celular }}</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Email</th>
+                              <td>{{ entidad?.Email }}</td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <!-- end of table col-lg-6 -->
                     </div>
-                  </ng-template>
-                </ngb-tab>
-                <!-- Entidad -->
-                <ngb-tab>
-                  <ng-template ngbTabTitle style="padding: 10px 0;">
-                    <i class="fa fa-building "></i>
-                    Entidad
-                  </ng-template>
-                  <ng-template ngbTabContent>
-                    <div [@fadeInOutTranslate] class="m-t-20">
 
-                      <div class="row">
+                  </div>
+                </div>
+              </div>
 
-                        <div class="col-md-12">
-                          <div class="pull-left">
-                            <label style="margin-right: 5px; font-size: 1.45rem;"> Entidad</label>
-                            <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;"
-                               ngbTooltip="Buscar Entidad"
-                               placement="right" (click)="loadmodal($event)"></a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="general-info">
-                            <div class="row">
-
-                              <div class="col-lg-12 col-xl-6">
-                                <div class="table-responsive">
-                                  <table class="table m-0 table-sm">
-                                    <tbody>
-                                    <tr>
-                                      <th scope="row">Nombres</th>
-                                      <td>{{ entidad?.Nombres }}</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Apellidos</th>
-                                      <td>{{ entidad?.Apellidos }}</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Identificación</th>
-                                      <td>{{ entidad?.Identificacion }}</td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                              <!-- end of table col-lg-6 -->
-                              <div class="col-lg-12 col-xl-6">
-                                <div class="table-responsive">
-                                  <table class="table table-sm">
-                                    <tbody>
-                                    <tr>
-                                      <th scope="row">Dirección</th>
-                                      <td>{{ entidad?.Direccion }}</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Teléfono - Celular</th>
-                                      <td>{{ entidad?.Telefono }} - {{ entidad?.Celular }}</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Email</th>
-                                      <td>{{ entidad?.Email }}</td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                              <!-- end of table col-lg-6 -->
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </ng-template>
-                </ngb-tab>
-                <!-- Actividad Económica -->
-                <ngb-tab>
-                  <ng-template ngbTabTitle style="padding: 10px 0;">
-                    <i class="icofont icofont-cur-dollar"></i>Actividad Económica
-                  </ng-template>
-                  <ng-template ngbTabContent>
-                    <div [@fadeInOutTranslate] class="m-t-20">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <h3 class="sub-title text-c-blue font-weight-bold">Organización</h3>
-
-                          <div class="material-group">
-                            <div class="form-group form-primary">
-                              <select class="form-control form-control-primary"
-                                      [formControl]="form.controls['IDActEconomica']">
-                                <option *ngFor="let item of lsActEconomica" [value]="item.ID">
-                                  {{ item.Descripcion }}
-                                </option>
-                              </select>
-                              <span class="form-bar"></span>
-                              <label class="float-label">Act. Económica</label>
-                            </div>
-                            <div class="material-addone">
-                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
-                                 (click)="modalActividadEconomica()"></i>
-                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
-                                 (click)="reloadCombo('ActEco')"></i>
-                            </div>
-                          </div>
-
-                          <!--<div class="form-group form-primary">-->
-                          <!--<select class="form-control form-control-primary"-->
-                          <!--[formControl]="form.controls['IDActEconomica']">-->
-                          <!--<option *ngFor="let item of lsActEconomica" [value]="item.ID">{{ item.Descripcion }}-->
-                          <!--</option>-->
-                          <!--</select>-->
-                          <!--<span class="form-bar"></span>-->
-                          <!--<label class="float-label">Act. Económica</label>-->
-                          <!--</div>-->
-                          <div class="material-group">
-                            <div class="form-group form-primary">
-                              <select class="form-control form-control-primary"
-                                      [formControl]="form.controls['IDTipoEmpresa']">
-                                <option *ngFor="let item of lsTipoEmpresa" [value]="item.ID">{{ item.Nombre }}
-                                </option>
-                              </select>
-                              <span class="form-bar"></span>
-                              <label class="float-label">Tipo Empresa</label>
-                            </div>
-                            <div class="material-addone">
-                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
-                                 (click)="modalTipoEmpresa()"></i>
-                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
-                                 (click)="reloadCombo('TipoEmpresa')"></i>
-                            </div>
-                          </div>
-
-                        </div>
-                        <div class="col-md-6">
-                          <h3 class="sub-title text-c-blue font-weight-bold">Tarifario</h3>
-
-                          <div class="material-group">
-                            <div class="form-group form-primary">
-                              <select class="form-control form-control-primary"
-                                      [formControl]="form.controls['IDTarifaGrupo']">
-                                <option *ngFor="let item of lsGrupo" [value]="item.ID">{{ item.Nombre }}
-                                </option>
-                              </select>
-                              <span class="form-bar"></span>
-                              <label class="float-label">Grupo</label>
-                            </div>
-                            <div class="material-addone">
-                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
-                                 (click)="modalActividadTarifario()"></i>
-                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
-                                 (click)="reloadCombo('')"></i>
-                            </div>
-                          </div>
-
-                          <div class="material-group">
-                            <div class="form-group form-primary">
-                              <select class="form-control form-control-primary"
-                                      [formControl]="form.controls['IDTarifaActividad']">
-                                <option *ngFor="let item of lsActividad" [value]="item.ID">{{ item.Nombre }}
-                                </option>
-                              </select>
-                              <span class="form-bar"></span>
-                              <label class="float-label">Actividad</label>
-                            </div>
-                            <div class="material-addone">
-                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
-                                 (click)="modalActividadTarifario()"></i>
-                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>
-                            </div>
-                          </div>
-
-                          <div class="material-group">
-                            <div class="form-group form-primary">
-                              <select class="form-control form-control-primary"
-                                      [formControl]="form.controls['IDTarifaCategoria']">
-                                <option *ngFor="let item of lsCategoria" [value]="item.ID">{{ item.Nombre }}
-                                </option>
-                              </select>
-                              <span class="form-bar"></span>
-                              <label class="float-label">Categoría</label>
-                            </div>
-                            <div class="material-addone">
-                              <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
-                                 (click)="modalCategoria()"></i>
-                              <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
-                </ngb-tab>
-                <!-- Provincia - Canton - Parroquia - Sector -->
-                <ngb-tab>
-                  <ng-template ngbTabTitle style="padding: 10px 0;">
-                    <i class="icofont icofont-location-pin "></i>
-                    Localización
-                  </ng-template>
-                  <ng-template ngbTabContent>
-                    <div [@fadeInOutTranslate] class="m-t-20">
-                      <div class="row">
-                        <div class="col-md-6">
-
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary"
-                                    [formControl]="form.controls['IDProvincia']">
-                              <option *ngFor="let item of lsProvincias"
-                                      [value]="item.ID"> {{ item.Descripcion }}</option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Provincia</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary" [formControl]="form.controls['IDCanton']">
-                              <option *ngFor="let item of lsCanton" [value]="item.ID"> {{ item.Descripcion }}</option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Cantón</label>
-                          </div>
-
-
-                        </div>
-                        <div class="col-md-6">
-
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary"
-                                    [formControl]="form.controls['IDParroquia']">
-                              <option *ngFor="let item of lsParroquia"
-                                      [value]="item.ID"> {{ item.Descripcion }}</option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Parroquía</label>
-                          </div>
-
-                          <div class="form-group form-primary">
-                            <select class="form-control form-control-primary" [formControl]="form.controls['IDSector']">
-                              <option *ngFor="let item of lsSector" [value]="item.ID">{{ item.Descripcion }}
-                              </option>
-                            </select>
-                            <span class="form-bar"></span>
-                            <label class="float-label">Sector</label>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
-                </ngb-tab>
-                <!-- Maps -->
-                <ngb-tab>
-                  <ng-template ngbTabTitle style="padding: 10px 0;">
-                    <i class="icofont icofont-map-search"></i>
-                    Maps
-                  </ng-template>
-                  <ng-template ngbTabContent>
-                    <div [@fadeInOutTranslate] class="m-t-20">
-                      <div class="row">
-                        <div class="col-md-12">
-
-                          <agm-map (mapClick)="selectMarcador($event)" [latitude]="lat" [longitude]="lng" [zoom]="17"
-                                   style="height: 450px;">
-
-                            <agm-marker *ngFor="let coord of lsMarcardoresMaps" [latitude]="coord.lat"
-                                        [longitude]="coord.lng">
-                              <agm-info-window [isOpen]="true">
-                                <h5><strong> Ubicación de la empresa </strong></h5>
-                              </agm-info-window>
-                            </agm-marker>
-
-                          </agm-map>
-
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
-                </ngb-tab>
-
-              </ngb-tabset>
             </div>
+          </ng-template>
+        </ngb-tab>
+        <!-- Actividad Económica -->
+        <ngb-tab>
+          <ng-template ngbTabTitle style="padding: 10px 0;">
+            <i class="icofont icofont-cur-dollar"></i>Actividad Económica
+          </ng-template>
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="m-20">
+              <div class="row">
+                <div class="col-md-6">
+                  <h3 class="sub-title text-c-blue font-weight-bold">Organización</h3>
 
-          </div>
+                  <div class="material-group">
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary"
+                              [formControl]="form.controls['IDActEconomica']">
+                        <option *ngFor="let item of lsActEconomica" [value]="item.ID">
+                          {{ item.Descripcion }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Act. Económica</label>
+                    </div>
+                    <div class="material-addone">
+                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                         (click)="modalActividadEconomica()"></i>
+                      <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
+                         (click)="reloadCombo('ActEco')"></i>
+                    </div>
+                  </div>
 
-        </div>
+                  <!--<div class="form-group form-primary">-->
+                  <!--<select class="form-control form-control-primary"-->
+                  <!--[formControl]="form.controls['IDActEconomica']">-->
+                  <!--<option *ngFor="let item of lsActEconomica" [value]="item.ID">{{ item.Descripcion }}-->
+                  <!--</option>-->
+                  <!--</select>-->
+                  <!--<span class="form-bar"></span>-->
+                  <!--<label class="float-label">Act. Económica</label>-->
+                  <!--</div>-->
+                  <div class="material-group">
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary"
+                              [formControl]="form.controls['IDTipoEmpresa']">
+                        <option *ngFor="let item of lsTipoEmpresa" [value]="item.ID">{{ item.Nombre }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Tipo Empresa</label>
+                    </div>
+                    <div class="material-addone">
+                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                         (click)="modalTipoEmpresa()"></i>
+                      <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
+                         (click)="reloadCombo('TipoEmpresa')"></i>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+                  <h3 class="sub-title text-c-blue font-weight-bold">Tarifario</h3>
+
+                  <div class="material-group">
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary"
+                              [formControl]="form.controls['IDTarifaGrupo']">
+                        <option *ngFor="let item of lsGrupo" [value]="item.ID">{{ item.Nombre }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Grupo</label>
+                    </div>
+                    <div class="material-addone">
+                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                         (click)="modalGrupo()"></i>
+                      <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
+                         (click)="reloadCombo('Grupo')"></i>
+                    </div>
+                  </div>
+
+                  <div class="material-group">
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary"
+                              [formControl]="form.controls['IDTarifaActividad']">
+                        <option *ngFor="let item of lsActividad" [value]="item.ID">{{ item.Nombre }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Actividad</label>
+                    </div>
+                    <div class="material-addone">
+                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                         (click)="modalActividadTarifario()"></i>
+                      <!--<i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>-->
+                    </div>
+                  </div>
+
+                  <div class="material-group">
+                    <div class="form-group form-primary">
+                      <select class="form-control form-control-primary"
+                              [formControl]="form.controls['IDTarifaCategoria']">
+                        <option *ngFor="let item of lsCategoria" [value]="item.ID">{{ item.Nombre }}
+                        </option>
+                      </select>
+                      <span class="form-bar"></span>
+                      <label class="float-label">Categoría</label>
+                    </div>
+                    <div class="material-addone">
+                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                         (click)="modalCategoria()"></i>
+                      <!--<i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>-->
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <!-- Provincia - Canton - Parroquia - Sector -->
+        <ngb-tab>
+          <ng-template ngbTabTitle style="padding: 10px 0;">
+            <i class="icofont icofont-location-pin "></i>
+            Localización
+          </ng-template>
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="m-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <button type="button" class="btn btn-sm btn-danger" (click)="reloadCombo('Location')">
+                      <i class="icofont icofont-refresh"></i>
+                      Refrescar Catalogos
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+
+                  <div class="form-group form-primary">
+                    <select class="form-control form-control-primary"
+                            [formControl]="form.controls['IDProvincia']">
+                      <option *ngFor="let item of lsProvincias"
+                              [value]="item.ID"> {{ item.Descripcion }}</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Provincia</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <select class="form-control form-control-primary" [formControl]="form.controls['IDCanton']">
+                      <option *ngFor="let item of lsCanton" [value]="item.ID"> {{ item.Descripcion }}</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Cantón</label>
+                  </div>
 
 
-      </app-card>
+                </div>
+                <div class="col-md-6">
+
+                  <div class="form-group form-primary">
+                    <select class="form-control form-control-primary"
+                            [formControl]="form.controls['IDParroquia']">
+                      <option *ngFor="let item of lsParroquia"
+                              [value]="item.ID"> {{ item.Descripcion }}</option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Parroquía</label>
+                  </div>
+
+                  <div class="form-group form-primary">
+                    <select class="form-control form-control-primary" [formControl]="form.controls['IDSector']">
+                      <option *ngFor="let item of lsSector" [value]="item.ID">{{ item.Descripcion }}
+                      </option>
+                    </select>
+                    <span class="form-bar"></span>
+                    <label class="float-label">Sector</label>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <!-- Maps -->
+        <ngb-tab>
+          <ng-template ngbTabTitle style="padding: 10px 0;">
+            <i class="icofont icofont-map-search"></i>
+            Maps
+          </ng-template>
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="m-20">
+              <div class="row">
+                <div class="col-md-12">
+
+                  <agm-map (mapClick)="selectMarcador($event)" [latitude]="lat" [longitude]="lng" [zoom]="17"
+                           style="height: 450px;">
+
+                    <agm-marker *ngFor="let coord of lsMarcardoresMaps" [latitude]="coord.lat"
+                                [longitude]="coord.lng">
+                      <agm-info-window [isOpen]="true">
+                        <h5><strong> Ubicación de la empresa </strong></h5>
+                      </agm-info-window>
+                    </agm-marker>
+
+                  </agm-map>
+
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+      </ngb-tabset>
     </div>
-  </div>
+  </app-card-tabs>
+
+  <!--<div class="row">-->
+    <!--<div class="col-sm-12">-->
+      <!--<app-card [title]="'Config. Empresa'">-->
+
+        <!--<div class="row">-->
+          <!---->
+          <!--<div class="col-md-12">-->
+
+            <!---->
+
+          <!--</div>-->
+
+        <!--</div>-->
+
+
+      <!--</app-card>-->
+    <!--</div>-->
+  <!--</div>-->
 </form>
 
 

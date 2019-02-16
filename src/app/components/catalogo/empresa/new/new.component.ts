@@ -12,6 +12,7 @@ import {PopupActividadEconomicaComponent} from '../../actividad-economica/popup/
 import {PopupTipoEmpresaComponent} from '../../tipo-empresa/popup/popup.component';
 import {PopupActividadComponent} from '../../grupo/actividad/popup/popup.component';
 import {PopupCategoriaComponent} from '../../categoria/popup/popup.component';
+import {PopupGrupoComponent} from '../../grupo/popup/popup.component';
 
 @Component({
   selector: 'app-new',
@@ -125,12 +126,12 @@ export class NewEmpresaComponent implements OnInit {
 
       IDEntidad: [datos.IDEntidad || null, Validators.required],
 
-      IDActEconomica: [datos.IDActEconomica || null],
-      IDTipoEmpresa: [datos.IDTipoEmpresa || null],
+      IDActEconomica: [datos.IDActEconomica || null, Validators.required],
+      IDTipoEmpresa: [datos.IDTipoEmpresa || null, Validators.required],
 
-      IDTarifaGrupo: [datos.IDTarifaGrupo || null],
-      IDTarifaActividad: [datos.IDTarifaActividad || null],
-      IDTarifaCategoria: [datos.IDTarifaCategoria || null],
+      IDTarifaGrupo: [datos.IDTarifaGrupo || null, Validators.required],
+      IDTarifaActividad: [datos.IDTarifaActividad || null, Validators.required],
+      IDTarifaCategoria: [datos.IDTarifaCategoria || null, Validators.required],
 
 
       IDProvincia: [null, Validators.required],
@@ -183,8 +184,9 @@ export class NewEmpresaComponent implements OnInit {
 
     this.form.controls['IDTarifaGrupo'].valueChanges.subscribe(item => {
       if (item) {
-        this.lsActividad = [...this.lsGrupo.find(row => row.ID == item).acttarifarios];
-        this.lsCategoria = [...this.lsGrupo.find(row => row.ID == item).categorium];
+        let grupo = this.lsGrupo.find(row => row.ID == item);
+        this.lsActividad = (grupo.acttarifarios) ? [...grupo.acttarifarios] : [];
+        this.lsCategoria = (grupo.categorium) ? [...grupo.categorium] : [];
 
         if (this.lsActividad.length > 0) this.form.controls['IDTarifaActividad'].setValue(this.lsActividad[0].ID);
         if (this.lsCategoria.length > 0) this.form.controls['IDTarifaCategoria'].setValue(this.lsCategoria[0].ID);
@@ -274,10 +276,32 @@ export class NewEmpresaComponent implements OnInit {
     this.modalForm.show();
   }
 
-  modalActividadTarifario(){
+  modalGrupo() {
+    this.titleModal = 'Nuevo Grupo';
+    this.cssModal = 'modal-lg';
+    let data = {};
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(PopupGrupoComponent, {
+      datos: data,
+      modal: this.modalForm,
+      result: (data => {
+        this.crudService.Insertar(data, 'grupo')
+          .subscribe((response: any) => {
+            this.lsGrupo = [...this.lsGrupo, response];
+            this.form.controls['IDTarifaGrupo'].setValue(response.ID);
+            this.form.controls['IDTarifaActividad'].setValue(null);
+            this.form.controls['IDTarifaCategoria'].setValue(null);
+          });
+      })
+    });
+
+    this.modalForm.show();
+  }
+
+  modalActividadTarifario() {
     this.titleModal = 'Nuevo Grupo - Actividad';
     this.cssModal = 'modal-lg';
-    let data = { IDGrupo: this.form.controls['IDTarifaGrupo'].value };
+    let data = {IDGrupo: this.form.controls['IDTarifaGrupo'].value};
     this.modalService.setRootViewContainerRef(this.entry);
     this.modalService.addDynamicComponent(PopupActividadComponent, {
       datos: data,
@@ -294,7 +318,7 @@ export class NewEmpresaComponent implements OnInit {
     this.modalForm.show();
   }
 
-  modalCategoria(){
+  modalCategoria() {
     this.titleModal = 'Nuevo Grupo - Categoría';
     this.cssModal = 'modal-lg';
     let data = {};
@@ -303,7 +327,7 @@ export class NewEmpresaComponent implements OnInit {
       datos: data,
       modal: this.modalForm,
       result: (data => {
-        this.crudService.Insertar(data, 'categoria/' + this.form.controls['IDTarifaGrupo'].value )
+        this.crudService.Insertar(data, 'categoria/' + this.form.controls['IDTarifaGrupo'].value)
           .subscribe((response: any) => {
             this.lsCategoria = [...this.lsCategoria, response];
             this.form.controls['IDTarifaCategoria'].setValue(response.ID);
@@ -321,6 +345,15 @@ export class NewEmpresaComponent implements OnInit {
         break;
       case 'ActEco':
         this.lsActEconomica = await this.crudService.SeleccionarAsync('acteconomica_combo') as any[];
+        break;
+      case 'Grupo':
+        this.lsGrupo = await this.crudService.SeleccionarAsync('grupo_combo') as any[];
+        break;
+      case 'Location':
+        this.lsProvincias = await this.crudService.SeleccionarAsync('location_combo_sector') as any[];
+        this.lsCanton = [];
+        this.lsParroquia = [];
+        this.lsSector = [];
         break;
       default:
         break;

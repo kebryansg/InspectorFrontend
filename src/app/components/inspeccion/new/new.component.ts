@@ -26,7 +26,7 @@ export class NewInspeccionComponent implements OnInit {
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
   modelPopup: Date;
   toggle = false;
-  lsColaborador: any[];
+  lsColaborador: any;
   lsEmpresa: any[];
 
   empresa: any = [];
@@ -52,13 +52,8 @@ export class NewInspeccionComponent implements OnInit {
       IDEmpresa: [null, Validators.required],
       IDColaborador: [null],
       FechaTentativa: [null]
-      // Estado: ['ACT'],
     });
-
-    let now = new Date();
-    // this.modelPopup = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-    this.lsColaborador = await <any>this.crudService.SeleccionarAsync('colaborador_inspector');
-
+    this.lsColaborador = this.crudService.SeleccionarAsync('colaborador_inspector');
 
   }
 
@@ -66,6 +61,13 @@ export class NewInspeccionComponent implements OnInit {
     if (value.length >= 10) {
       this.entidad = await this.crudService.SeleccionarAsync(`entidad_search`, {search: value});
       this.lsEmpresa = this.entidad.empresas;
+    }
+  }
+
+  async onEnterEmpresa(value: string) {
+    if (value) {
+      this.lsEmpresa = await this.crudService.SeleccionarAsync(`empresa_search`, {search: value}) as any[];
+      this.entidad = null;
     }
   }
 
@@ -92,7 +94,6 @@ export class NewInspeccionComponent implements OnInit {
 
   onSelect({selected}) {
     this.form.controls['IDEmpresa'].setValue(selected[0].ID);
-    console.log(this.form.value);
   }
 
   clearColaborador() {
@@ -107,15 +108,9 @@ export class NewInspeccionComponent implements OnInit {
       data.FechaTentativa = null;
     }
 
-
-    console.log(data);
     this.crudService.Insertar(data, 'inspeccion')
       .subscribe(
         res => {
-
-          console.log(res);
-          // this.afs.collection('inspeccion').doc(res.ID)
-
           this.router.navigate(['../list'], {relativeTo: this.route});
         },
         error => {

@@ -1,20 +1,10 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form" (ngSubmit)="save()" (keydown.enter)="$event.preventDefault()">
   <div class="row">
     <div class="col-sm-12">
       <app-card [title]="'Nueva Inspección'" [cardOptionBlock]="true">
+
         <div class="row">
           <div class="col-md-12">
-
-            <div class="pull-left" id="seccion_search">
-              <label class="mr-2" style="font-size: 1.25rem;"> Entidad</label>
-
-              <input type="text" class="form-control form-control-sm mr-1" placeholder="Buscar por Identificación"
-                     maxlength="13" #box (keyup.enter)="onEnter(box.value)">
-
-              <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;" ngbTooltip="Buscar Entidad"
-                 placement="right" (click)="loadmodal($event)"></a>
-            </div>
-
             <div class="pull-right">
               <button type="reset" class="btn btn-sm btn-danger" [routerLink]="['../list']">
                 <i class="icofont icofont-reply"></i>
@@ -25,13 +15,25 @@
                 Agregar
               </button>
             </div>
-
           </div>
         </div>
 
         <hr>
         <!-- Información de la Entidad solicitante -->
         <div class="row">
+          <div class="col-md-12">
+            <div class="pull-left">
+              <label style="font-size: 1.25rem;"> Entidad</label>
+            </div>
+            <div class="pull-right" id="seccion_search">
+
+              <input type="text" class="form-control form-control-sm mr-1"  placeholder="Buscar por Identificación"
+                     maxlength="13" #box (keyup.enter)="onEnter(box.value)">
+
+              <a class="icofont icofont-search" style="font-size: 1.45rem; cursor: pointer;" ngbTooltip="Buscar Entidad" placement="left"
+                 placement="right" (click)="loadmodal($event)"></a>
+            </div>
+          </div>
           <div class="col-md-12">
             <div class="general-info">
               <div class="row">
@@ -83,49 +85,58 @@
             </div>
           </div>
         </div>
-
         <hr>
         <!-- Tabla de Empresas -->
-        <label style="margin-right: 5px; font-size: 1.45rem;"> Listado de Empresas</label>
-        <ngx-datatable
-          class="data-table"
-          [rows]="lsEmpresa"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="0"
-          [rowHeight]="'auto'"
-          [selected]="empresa"
-          [selectionType]="'single'"
-          (select)='onSelect($event)'>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pull-left">
+              <label style="margin-right: 5px; font-size: 1.25rem;"> Listado de Empresas</label>
+            </div>
+            <div class="pull-right">
+              <input type="text" class="form-control form-control-sm mr-1" placeholder="Buscar Empresa" #Empresabox (keyup.enter)="onEnterEmpresa(Empresabox.value)" >
+            </div>
+          </div>
+          <div class="col-md-12">
+            <ngx-datatable
+              class="data-table"
+              [rows]="lsEmpresa"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="0"
+              [rowHeight]="'auto'"
+              [selected]="empresa"
+              [selectionType]="'single'"
+              (select)='onSelect($event)'>
 
-          <ngx-datatable-column name="RUC">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.RUC }}
-            </ng-template>
-          </ngx-datatable-column>
+              <ngx-datatable-column name="RUC">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.RUC }}
+                </ng-template>
+              </ngx-datatable-column>
 
-          <ngx-datatable-column name="Razón Social">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.RazonSocial }}
-            </ng-template>
-          </ngx-datatable-column>
+              <ngx-datatable-column name="Razón Social">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.RazonSocial }}
+                </ng-template>
+              </ngx-datatable-column>
 
-          <ngx-datatable-column name="Clasificación">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.clasificacion?.Descripcion }}
-            </ng-template>
-          </ngx-datatable-column>
+              <ngx-datatable-column name="Actividad Económica">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.acteconomica?.Descripcion }}
+                </ng-template>
+              </ngx-datatable-column>
 
-          <ngx-datatable-column name="Sector">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.sector?.Descripcion }}
-            </ng-template>
-          </ngx-datatable-column>
+              <ngx-datatable-column name="Sector">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.sector?.Descripcion }}
+                </ng-template>
+              </ngx-datatable-column>
 
-        </ngx-datatable>
-
+            </ngx-datatable>
+          </div>
+        </div>
         <hr>
-
+        <!-- Ingresar por la web -->
         <div class="row">
           <div class="col-md-3">
             <span>Ingresar por la web</span>
@@ -135,10 +146,8 @@
                        [checked]="InspWeb"
                        (change)="ui_switchChange($event)"></ui-switch>
           </div>
-
         </div>
         <br>
-
         <!-- Colaborador - Fecha Tentativa -->
         <div class="row" *ngIf="!InspWeb">
 
@@ -149,7 +158,7 @@
               <div class="material-group">
                 <div class="form-group form-primary">
                   <select class="form-control form-control-primary" [formControl]="form.controls['IDColaborador']">
-                    <option *ngFor="let colaborador of lsColaborador" [value]="colaborador.ID">
+                    <option *ngFor="let colaborador of lsColaborador | async " [value]="colaborador.ID">
                       {{ colaborador.Colaborador }}
                     </option>
                   </select>
@@ -181,8 +190,6 @@
           </div>
 
         </div>
-
-
 
       </app-card>
     </div>

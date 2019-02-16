@@ -146,18 +146,51 @@
                   </div>
                 </div>
 
-                <div *ngIf="dataInspeccion?.observacions.length > 0">
-                  <h5 class="text-c-red">Disposición</h5>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <ul class="basic-list">
-                        <li *ngFor="let observacion of dataInspeccion.observacions">
-                          <h6>{{ observacion.Observacion }}</h6>
-                        </li>
-                      </ul>
-                    </div>
+                <div class="row">
+
+                  <div class="col-md-6" *ngIf="dataInspeccion?.observacions.length > 0">
+                    <h5 class="text-c-red">Disposición</h5>
+                    <ul class="basic-list">
+                      <li *ngFor="let observacion of dataInspeccion?.observacions">
+                        <h6>{{ observacion.Observacion }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="col-md-6">
+                    <h5 class="text-c-red float-left">Comentarios</h5>
+                    <button class="btn btn-sm btn-primary float-right" (click)="showComentario = !showComentario" *ngIf="!showComentario">
+                      <i class="icofont icofont-plus"></i>
+                      Agregar Comentario
+                    </button>
+
+                    <div class="clearfix"></div>
+
+                    <input type="text" class="form-control form-control-sm mt-2 width-100" *ngIf="showComentario" #Comentariobox
+                           placeholder="Presione Enter para su comentario"
+                           (keyup.enter)="addComentario(Comentariobox.value)"
+                           (keyup.escape)="showComentario = !showComentario">
+
+                    <ul class="basic-list">
+                      <li *ngFor="let comentario of dataInspeccion?.comentarios">
+                        <h6>{{ comentario.Descripcion }}</h6>
+                      </li>
+                    </ul>
                   </div>
                 </div>
+
+                <!--<div *ngIf="dataInspeccion?.observacions.length > 0">-->
+                <!--<h5 class="text-c-red">Disposición</h5>-->
+                <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                <!--<ul class="basic-list">-->
+                <!--<li *ngFor="let observacion of dataInspeccion.observacions">-->
+                <!--<h6>{{ observacion.Observacion }}</h6>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
 
               </div>
             </ng-template>

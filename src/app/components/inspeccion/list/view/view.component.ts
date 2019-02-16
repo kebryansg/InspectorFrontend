@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { Location } from '@angular/common';
+import {Location} from '@angular/common';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {IAlbum, IEvent, Lightbox, LIGHTBOX_EVENT, LightboxConfig, LightboxEvent} from 'angular2-lightbox';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
 import {ExportService} from '../../../../shared/services/export.service';
 
 @Component({
@@ -39,6 +39,7 @@ export class ViewInspeccionComponent implements OnInit {
   dataInspeccion: any;
 
   seccions = [];
+  showComentario: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,10 +58,10 @@ export class ViewInspeccionComponent implements OnInit {
 
     // dataInspeccion
 
-    this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }/result`)
+    this.crudService.SeleccionarAsync(`inspeccion/${this.IDInspeccion}/result`)
       .then((data: any[]) => this.seccions = (data));
 
-    this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }/anexos`)
+    this.crudService.SeleccionarAsync(`inspeccion/${this.IDInspeccion}/anexos`)
       .then((data: string[]) => {
 
         this.albums = data.map(row => {
@@ -81,23 +82,23 @@ export class ViewInspeccionComponent implements OnInit {
     this.loadInspeccion();
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 
-  async loadInspeccion(){
-    this.dataInspeccion = await this.crudService.SeleccionarAsync(`inspeccion/${ this.IDInspeccion }`);
+  async loadInspeccion() {
+    this.dataInspeccion = await this.crudService.SeleccionarAsync(`inspeccion/${this.IDInspeccion}`);
   }
 
-  downloadFormulario(){
+  downloadFormulario() {
     this.crudService.GetToFile('pdf_download/' + this.IDInspeccion)
       .subscribe(response => {
-        this.exportService.saveAsExcelFile(response, `Inspeccion - ${ this.dataInspeccion.empresa.RazonSocial }`);
+        this.exportService.saveAsExcelFile(response, `Inspeccion - ${this.dataInspeccion.empresa.RazonSocial}`);
       });
   }
 
-  sendMailFormulario(){
-    this.crudService.SeleccionarAsync(`pdf_send/${ this.IDInspeccion }`)
+  sendMailFormulario() {
+    this.crudService.SeleccionarAsync(`pdf_send/${this.IDInspeccion}`)
       .then((response: any) => {
         if (response) {
           swal(
@@ -126,6 +127,14 @@ export class ViewInspeccionComponent implements OnInit {
     if (event.id === LIGHTBOX_EVENT.CLOSE) {
       this._subscription.unsubscribe();
     }
+  }
+
+  addComentario(value: string) {
+    this.crudService.Insertar({Descripcion: value}, `inspeccion/${this.dataInspeccion.ID}/comentario`)
+      .subscribe(response => {
+        this.dataInspeccion.comentarios.push({Descripcion: value});
+        this.showComentario = !this.showComentario;
+      });
   }
 
 }
