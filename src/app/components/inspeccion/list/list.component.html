@@ -143,7 +143,7 @@
               <i class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"
                  *ngIf="row?.Estado == 'PEN' " (click)="delete(row)"></i>
               <a class="icofont icofont-printer m-r-15 f-20 text-success" ngbTooltip="Reimprimir solicitud"
-                 *ngIf="row?.Estado == 'PEN' " target="_blank" [href]="urlHost + 'solicitud_pdf/' + row.ID"></a>
+                 *ngIf="row?.Estado == 'PEN' && !(row?.IDRef)" target="_blank" [href]="urlHost + 'solicitud_pdf/' + row.ID"></a>
               <i class="icofont icofont-ui-user m-r-15 f-20 text-primary" ngbTooltip="Reasignar Colaborador"
                  *ngIf="row?.Estado == 'PEN' && !row.InspWeb" (click)="asign_colaborador(row)"></i>
 
