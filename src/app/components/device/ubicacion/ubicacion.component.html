@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="'Listado Dispositivos'" [cardOptionBlock]="true">
+    <app-card *ngIf="lsDispositivos.length > 0" [title]="'Listado Dispositivos'" [cardOptionBlock]="true">
 
       <agm-map [latitude]="lsDispositivos[0].lat" [longitude]="lsDispositivos[0].lng" [zoom]="17">
 

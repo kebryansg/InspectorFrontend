@@ -28,7 +28,7 @@ export class ToolsService {
       { value: 'PEN', label: "Pendiente" },
       { value: 'APR', label: "Aprobado" },
       { value: 'REP', label: "Reprobado" },
-      { value: 'REI', label: "Reinspección" },
+      { value: 'BOR', label: "Borrador" },
     ];
     return items;
   }

@@ -155,8 +155,6 @@ export class NewGrupoComponent implements OnInit {
     return this.selected.map(row => ({ IDCategoria : row.ID}));
   }
 
-  aaaaaa;
-
   reloadCategoria(data) {
     this.lsCategoria = [data, ...this.lsCategoria];
     this.selected = [data, ...this.selected];

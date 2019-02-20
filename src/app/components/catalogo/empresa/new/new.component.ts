@@ -13,6 +13,7 @@ import {PopupTipoEmpresaComponent} from '../../tipo-empresa/popup/popup.componen
 import {PopupActividadComponent} from '../../grupo/actividad/popup/popup.component';
 import {PopupCategoriaComponent} from '../../categoria/popup/popup.component';
 import {PopupGrupoComponent} from '../../grupo/popup/popup.component';
+import {AsignGrupoComponent} from '../../categoria/asign-grupo/asign-grupo.component';
 
 @Component({
   selector: 'app-new',
@@ -332,6 +333,22 @@ export class NewEmpresaComponent implements OnInit {
             this.lsCategoria = [...this.lsCategoria, response];
             this.form.controls['IDTarifaCategoria'].setValue(response.ID);
           });
+      })
+    });
+
+    this.modalForm.show();
+  }
+
+  asignCategoria(){
+    this.titleModal = 'Asignar Categorias';
+    this.cssModal = 'modal-lg';
+    let data = {IDGrupo: this.form.controls['IDTarifaGrupo'].value};
+    this.modalService.setRootViewContainerRef(this.entry);
+    this.modalService.addDynamicComponent(AsignGrupoComponent, {
+      datos: data,
+      modal: this.modalForm,
+      result: (data => {
+        this.lsCategoria = [...this.lsCategoria, ...data];
       })
     });
 

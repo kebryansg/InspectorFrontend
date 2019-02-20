@@ -1,0 +1,61 @@
+<ngx-datatable
+  class="data-table dt-chk scroll"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="50"
+
+  [rows]="lsCategoria"
+  [columnMode]="'force'"
+  [scrollbarV]="true"
+
+  [rowIdentity]="getID"
+  [selected]="selected"
+  [selectionType]="'checkbox'"
+  (select)='onSelect($event)'>
+
+  <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                        [resizeable]="false">
+    <ng-template class="datatable-checkbox" ngx-datatable-header-template let-value="value"
+                 let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+      <div class="checkbox-fade fade-in-default datatable-header-cell-label">
+        <label>
+          <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>
+          <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+        </label>
+      </div>
+
+    </ng-template>
+    <ng-template class="datatable-checkbox" ngx-datatable-cell-template
+                 let-value="value"
+                 let-isSelected="isSelected"
+                 let-onCheckboxChangeFn="onCheckboxChangeFn">
+      <div class="checkbox-fade fade-in-default datatable-header-cell-label">
+        <label>
+          <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)"/>
+          <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+        </label>
+      </div>
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Categoría">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.Nombre }}
+    </ng-template>
+  </ngx-datatable-column>
+
+</ngx-datatable>
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right">
+      <button class="btn btn-default btn-sm ripple m-r-10" (click)="modalBasic.hide()">Cancelar</button>
+      <button type="button" class="btn btn-primary btn-sm ripple light"
+              [disabled]="selected.length == 0"
+              (click)="asignarCategoria()">
+        Asignar
+      </button>
+    </div>
+  </div>
+</div>

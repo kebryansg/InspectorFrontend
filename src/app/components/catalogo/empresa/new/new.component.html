@@ -248,9 +248,9 @@
                       <label class="float-label">Grupo</label>
                     </div>
                     <div class="material-addone">
-                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                      <i class="icofont icofont-plus mr-1" ngbTooltip="Agregar" style="color: #1b8bf9;cursor: pointer;"
                          (click)="modalGrupo()"></i>
-                      <i class="icofont icofont-refresh" style="color: red;cursor: pointer;"
+                      <i class="icofont icofont-refresh" ngbTooltip="Recargar Grupo" style="color: red;cursor: pointer;"
                          (click)="reloadCombo('Grupo')"></i>
                     </div>
                   </div>
@@ -266,7 +266,7 @@
                       <label class="float-label">Actividad</label>
                     </div>
                     <div class="material-addone">
-                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                      <i class="icofont icofont-plus mr-1" ngbTooltip="Agregar" style="color: #1b8bf9;cursor: pointer;"
                          (click)="modalActividadTarifario()"></i>
                       <!--<i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>-->
                     </div>
@@ -283,8 +283,10 @@
                       <label class="float-label">Categoría</label>
                     </div>
                     <div class="material-addone">
-                      <i class="icofont icofont-plus mr-1" style="color: #1b8bf9;cursor: pointer;"
+                      <i class="icofont icofont-plus mr-1" ngbTooltip="Agregar" style="color: #1b8bf9;cursor: pointer;"
                          (click)="modalCategoria()"></i>
+                      <i class="icofont icofont-search mr-1" ngbTooltip="Asignar Categoría ya existente" style="color: red;cursor: pointer;"
+                         (click)="asignCategoria()"></i>
                       <!--<i class="icofont icofont-refresh" style="color: red;cursor: pointer;"></i>-->
                     </div>
                   </div>
@@ -393,27 +395,7 @@
       </ngb-tabset>
     </div>
   </app-card-tabs>
-
-  <!--<div class="row">-->
-    <!--<div class="col-sm-12">-->
-      <!--<app-card [title]="'Config. Empresa'">-->
-
-        <!--<div class="row">-->
-          <!---->
-          <!--<div class="col-md-12">-->
-
-            <!---->
-
-          <!--</div>-->
-
-        <!--</div>-->
-
-
-      <!--</app-card>-->
-    <!--</div>-->
-  <!--</div>-->
 </form>
-
 
 <app-modal-basic #modalForm [hideFooter]="true" [dialogClass]="cssModal">
 

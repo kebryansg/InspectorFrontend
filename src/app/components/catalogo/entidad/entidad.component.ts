@@ -19,7 +19,8 @@ export class EntidadComponent implements OnInit {
   params_dt: any = {
     page: 1,
     psize: this.pageSize[0],
-    search: ''
+    search: '',
+    showAll: false
   };
   paginate: any = {
     data: [],
@@ -50,6 +51,11 @@ export class EntidadComponent implements OnInit {
     this.params_dt.page = page;
     this.paginate = await this.crudService.SeleccionarAsync('entidad', this.params_dt);
     // this.paginate = await this.crudService.SeleccionarAsync('entidad', { page: 1, psize: this.selPageSize });
+  }
+
+  ui_switchChange($event){
+    this.params_dt.showAll = !this.params_dt.showAll;
+    this.reload();
   }
 
   async edit(row?) {
@@ -87,6 +93,13 @@ export class EntidadComponent implements OnInit {
         this.reload();
       });
 
+  }
+
+  reactivar(row){
+    this.crudService.Actualizar({ Estado: 'ACT' },`entidad/${ row.ID }`)
+      .subscribe(data => {
+        this.reload();
+      });
   }
 
 }

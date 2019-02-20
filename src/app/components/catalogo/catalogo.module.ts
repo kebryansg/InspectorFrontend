@@ -32,6 +32,8 @@ import {  PopupActividadComponent } from './grupo/actividad/popup/popup.componen
 import { CategoriaComponent } from './categoria/categoria.component';
 import { PopupCategoriaComponent } from './categoria/popup/popup.component';
 import { PopupGrupoComponent } from './grupo/popup/popup.component';
+import { AsignGrupoComponent } from './categoria/asign-grupo/asign-grupo.component';
+import {UiSwitchModule} from 'ng2-ui-switch/dist';
 
 @NgModule({
   imports: [
@@ -42,7 +44,8 @@ import { PopupGrupoComponent } from './grupo/popup/popup.component';
     SelectModule,
     CurrencyMaskModule,
     FormsModule,
-    AgmCoreModule
+    AgmCoreModule,
+    UiSwitchModule
   ],
   declarations: [
     InstitucionComponent,
@@ -68,7 +71,8 @@ import { PopupGrupoComponent } from './grupo/popup/popup.component';
     PopupActividadComponent,
     CategoriaComponent,
     PopupCategoriaComponent,
-    PopupGrupoComponent
+    PopupGrupoComponent,
+    AsignGrupoComponent
   ],
   entryComponents: [
     PopupCompaniaComponent,
@@ -82,7 +86,8 @@ import { PopupGrupoComponent } from './grupo/popup/popup.component';
     ModalEntidadComponent,
     PopupActividadComponent,
     PopupCategoriaComponent,
-    PopupGrupoComponent
+    PopupGrupoComponent,
+    AsignGrupoComponent
   ]
 })
 export class CatalogoModule {

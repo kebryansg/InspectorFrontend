@@ -8,6 +8,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {FormsModule} from '@angular/forms';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
 import {AgmCoreModule} from '@agm/core';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import {AgmCoreModule} from '@agm/core';
     NgxDatatableModule,
     FormsModule,
     AgmCoreModule,
-    DeviceRoutingModule
+    DeviceRoutingModule,
+    AngularFirestoreModule,
   ],
   declarations: [
     ListComponent,
