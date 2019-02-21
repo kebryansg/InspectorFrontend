@@ -36,18 +36,20 @@ export class PopupEntidadComponent implements OnInit {
       Estado: [this.datos.Estado || 'ACT', Validators.required],
     });
 
-    if(this.datos.Tipo != 'P'){
+    if (this.datos.Tipo != 'P') {
       this.form.removeControl('Apellidos');
     }
+
+    this.events()
 
   }
 
   events() {
     this.form.controls['Tipo'].valueChanges.subscribe(item => {
-      if(item == 'P'){
+      if (item == 'P') {
         this.form.addControl('Apellidos', this.fb.control(null, Validators.required));
-      }else{
-        this.form.removeControl('Apellidos')
+      } else {
+        this.form.removeControl('Apellidos');
       }
 
     });

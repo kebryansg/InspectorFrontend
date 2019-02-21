@@ -6,7 +6,7 @@
         <div class="col-md-12">
           <div class="pull-left">
 
-            <button class="btn btn-primary btn-sm" (click)="edit()" >
+            <button class="btn btn-primary btn-sm" (click)="edit()">
               <i class="icofont icofont-plus"></i>
               Agregar
             </button>
@@ -34,9 +34,9 @@
                 <option *ngFor="let item of pageSize" [value]="item">{{ item }}</option>
               </select>
             </div>
-            <div class="dt-content-search" >
+            <div class="dt-content-search">
               <input type="text" class="form-control" placeholder="Buscar" #box (keyup.enter)="onEnter(box.value)">
-              <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()" ></i>
+              <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()"></i>
             </div>
 
           </div>
@@ -70,7 +70,7 @@
 
         <ngx-datatable-column name="Apellidos">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{ row?.Apellidos }}
+            {{ (row?.Tipo == 'P') ? row?.Apellidos : '' }}
           </ng-template>
         </ngx-datatable-column>
 
@@ -90,11 +90,14 @@
         <ngx-datatable-column name="Acciones">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div class="btn-group-icons">
-              <i *ngIf="row?.Estado == 'ACT'" class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar"  (click)="edit(row)"></i>
-              <i *ngIf="row?.Estado == 'ACT'" class="icofont icofont-trash m-r-15 f-20 text-danger" ngbTooltip="Eliminar"  (click)="delete(row)"></i>
+              <i *ngIf="row?.Estado == 'ACT'" class="icofont icofont-edit m-r-15 f-20 text-primary" ngbTooltip="Editar"
+                 (click)="edit(row)"></i>
+              <i *ngIf="row?.Estado == 'ACT'" class="icofont icofont-trash m-r-15 f-20 text-danger"
+                 ngbTooltip="Eliminar" (click)="delete(row)"></i>
 
 
-              <i *ngIf="row?.Estado != 'ACT'" class="icofont icofont-refresh m-r-15 f-20 text-primary" ngbTooltip="Reestablecer" (click)="reactivar(row)"></i>
+              <i *ngIf="row?.Estado != 'ACT'" class="icofont icofont-refresh m-r-15 f-20 text-primary"
+                 ngbTooltip="Reestablecer" (click)="reactivar(row)"></i>
 
 
             </div>
