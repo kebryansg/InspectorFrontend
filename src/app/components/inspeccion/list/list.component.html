@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-sm-12">
     <app-card [title]="'Listado Inspección'" [cardOptionBlock]="true">
+
       <div class="row">
         <div class="col-md-12">
           <div class="pull-left">
@@ -17,6 +18,7 @@
         </div>
 
       </div>
+
       <br>
 
       <div class="row form-material" *ngIf="show">
@@ -31,6 +33,17 @@
             </select>
             <span class="form-bar"></span>
             <label class="float-label">Estado</label>
+          </div>
+
+          <div class="form-group form-primary">
+            <select class="form-control form-control-primary form-control-sm"
+                    [(ngModel)]="params_dt.other.Colaborador">
+              <option value="*">Todos</option>
+              <option *ngFor="let colaborador of lsColaborador"
+                      [value]="colaborador.ID">{{ colaborador.Colaborador }}</option>
+            </select>
+            <span class="form-bar"></span>
+            <label class="float-label">Inspector</label>
           </div>
 
         </div>
@@ -70,7 +83,7 @@
 
             <div class="dt-content-search">
               <input type="text" class="form-control" placeholder="Buscar" #box (keyup.enter)="onEnter(box.value)">
-              <i class="icofont icofont-refresh text-primary" ngbTooltip="Refrescar" (click)="reload()"></i>
+              <i class="icofont icofont-refresh text-primary cursor" ngbTooltip="Refrescar" (click)="reload()"></i>
             </div>
 
           </div>

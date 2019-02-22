@@ -28,6 +28,14 @@ export class CrudService {
     return await this.httpClient.get(this.puerto + api, {params: param, headers: headerOptions}).toPromise();
   }
 
+  SeleccionarAsyncParams(api, param?) {
+    var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
+    return new Promise((resolve, reject) => {
+      this.httpClient.post(this.puerto + api, param, {headers: headerOptions})
+        .subscribe(response => resolve(response));
+    });
+  }
+
   login(api, objeto) {
     // var body = objeto;
     // var requestOptions = new RequestOptions({  method: RequestMethod.Post, headers: this.getHeaders() });

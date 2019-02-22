@@ -1,21 +1,36 @@
-<div class="row">
-  <div class="col-sm-12">
-    <app-card *ngIf="lsDispositivos.length > 0" [title]="'Listado Dispositivos'" [cardOptionBlock]="true">
+<app-card *ngIf="lsDispositivos.length > 0" [title]="'Listado Dispositivos'" [cardOptionBlock]="true">
+  <div class="row">
+    <div class="col-sm-8">
 
-      <agm-map [latitude]="lsDispositivos[0].lat" [longitude]="lsDispositivos[0].lng" [zoom]="17">
+      <agm-map [latitude]="position.Latitud" [longitude]="position.Longitud" [zoom]="17" style="height: 550px;">
 
         <agm-marker *ngFor="let dispositivo of lsDispositivos" [latitude]="dispositivo.lat"
-                    [longitude]="dispositivo.lng" >
-          <agm-info-window [isOpen]="true" >
+                    [longitude]="dispositivo.lng">
+          <agm-info-window [isOpen]="true">
             <h5><strong>{{ dispositivo.label }}</strong></h5>
           </agm-info-window>
         </agm-marker>
 
       </agm-map>
+    </div>
+    <div class="col-sm-4">
+      <h5 class="text-c-blue float-left">Dispositivos</h5>
+      <div class="clearfix"></div>
 
-    </app-card>
+      <ul class="basic-list">
+        <li *ngFor="let device of lsDeviceNombre">
+          <div>
+            <span>{{ device.Nombre }}</span>
+            <i class="icofont icofont-info-circle f-20 text-danger float-right cursor-pointer" ngbTooltip="Seguir" (click)="seguirDevices(device.MAC)"></i>
+          </div>
+
+        </li>
+      </ul>
+
+    </div>
   </div>
-</div>
+
+</app-card>
 
 
 

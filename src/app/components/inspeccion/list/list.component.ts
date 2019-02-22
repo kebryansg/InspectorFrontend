@@ -49,7 +49,8 @@ export class ListComponent implements OnInit {
     other: {
       Estado: '*',
       Desde: '*',
-      Hasta: '*'
+      Hasta: '*',
+      Colaborador: '*'
     }
   };
   paginate: any = {
@@ -60,6 +61,9 @@ export class ListComponent implements OnInit {
   };
   urlHost: string;
   show: boolean = false;
+
+  /* Listado */
+  lsColaborador: any[];
 
   @ViewChild('modalForm') modalForm: ModalBasicComponent;
   @ViewChild('container', {read: ViewContainerRef}) entry: ViewContainerRef;
@@ -72,9 +76,10 @@ export class ListComponent implements OnInit {
     public parserFormatter: NgbDateParserFormatter) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.urlHost = configuracion.url;
     this.reload();
+    this.lsColaborador = await this.crudService.SeleccionarAsync('colaborador_inspector') as any[];
   }
 
   setPage(event) {

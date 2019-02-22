@@ -2,6 +2,10 @@
   <div class="col-sm-12">
     <app-card [title]="'Listado Dispositivos'" [cardOptionBlock]="true">
 
+      <div class="pull-right">
+        <i class="icofont icofont-refresh text-primary i-custom" ngbTooltip="Refrescar" (click)="reload()"></i>
+      </div>
+      <div class="clearfix"></div>
       <ngx-datatable
         class="data-table"
         [rows]="paginate.data"
