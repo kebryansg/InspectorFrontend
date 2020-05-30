@@ -1,21 +1,31 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   HttpEvent, HttpInterceptor, HttpHandler,
   HttpRequest, HttpResponse
 } from '@angular/common/http';
 
-import { finalize, tap } from 'rxjs/operators';
+import {finalize, tap} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
-  constructor(private spinner: NgxSpinnerService) { }
+  constructor(private spinner: NgxSpinnerService) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const started = Date.now();
     let ok: string;
     this.spinner.show();
+
+
+    if (localStorage.getItem('authToken')) {
+      req = req.clone({
+        setHeaders: {
+          'Authorization': `${localStorage.getItem('tokenType')} ${localStorage.getItem('authToken')}`
+        }
+      })
+    }
 
     // extend server response observable with logging
     return next.handle(req)

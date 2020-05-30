@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
-import {Http, Headers, RequestOptions} from '@angular/http';
-import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 declare var configuracion: any;
 
@@ -10,65 +9,43 @@ export class CrudService {
   readonly puerto = configuracion.url;
 
   constructor(
-    private http: Http,
     private httpClient: HttpClient) {
 
   }
 
-  Seleccionar(api, param?) {
-    return this.http.get(this.puerto + api, {params: param, headers: this.getHeaders()});
+  async SeleccionarAsync(api: string, param?) {
+    return await this.httpClient.get(this.puerto + api, {params: param, headers: this.getHeaders()}).toPromise();
   }
 
-  Ejecutar(api, param?) {
-    return this.http.get(this.puerto + api, {params: param, headers: this.getHeaders()});
+  login(api: string, objeto: any) {
+    return this.httpClient.post(this.puerto + api, objeto, {headers: this.getHeaders()});
   }
 
-  async SeleccionarAsync(api, param?) {
-    var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
-    return await this.httpClient.get(this.puerto + api, {params: param, headers: headerOptions}).toPromise();
+  Actualizar(objeto: any, api: string) {
+    return this.httpClient.put(this.puerto + api, objeto, {headers: this.getHeaders()});
   }
 
-  SeleccionarAsyncParams(api, param?) {
-    var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
-    return new Promise((resolve, reject) => {
-      this.httpClient.post(this.puerto + api, param, {headers: headerOptions})
-        .subscribe(response => resolve(response));
-    });
+  Insertar(objeto: any, api: string) {
+    return this.httpClient.post(this.puerto + api, objeto, {headers: this.getHeaders()});
   }
 
-  login(api, objeto) {
-    // var body = objeto;
-    // var requestOptions = new RequestOptions({  method: RequestMethod.Post, headers: this.getHeaders() });
-    // return this.http.post(this.puerto + api, body, requestOptions).map(res => res.json());
-    var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
-    return this.httpClient.post(this.puerto + api, objeto, {headers: headerOptions});
-  }
-
-  Actualizar(objeto, api) {
-    //var body = objeto;
-    var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
-    return this.httpClient.put(this.puerto + api, objeto, {headers: headerOptions});
-  }
-
-  Insertar(objeto, api) {
-    var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
-    return this.httpClient.post(this.puerto + api, objeto, {headers: headerOptions});
-  }
-
-  Eliminar(api) {
-    var headerOptions = new HttpHeaders(this.getHeaders().toJSON());
-    return this.httpClient.delete(this.puerto + api, {headers: headerOptions});
+  Eliminar(api: string) {
+    return this.httpClient.delete(this.puerto + api, {headers: this.getHeaders()});
   }
 
   getHeaders() {
-    let header = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
-    if (localStorage.getItem('authToken'))
-      header.append('Authorization', `${localStorage.getItem('tokenType')} ${localStorage.getItem('authToken')}`);
-    return header;
+    return {
+      'Content-Type': 'application/json'
+      // , 'Access-Control-Allow-Origin': '*'
+    };
+    // let header = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
+    // if (localStorage.getItem('authToken'))
+    //   header.append('Authorization', `${localStorage.getItem('tokenType')} ${localStorage.getItem('authToken')}`);
+    // return header;
   }
 
   GetToFile(api, param?) {
-    return this.httpClient.get(this.puerto + api, {params: param, headers: this.getHeaders().toJSON(), responseType: 'blob'});
+    return this.httpClient.get(this.puerto + api, {params: param, headers: this.getHeaders(), responseType: 'blob'});
   }
 
   getURLServer() {
