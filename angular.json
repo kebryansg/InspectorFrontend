@@ -25,7 +25,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/amcharts"
+              "src/amcharts",
+              {
+                "glob": "**/*",
+                "input": "src/config",
+                "output": "/"
+              }
             ],
             "styles": [
               "node_modules/font-awesome-scss/scss/font-awesome.scss",
