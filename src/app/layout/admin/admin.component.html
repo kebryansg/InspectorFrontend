@@ -63,7 +63,7 @@
                   <!--</a>-->
                 <!--</li>-->
                 <li class="ripple">
-                  <a [routerLink]="['/user/profile/']">
+                  <a href="javascript;">
                     <i class="feather icon-user"></i> Perfil
                   </a>
                 </li>
@@ -120,7 +120,10 @@
                 <div class="main-menu-content">
                   <ul>
                     <li [@mobileMenuTop]="isCollapsedSideBar" class="more-details" [ngClass]="isCollapsedSideBar">
-                      <a href="javascript:" [routerLink]="['/user/profile']" class="ripple"><i class="feather icon-user"></i>Perfil</a>
+                      <a href="javascript:" class="ripple">
+                        <i class="feather icon-user"></i>
+                        Perfil
+                      </a>
                       <!--<a href="javascript:" class="ripple"><i class="feather icon-settings"></i>Settings</a>-->
                       <a class="ripple" (click)="logout()" [routerLink]="['/auth/login/simple/']" ><i class="feather icon-log-out"></i>Cerrar Sesión</a>
                     </li>
@@ -224,3 +227,4 @@
     </div>
   </div>
 </div>
+<ng2-toasty [position]="'bottom-right'"></ng2-toasty>

@@ -1,12 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/animations';
-import {MenuItems} from '../../shared/menu-items/menu-items';
 import {CrudService} from '../../shared/services/crud.service';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'],
+  styleUrls: [
+    './admin.component.scss',
+    '../../../../node_modules/ng2-toasty/style-bootstrap.css',
+  ],
   animations: [
     trigger('notificationBottom', [
       state('an-off, void',

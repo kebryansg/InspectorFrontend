@@ -49,6 +49,11 @@ File: style.css
 // dark layout css
 @import "partials/dark";
 
+// Toasty
+@import "~ng2-toasty/style-default.css";
+//@import "~ng2-toasty/style-bootstrap.css";
+@import "~ng2-toasty/style-material.css";
+
 //angular custom
 @import "partials/custom";
 
