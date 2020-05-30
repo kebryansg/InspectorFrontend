@@ -156,7 +156,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   public searchInterval: any;
   //#endregion
 
-  menuItems: any;
+  menuItems: any[] = [];
 
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
@@ -175,10 +175,9 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.pcodedSidebarPosition = 'absolute';
       this.sidebarFixedNavHeight = '';
     }
-  }
+  };
 
   constructor(private crudService: CrudService) {
-
 
 
     //#region InitAtributos Plantilla
@@ -241,7 +240,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     //#endregion
 
 
-
     // dark theme
     /*this.setLayoutType('dark');*/
 
@@ -258,21 +256,26 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setVerticalLayout();*/
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.setBackgroundPattern('theme1');
-    this.menuItems = [
-      {
-        label: 'Mi Panel',
-        main: await this.crudService.SeleccionarAsync('menu_items')
-      }
-    ];
 
-    this.usuario = await this.crudService.SeleccionarAsync('users_login')
+    this.crudService.Obtener('menu_items')
+      .subscribe({
+        next: results => {
+          this.menuItems.push({
+            label: 'Mi Panel',
+            main: results
+          });
+        }
+      });
 
-
+    this.crudService.Obtener('users_login')
+      .subscribe({
+        next: value => this.usuario = value
+      });
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
   }
 
@@ -547,22 +550,22 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   setHeaderPosition() {
-      this.isHeaderChecked = !this.isHeaderChecked;
-      this.pcodedHeaderPosition = this.isHeaderChecked === true ? 'fixed' : 'relative';
-      this.headerFixedMargin = this.isHeaderChecked === true ? '50px' : '';
-      if (this.isHeaderChecked === false) {
-        window.addEventListener('scroll', this.scroll, true);
-        window.scrollTo(0, 0);
-      } else {
-        window.removeEventListener('scroll', this.scroll, true);
-        if (this.pcodedDeviceType === 'desktop') {
-          this.headerFixedTop = 'auto';
-        }
-        this.pcodedSidebarPosition = 'fixed';
-        if (this.verticalNavType !== 'collapsed') {
-          this.sidebarFixedHeight = this.isSidebarChecked === true ? 'calc(100vh - 50px)' : 'calc(100vh + 50px)';
-        }
+    this.isHeaderChecked = !this.isHeaderChecked;
+    this.pcodedHeaderPosition = this.isHeaderChecked === true ? 'fixed' : 'relative';
+    this.headerFixedMargin = this.isHeaderChecked === true ? '50px' : '';
+    if (this.isHeaderChecked === false) {
+      window.addEventListener('scroll', this.scroll, true);
+      window.scrollTo(0, 0);
+    } else {
+      window.removeEventListener('scroll', this.scroll, true);
+      if (this.pcodedDeviceType === 'desktop') {
+        this.headerFixedTop = 'auto';
       }
+      this.pcodedSidebarPosition = 'fixed';
+      if (this.verticalNavType !== 'collapsed') {
+        this.sidebarFixedHeight = this.isSidebarChecked === true ? 'calc(100vh - 50px)' : 'calc(100vh + 50px)';
+      }
+    }
   }
 
   toggleOpenedSidebar() {

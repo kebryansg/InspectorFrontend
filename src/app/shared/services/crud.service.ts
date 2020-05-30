@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/delay';
 import {HttpClient} from '@angular/common/http';
+import {take} from 'rxjs/operators';
 
 declare var configuracion: any;
 
@@ -21,6 +22,19 @@ export class CrudService {
     return this.httpClient.post(this.puerto + api, objeto, {headers: this.getHeaders()});
   }
 
+  /**
+   * Petición GET
+   * @param api Url
+   * @param params Parametros Opcional*
+   * @constructor
+   */
+  Obtener(api: string, params?: any) {
+    return this.httpClient.get(this.puerto + api, {headers: this.getHeaders(), params: params})
+      .pipe(
+        take(1)
+      );
+  }
+
   Actualizar(objeto: any, api: string) {
     return this.httpClient.put(this.puerto + api, objeto, {headers: this.getHeaders()});
   }
@@ -33,7 +47,7 @@ export class CrudService {
     return this.httpClient.delete(this.puerto + api, {headers: this.getHeaders()});
   }
 
-  getHeaders() {
+  private getHeaders() {
     return {
       'Content-Type': 'application/json'
       // , 'Access-Control-Allow-Origin': '*'
