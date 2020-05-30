@@ -15,7 +15,7 @@ export class CardComponent implements OnInit {
   @Input() headerClass: string;
   @Input() cardClass: string;
   @Input() classHeader = false;
-  @Input() cardOptionBlock = false;
+  @Input() cardOptionBlock = true;
   cardToggle = 'expanded';
   cardClose = 'open';
   fullCard: string;
